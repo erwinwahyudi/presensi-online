@@ -31,11 +31,12 @@
         <ul class="sidebar-menu">
             <li class="header">Menu</li>
             <!-- Optionally, you can add icons to the links -->
-            <li class="active"><a href="#"><span>Data Kehadiran</span></a></li>
+            <li class="active"><a href="#"><i class="fa fa-dashboard"></i><span>Data Kehadiran</span></a></li>
             <li><a href="#"><span>Unit Kerja</span></a></li>
             <li><a href="#"><span>Admin</span></a></li>
             <li><a href="#"><span>Hari Libur</span></a></li>
             <li><a href="#"><span>Jadwal Khusus</span></a></li>
+            <li><a href="#"><span>Manajemen Data</span></a></li>
             <li><a href="#"><span>Ubah Password</span></a></li>
 
             <li><a href="#"><span>Logout</span></a></li>
