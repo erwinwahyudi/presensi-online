@@ -31,15 +31,15 @@
         <ul class="sidebar-menu">
             <li class="header">Menu</li>
             <!-- Optionally, you can add icons to the links -->
-            <li class="active"><a href="#"><i class="fa fa-dashboard"></i><span>Data Kehadiran</span></a></li>
-            <li><a href="#"><span>Unit Kerja</span></a></li>
-            <li><a href="#"><span>Admin</span></a></li>
-            <li><a href="#"><span>Hari Libur</span></a></li>
-            <li><a href="#"><span>Jadwal Khusus</span></a></li>
-            <li><a href="#"><span>Manajemen Data</span></a></li>
-            <li><a href="#"><span>Ubah Password</span></a></li>
+            <li class="active"><a href="#"><i class="fa fa-file-text-o"></i><span>Data Kehadiran</span></a></li>
+            <li><a href="#"><i class="fa fa-users"></i><span>Unit Kerja</span></a></li>
+            <li><a href="#"><i class="fa fa-user-secret"></i><span>Admin</span></a></li>
+            <li><a href="#"><i class="fa fa-check-square-o"></i><span>Hari Libur</span></a></li>
+            <li><a href="#"><i class="fa fa-calendar"></i><span><span>Jadwal Khusus</span></a></li>
+            <li><a href="#"><i class="fa fa-database"></i><span>Manajemen Data</span></a></li>
+            <li><a href="#"><i class="fa fa-lock"></i><span>Ubah Password</span></a></li>
 
-            <li><a href="#"><span>Logout</span></a></li>
+            <li><a href="{{ url('/logout') }}"><i class="fa fa-power-off"></i><span>Logout</span></a></li>
             <!-- <li class="treeview">
                 <a href="#"><span>Multilevel</span> <i class="fa fa-angle-left pull-right"></i></a>
                 <ul class="treeview-menu">

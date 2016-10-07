@@ -11,6 +11,15 @@
 |
 */
 
-Route::get('/', function () {
-    return view('admin_template');
+//set halaman default untuk admin
+
+
+Route::auth();
+
+Route::group(['middleware' => 'auth'], function () {
+	Route::get('/', 'HomeController@index');
+
+	Route::get('/unit/create', function(){
+		return view('adminpanel.unit_kerja.create');
+	});
 });
