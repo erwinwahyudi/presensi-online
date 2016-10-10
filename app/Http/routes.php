@@ -23,10 +23,13 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('/unit', 'UnitKerjaController@index'); 
 	Route::get('/unit/create', 'UnitKerjaController@create');
 	Route::post('/unit/create', 'UnitKerjaController@store');
-
 	Route::get('/unit/edit/{id}', 'UnitKerjaController@edit');
 	Route::post('/unit/update/{id}', 'UnitKerjaController@update');
-
 	Route::delete('/unit/delete/{id}', 'UnitKerjaController@destroy');
+	Route::get('/unit/{uid}', 'UnitKerjaController@detail');
+
+	// route anggota
+	Route::get('/unit/{uid}/anggota/create', 'AnggotaController@create');
+	Route::post('/unit/{uid}/anggota/create', 'AnggotaController@store');
 });
 

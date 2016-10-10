@@ -12,4 +12,8 @@ class Group extends Model
     // inisiasi kolom yg tidak ditampilkan ketika view
     protected $hidden = [];
     // protected $guarded =['updated_at'];
+
+    public function user() {
+    	return $this->hasMany('\App\User');
+    }
 }

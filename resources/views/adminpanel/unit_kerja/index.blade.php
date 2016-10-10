@@ -33,7 +33,7 @@
                         <tbody>
                            @foreach($groups as $group)
                               <tr>
-                                 <td> {{ $group->nama_group }} </td>
+                                 <td> <a href="{{ url('/unit/'.$group->id) }}"> {{ $group->nama_group }} </a> </td>
                                  <td> {{ $group->finger_group_id }} </td>
                                  <td>                                                                                 
                                         {!! Form::open(array('url' => '/unit/delete/'.$group->id, 'method' => 'delete')) !!}

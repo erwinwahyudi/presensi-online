@@ -12,7 +12,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'username', 'nama', 'email', 'password',
+        'finger_id', 'username', 'password', 'nama', 'nip', 'jabatan', 'golongan', 'foto', 'level', 'email',  'group_id', 'kelompok_id',
     ];
 
     /**
@@ -23,4 +23,8 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function group(){
+        return $this->belongsTo('\App\Group');
+    }
 }

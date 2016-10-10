@@ -25,6 +25,7 @@ class CreateUsersTable extends Migration
             $table->string('level');
             $table->string('email')->unique();            
             $table->integer('group_id');
+            $table->integer('kelompok_id');
             $table->rememberToken();
             $table->timestamps();
         });

@@ -13,6 +13,7 @@ use App\Http\Requests\UpdateGroupRequest;
 
 // panggil model
 use App\Group;
+use App\User;
 
 
 class UnitKerjaController extends Controller
@@ -24,7 +25,7 @@ class UnitKerjaController extends Controller
      */
     public function index()
     {
-        $groups = Group::all();
+        $groups     = Group::all();
         return view('adminpanel.unit_kerja.index', compact('groups'));
     }
 
@@ -107,7 +108,7 @@ class UnitKerjaController extends Controller
         $group = Group::findOrFail($id);
         $group->update($request->all());
 
-        return redirect('/unit')
+        return redirect()->back()
                     ->with('status_error', 'info')
                     ->with('pesan_error', 'Data berhasil di update');
         //atau bisa juga dengan cara ini untuk update data
@@ -136,5 +137,11 @@ class UnitKerjaController extends Controller
         return redirect('/unit')
                     ->with('status_error', 'info')
                     ->with('pesan_error', 'Data terhapus');
+    }
+
+    public function detail($uid) {
+        $group = Group::findOrFail($uid);
+        $anggotas   = User::where('group_id', $uid)->get();
+        return view('adminpanel.unit_kerja.detail', compact('group', 'anggotas'));
     }
 }
