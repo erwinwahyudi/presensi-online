@@ -12,14 +12,21 @@
 */
 
 //set halaman default untuk admin
-
-
 Route::auth();
+	
+
 
 Route::group(['middleware' => 'auth'], function () {
 	Route::get('/', 'HomeController@index');
 
-	Route::get('/unit/create', function(){
-		return view('adminpanel.unit_kerja.create');
-	});
+	// menu unit kerja
+	Route::get('/unit', 'UnitKerjaController@index'); 
+	Route::get('/unit/create', 'UnitKerjaController@create');
+	Route::post('/unit/create', 'UnitKerjaController@store');
+
+	Route::get('/unit/edit/{id}', 'UnitKerjaController@edit');
+	Route::post('/unit/update/{id}', 'UnitKerjaController@update');
+
+	Route::delete('/unit/delete/{id}', 'UnitKerjaController@destroy');
 });
+

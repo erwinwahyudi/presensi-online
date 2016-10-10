@@ -59,7 +59,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
         <!-- Main content -->
         <section class="content">
-            <!-- Your Page Content Here -->
+           
+            @if( Session::has('pesan_error') )
+                <div class="alert alert-{{ Session::get('status_error') }}">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    {{-- <strong>Title!</strong> --}} {{ Session::get('pesan_error') }}
+                </div>
+            @endif
+
             @yield('konten')
         </section><!-- /.content -->
     </div><!-- /.content-wrapper -->

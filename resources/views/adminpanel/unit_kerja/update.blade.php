@@ -13,7 +13,7 @@
             </div>
             <!-- /.box-header -->
             <!-- form start -->
-            <form action="/unit/create" class="form-horizontal" method="POST">
+            <form action="/unit/update/{{ $group->id }}" class="form-horizontal" method="POST">
                 {{ csrf_field() }}
                 <input name="active" type="hidden" value="1">
                     <div class="box-body">
@@ -22,7 +22,7 @@
                                 Nama Unit
                             </label>
                             <div class="col-sm-8">
-                                <input class="form-control" id="inputEmail3" name="nama_group" placeholder="nama unit kerja" type="text">
+                                <input class="form-control" id="inputEmail3" name="nama_group" placeholder="nama unit kerja" type="text" value="{{ $group->nama_group }} ">
                                 </input>
                             </div>
                             <span class="help-block"> {{ $errors->first('nama_group') }} </span></p>
@@ -46,7 +46,7 @@
                                 ID Finger Unit
                            </label>
                            <div class="col-sm-4">
-                                <input class="form-control" id="inputFingerGroupId" name="finger_group_id" placeholder="ID unit kerja" type="number">
+                                <input class="form-control" id="inputFingerGroupId" name="finger_group_id" placeholder="ID unit kerja" type="number" value="{{ $group->finger_group_id }}">
                            </div>
                            <span class="help-block"> {{ $errors->first('finger_group_id') }} </span>
                         </div>

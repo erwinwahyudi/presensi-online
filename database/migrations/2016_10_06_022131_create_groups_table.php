@@ -17,7 +17,7 @@ class CreateGroupsTable extends Migration
             $table->integer('finger_group_id');
             $table->string('nama_group');
             $table->integer('active');
-            $table->timestamp('created_at');
+            $table->timestamps();
         });
     }
 
