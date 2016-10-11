@@ -31,5 +31,11 @@ Route::group(['middleware' => 'auth'], function () {
 	// route anggota
 	Route::get('/unit/{uid}/anggota/create', 'AnggotaController@create');
 	Route::post('/unit/{uid}/anggota/create', 'AnggotaController@store');
+	Route::get('/unit/{uid}/anggota/edit/{id}', 'AnggotaController@edit');
+	Route::post('/unit/{uid}/anggota/update/{id}', 'AnggotaController@update');
+	Route::delete('/unit/{uid}/anggota/delete/{id}', 'AnggotaController@destroy');
+	// route update masih belum
+
+	// route kelompok
 });
 

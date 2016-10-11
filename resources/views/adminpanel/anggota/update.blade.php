@@ -8,22 +8,22 @@
         <div class="box box-info">
             <div class="box-header with-border">
                 <h3 class="box-title">
-                    Input Data Anggota {{ $group->nama_group }}
+                    Update Data Anggota : {{ $anggota->nama }}
                 </h3>
             </div>
             <!-- /.box-header -->
             <!-- form start -->
-            <form action="/unit/{{ $unit_id }}/anggota/create" class="form-horizontal" method="POST">
+            <form action="/unit/{{ $anggota->group_id }}/anggota/update/{{ $anggota->id }}" class="form-horizontal" method="POST">
                 {{ csrf_field() }}
-                <input type="hidden" name="level" value="anggota">
-                <input type="hidden" name="group_id" value="{{ $unit_id }}">
+                <input type="hidden" name="level" value="{{ $anggota->level }}">
+                <input type="hidden" name="group_id" value="{{ $anggota->group_id }}">
                     <div class="box-body">
                         <div class="form-group {{ $errors->has('finger_id') ? 'has-error' : '' }}">
                             <label class="col-sm-2 control-label" for="inputFingerId">
                                 Finger ID
                             </label>
                             <div class="col-sm-4">
-                                <input class="form-control" id="inputFingerId" name="finger_id" placeholder="finger ID anggota" type="text">
+                                <input class="form-control" id="inputFingerId" name="finger_id" placeholder="finger ID anggota" type="text" value="{{ $anggota->finger_id }}">
                                 </input>
                             </div>
                             <span class="help-block"> {{ $errors->first('finger_id') }} </span>
@@ -34,7 +34,7 @@
                                 Nama
                             </label>
                             <div class="col-sm-4">
-                                <input class="form-control" id="inputNama" name="nama" placeholder="nama anggota" type="text">
+                                <input class="form-control" id="inputNama" name="nama" placeholder="nama anggota" type="text" value="{{ $anggota->nama }}">
                                 </input>
                             </div>
                             <span class="help-block"> {{ $errors->first('nama') }} </span>
@@ -45,7 +45,7 @@
                                 Nip
                             </label>
                             <div class="col-sm-4">
-                                <input type="text" name="nip" class="form-control" id="inputNip"  placeholder="nip anggota" >
+                                <input type="text" name="nip" class="form-control" id="inputNip"  placeholder="nip anggota" value="{{ $anggota->nip }}">
                                 </input>
                             </div>
                             <span class="help-block"> {{ $errors->first('nip') }} </span>
@@ -56,7 +56,7 @@
                                 Jabatan
                             </label>
                             <div class="col-sm-4">
-                                <input type="text" name="jabatan" class="form-control" id="inputJabatan"  placeholder="jabatan anggota" >
+                                <input type="text" name="jabatan" class="form-control" id="inputJabatan"  placeholder="jabatan anggota" value="{{ $anggota->jabatan }}">
                                 </input>
                             </div>
                             <span class="help-block"> {{ $errors->first('jabatan') }} </span>
@@ -67,7 +67,7 @@
                                 Golongan
                             </label>
                             <div class="col-sm-4">
-                                <input type="text" name="golongan" class="form-control" id="inputGolongan"  placeholder="golongan anggota" >
+                                <input type="text" name="golongan" class="form-control" id="inputGolongan"  placeholder="golongan anggota" value="{{ $anggota->golongan }}">
                                 </input>
                             </div>
                             <span class="help-block"> {{ $errors->first('golongan') }} </span>
@@ -78,7 +78,7 @@
                                 Unit Kerja
                            </label>
                            <div class="col-sm-4">
-                                <input type="text" name="" value="{{ $group->nama_group }}" class="form-control" id="inputFingerGroupId" disabled="">
+                                <input type="text" name="" value="{{ $anggota->group->nama_group }}" class="form-control" id="inputFingerGroupId" disabled="">
                            </div>
                            {{-- <span class="help-block"> {{ $errors->first('finger_group_id') }} </span> --}}
                         </div>
@@ -111,7 +111,7 @@
                                 Username
                             </label>
                             <div class="col-sm-4">
-                                <input type="text" name="username" class="form-control" id="inputUsername"  placeholder="username anggota" value="{{ $anggota->username }}">
+                                <input type="text" name="username" class="form-control" id="inputUsername"  placeholder="username anggota" value="{{ $anggota->user }}">
                                 </input>
                             </div>
                             <span class="help-block"> {{ $errors->first('username') }}  </span>
