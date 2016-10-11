@@ -68,6 +68,10 @@ class UnitKerjaController extends Controller
             return redirect('/unit/create')
                     ->with('status_error', 'info')
                     ->with('pesan_error', 'Data berhasil ditambah.');
+        } else {
+            return redirect()->back()
+                    ->with('status_error', 'danger')
+                    ->with('pesan_error', 'Data gagal disimpan, terjadi kesalahan');
         }
         // catatan : untuk ambil ->with('key', 'value') di view :
         // dg cara {{ Session::get('key') }}

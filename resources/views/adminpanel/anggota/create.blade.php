@@ -15,7 +15,8 @@
             <!-- form start -->
             <form action="/unit/{{ $unit_id }}/anggota/create" class="form-horizontal" method="POST">
                 {{ csrf_field() }}
-                <input name="level" type="hidden" value="anggota">
+                <input type="hidden" name="level" value="anggota">
+                <input type="hidden" name="group_id" value="{{ $unit_id }}">
                     <div class="box-body">
                         <div class="form-group{{ $errors->has('finger_id') ? 'has-error' : '' }}">
                             <label class="col-sm-2 control-label" for="inputFingerId">
@@ -62,37 +63,34 @@
                         </div>
 
                         <div class="form-group {{ $errors->has('golongan') ? 'has-error' : '' }}">
-                            <label class="col-sm-2 control-label" for="inpuGolongan">
+                            <label class="col-sm-2 control-label" for="inputGolongan">
                                 Golongan
                             </label>
                             <div class="col-sm-8">
                                 <input type="text" name="golongan" class="form-control" id="inputGolongan"  placeholder="golongan anggota" >
                                 </input>
                             </div>
-                            <span class="help-block"> {{ $errors->first('golongan') }}
+                            <span class="help-block"> {{ $errors->first('golongan') }} </span>
                         </div>
 
-                        <div class="form-group{{ $errors->has('finger_group_id') ? 'has-error' : '' }}">
+                        <div class="form-group">
                            <label class="col-sm-2 control-label" for="inputFingerGroupId">
                                 Unit Kerja
                            </label>
                            <div class="col-sm-4">
-                                <input class="form-control" id="inputFingerGroupId" name="finger_group_id" placeholder="ID unit kerja" type="number" disabled="">
+                                <input type="text" name="" value="{{ $group->nama_group }}" class="form-control" id="inputFingerGroupId" disabled="">
                            </div>
-                           <span class="help-block"> {{ $errors->first('finger_group_id') }} </span>
+                           {{-- <span class="help-block"> {{ $errors->first('finger_group_id') }} </span> --}}
                         </div>
 
                         <div class="form-group">
                            <label class="col-sm-2 control-label">Kelompok</label>
                            <div class="col-sm-8">
                               <select name="kelompok_id" class="form-control select2" style="width: 100%;">
-                                <option selected="selected">Alabama</option>
-                                <option>Alaska</option>
-                                <option>California</option>
-                                <option>Delaware</option>
-                                <option>Tennessee</option>
-                                <option>Texas</option>
-                                <option>Washington</option>
+                                    <option value="0"> - </option>
+                                @foreach($kelompoks as $kelompok)
+                                    <option value="{{ $kelompok->id }}"> {{ $kelompok->nama_kelompok }} </option>
+                                @endforeach
                               </select>
                            </div>
                          </div>
@@ -119,12 +117,12 @@
                             <span class="help-block"> {{ $errors->first('username') }}
                         </div>
 
-                        <div class="form-group {{ $errors->has('') ? 'has-error' : '' }}">
+                        <div class="form-group {{ $errors->has('password') ? 'has-error' : '' }}">
                             <label class="col-sm-2 control-label" for="input">
                                 Password
                             </label>
                             <div class="col-sm-8">
-                                <input type="text" name="" class="form-control" id="input"  placeholder=" anggota" >
+                                <input type="password" name="password" class="form-control" id="input"  placeholder="password anggota" >
                                 </input>
                             </div>
                             <span class="help-block"> {{ $errors->first('') }}
