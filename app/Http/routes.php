@@ -37,5 +37,6 @@ Route::group(['middleware' => 'auth'], function () {
 	// route update masih belum
 
 	// route kelompok
+	Route::get('/unit/{uid}/kelompok/create', 'KelompokController@create');
 });
 

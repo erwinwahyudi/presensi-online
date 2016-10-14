@@ -27,4 +27,8 @@ class User extends Authenticatable
     public function group(){
         return $this->belongsTo('\App\Group');
     }
+
+    public function kelompok() {
+        return $this->belongsTo('\App\User');
+    }
 }

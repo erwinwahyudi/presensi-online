@@ -16,4 +16,8 @@ class Group extends Model
     public function user() {
     	return $this->hasMany('\App\User');
     }
+
+    public function kelompok() {
+    	return $this->hasMany('\App\Kelompok');
+    }
 }

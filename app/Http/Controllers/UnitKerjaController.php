@@ -14,6 +14,7 @@ use App\Http\Requests\UpdateGroupRequest;
 // panggil model
 use App\Group;
 use App\User;
+use App\Kelompok;
 
 
 class UnitKerjaController extends Controller
@@ -144,8 +145,9 @@ class UnitKerjaController extends Controller
     }
 
     public function detail($uid) {
-        $group = Group::findOrFail($uid);
+        $group      = Group::findOrFail($uid);
         $anggotas   = User::where('group_id', $uid)->get();
-        return view('adminpanel.unit_kerja.detail', compact('group', 'anggotas'));
+        $kelompoks  = Kelompok::where('group_id', $uid)->get(); 
+        return view('adminpanel.unit_kerja.detail', compact('group', 'anggotas', 'kelompoks'));
     }
 }
