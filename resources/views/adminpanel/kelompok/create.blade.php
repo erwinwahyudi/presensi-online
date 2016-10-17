@@ -17,15 +17,14 @@
                 {{ csrf_field() }}
                     <input type="hidden" name="group_id" value="{{ $unit_id }}">
                     <div class="box-body">
-                        <div class="form-group {{ $errors->has('nama') ? 'has-error' : '' }}">
+                        <div class="form-group {{ $errors->has('nama_kelompok') ? 'has-error' : '' }}">
                             <label class="col-sm-2 control-label" for="inputNama">
                                 Nama Kelompok
                             </label>
                             <div class="col-sm-4">
-                                <input class="form-control" id="inputNama" name="nama" placeholder="nama kelompok" type="text">
-                                </input>
+                                <input type="text" name="nama_kelompok" class="form-control" id="inputNama"  placeholder="nama kelompok">
                             </div>
-                            <span class="help-block"> {{ $errors->first('nama') }} </span>
+                            <span class="help-block"> {{ $errors->first('nama_kelompok') }} </span>
                         </div>
 
                         <!-- checkbox -->
@@ -35,16 +34,16 @@
                             </label>
                               <div class="col-sm-4">
                                 <p>
-                                  <input type="checkbox" class="flat-red" checked> Absen Masuk
+                                  <input type="checkbox" name="absen_masuk" class="flat-red" checked> Absen Masuk
                                 </p>
                                 <p>
-                                  <input type="checkbox" class="flat-red"> Absen Istirahat
+                                  <input type="checkbox" name="absen_istirahat" class="flat-red"> Absen Istirahat
                                 </p>
                                 <p>
-                                  <input type="checkbox" class="flat-red"> Absen Masuk Istirahat
+                                  <input type="checkbox" name="absesn_masuk_istirahat" class="flat-red"> Absen Masuk Istirahat
                                 </p>
                                 <p>
-                                  <input type="checkbox" class="flat-red"> Absen Pulang
+                                  <input type="checkbox" name="absen_pulang" class="flat-red"> Absen Pulang
                                 </p>
                               </div>
                         </div>
@@ -54,9 +53,9 @@
                                 Hitung Lembur
                             </label>
                             <div class="col-sm-4">
-                                <input type="radio" name="r3" class="flat-red" checked>&nbsp; Ya
+                                <input type="radio" name="hitung_lembur" value="1" class="flat-red" checked>&nbsp; Ya
                                 &nbsp;
-                                <input type="radio" name="r3" class="flat-red">&nbsp; Tidak
+                                <input type="radio" name="hitung_lembur" value="0" class="flat-red">&nbsp; Tidak
                             </div>
                         </div>
 
@@ -80,20 +79,20 @@
                             <div class="col-xs-5">
                                 <h5 class="col-xs-3 control-label"> Masuk </h5>
                                 <div class=" col-xs-3 bootstrap-timepicker">
-                                    <input type="text" class="form-control timepicker">
+                                    <input type="text" name="awal_masuk" class="form-control timepicker">
                                 </div>
                                 <div class="col-xs-3 bootstrap-timepicker">
-                                    <input type="text" class="form-control timepicker">
+                                    <input type="text" name="akhir_masuk" class="form-control timepicker">
                                 </div>
                             </div>
 
                             <div class="col-xs-5">
                                 <h5 class="col-xs-3 control-label"> Masuk </h5>
                                 <div class=" col-xs-3 bootstrap-timepicker">
-                                    <input type="text" class="form-control timepicker">
+                                    <input type="text" name="awal_masuk_jumat"  class="form-control timepicker">
                                 </div>
                                 <div class="col-xs-3 bootstrap-timepicker">
-                                    <input type="text" class="form-control timepicker">
+                                    <input type="text" name="akhir_masuk_jumat" class="form-control timepicker">
                                 </div>
                             </div>
                         </div>
@@ -104,20 +103,20 @@
                             <div class="col-xs-5">
                                 <h5 class="col-xs-3 control-label"> Istirahat </h5>
                                 <div class=" col-xs-3 bootstrap-timepicker">
-                                    <input type="text" class="form-control timepicker">
+                                    <input type="text" name="awal_istirahat" class="form-control timepicker">
                                 </div>
                                 <div class="col-xs-3 bootstrap-timepicker">
-                                    <input type="text" class="form-control timepicker">
+                                    <input type="text" name="akhir_istirahat" class="form-control timepicker">
                                 </div>
                             </div>
 
                             <div class="col-xs-5">
                                 <h5 class="col-xs-3 control-label"> Istirahat </h5>
                                 <div class=" col-xs-3 bootstrap-timepicker">
-                                    <input type="text" class="form-control timepicker">
+                                    <input type="text" name="awal_istirahat_jumat" class="form-control timepicker">
                                 </div>
                                 <div class="col-xs-3 bootstrap-timepicker">
-                                    <input type="text" class="form-control timepicker">
+                                    <input type="text" name="akhir_istirahat_jumat" class="form-control timepicker">
                                 </div>
                             </div>
                         </div>
@@ -128,20 +127,20 @@
                             <div class="col-xs-5">
                                 <h5 class="col-xs-3 control-label"> Masuk Istirahat </h5>
                                 <div class=" col-xs-3 bootstrap-timepicker">
-                                    <input type="text" class="form-control timepicker">
+                                    <input type="text" name="awal_masuk_istirahat" class="form-control timepicker">
                                 </div>
                                 <div class="col-xs-3 bootstrap-timepicker">
-                                    <input type="text" class="form-control timepicker">
+                                    <input type="text" name="akhir_masuk_istirahat" class="form-control timepicker">
                                 </div>
                             </div>
 
                             <div class="col-xs-5">
                                 <h5 class="col-xs-3 control-label"> Masuk Istirahat </h5>
                                 <div class=" col-xs-3 bootstrap-timepicker">
-                                    <input type="text" class="form-control timepicker">
+                                    <input type="text" name="awal_masuk_istrirahat_jumat" class="form-control timepicker">
                                 </div>
                                 <div class="col-xs-3 bootstrap-timepicker">
-                                    <input type="text" class="form-control timepicker">
+                                    <input type="text" name="akhir_masuk_istrirahat_jumat" class="form-control timepicker">
                                 </div>
                             </div>
                         </div>
@@ -152,20 +151,20 @@
                             <div class="col-xs-5">
                                 <h5 class="col-xs-3 control-label"> Pulang </h5>
                                 <div class=" col-xs-3 bootstrap-timepicker">
-                                    <input type="text" class="form-control timepicker">
+                                    <input type="text" name="awal_pulang" class="form-control timepicker">
                                 </div>
                                 <div class="col-xs-3 bootstrap-timepicker">
-                                    <input type="text" class="form-control timepicker">
+                                    <input type="text" name="akhir_pulang" class="form-control timepicker">
                                 </div>
                             </div>
 
                             <div class="col-xs-5">
                                 <h5 class="col-xs-3 control-label"> Pulang </h5>
                                 <div class=" col-xs-3 bootstrap-timepicker">
-                                    <input type="text" class="form-control timepicker">
+                                    <input type="text" name="awal_pulang_jumat" class="form-control timepicker">
                                 </div>
                                 <div class="col-xs-3 bootstrap-timepicker">
-                                    <input type="text" class="form-control timepicker">
+                                    <input type="text" name="akhir_pulang_jumat" class="form-control timepicker">
                                 </div>
                             </div>
                         </div>
@@ -178,37 +177,37 @@
                             </label>
                         </div>
 
-                        <div class="form-group {{ $errors->has('nama') ? 'has-error' : '' }}">
+                        <div class="form-group {{ $errors->has('nama_penandatangan1') ? 'has-error' : '' }}">
                             <label class="col-sm-2 control-label" for="inputNama">
-                                Nama Kelompok
+                                Nama
                             </label>
                             <div class="col-sm-4">
-                                <input class="form-control" id="inputNama" name="nama" placeholder="nama kelompok" type="text">
+                                <input class="form-control" id="inputNama" name="nama_penandatangan1" placeholder="nama penandatangan 1" type="text">
                                 </input>
                             </div>
-                            <span class="help-block"> {{ $errors->first('nama') }} </span>
+                            <span class="help-block"> {{ $errors->first('nama_penandatangan1') }} </span>
                         </div>
 
-                        <div class="form-group {{ $errors->has('nama') ? 'has-error' : '' }}">
+                        <div class="form-group {{ $errors->has('nip_penandatangan1') ? 'has-error' : '' }}">
                             <label class="col-sm-2 control-label" for="inputNama">
                                 Nip
                             </label>
                             <div class="col-sm-4">
-                                <input class="form-control" id="inputNama" name="nama" placeholder="nama kelompok" type="text">
+                                <input class="form-control" id="inputNama" name="nip_penandatangan1" placeholder="nip penandatangan 1" type="text">
                                 </input>
                             </div>
-                            <span class="help-block"> {{ $errors->first('nama') }} </span>
+                            <span class="help-block"> {{ $errors->first('nip_penandatangan1') }} </span>
                         </div>
 
-                        <div class="form-group {{ $errors->has('nama') ? 'has-error' : '' }}">
+                        <div class="form-group {{ $errors->has('jabatan_penandatangan1') ? 'has-error' : '' }}">
                             <label class="col-sm-2 control-label" for="inputNama">
                                 Jabatan
                             </label>
                             <div class="col-sm-4">
-                                <input class="form-control" id="inputNama" name="nama" placeholder="nama kelompok" type="text">
+                                <input class="form-control" id="inputNama" name="jabatan_penandatangan1" placeholder="jabatan penandatangan 1" type="text">
                                 </input>
                             </div>
-                            <span class="help-block"> {{ $errors->first('nama') }} </span>
+                            <span class="help-block"> {{ $errors->first('jabatan_penandatangan1') }} </span>
                         </div>
 
                         <div class="form-group">
@@ -217,37 +216,37 @@
                             </label>
                         </div>
 
-                        <div class="form-group {{ $errors->has('nama') ? 'has-error' : '' }}">
+                        <div class="form-group {{ $errors->has('nama_penandatangan2') ? 'has-error' : '' }}">
                             <label class="col-sm-2 control-label" for="inputNama">
-                                Nama Kelompok
+                                Nama
                             </label>
                             <div class="col-sm-4">
-                                <input class="form-control" id="inputNama" name="nama" placeholder="nama kelompok" type="text">
+                                <input class="form-control" id="inputNama" name="nama_penandatangan2" placeholder="nama penandatangan 2" type="text">
                                 </input>
                             </div>
-                            <span class="help-block"> {{ $errors->first('nama') }} </span>
+                            <span class="help-block"> {{ $errors->first('nama_penandatangan2') }} </span>
                         </div>
 
-                        <div class="form-group {{ $errors->has('nama') ? 'has-error' : '' }}">
+                        <div class="form-group {{ $errors->has('nip_penandatangan2') ? 'has-error' : '' }}">
                             <label class="col-sm-2 control-label" for="inputNama">
                                 Nip
                             </label>
                             <div class="col-sm-4">
-                                <input class="form-control" id="inputNama" name="nama" placeholder="nama kelompok" type="text">
+                                <input class="form-control" id="inputNama" name="nip_penandatangan2" placeholder="nip penandatangan 2" type="text">
                                 </input>
                             </div>
-                            <span class="help-block"> {{ $errors->first('nama') }} </span>
+                            <span class="help-block"> {{ $errors->first('nip_penandatangan2') }} </span>
                         </div>
 
-                        <div class="form-group {{ $errors->has('nama') ? 'has-error' : '' }}">
+                        <div class="form-group {{ $errors->has('jabatan_penandatangan2') ? 'has-error' : '' }}">
                             <label class="col-sm-2 control-label" for="inputNama">
                                 Jabatan
                             </label>
                             <div class="col-sm-4">
-                                <input class="form-control" id="inputNama" name="nama" placeholder="nama kelompok" type="text">
+                                <input class="form-control" id="inputNama" name="jabatan_penandatangan2" placeholder="jabatan penandatangan 2" type="text">
                                 </input>
                             </div>
-                            <span class="help-block"> {{ $errors->first('nama') }} </span>
+                            <span class="help-block"> {{ $errors->first('jabatan_penandatangan2') }} </span>
                         </div>
                                            
                     </div>

@@ -38,5 +38,6 @@ Route::group(['middleware' => 'auth'], function () {
 
 	// route kelompok
 	Route::get('/unit/{uid}/kelompok/create', 'KelompokController@create');
+	Route::post('/unit/{uid}/kelompok/create', 'KelompokController@store');
 });
 
