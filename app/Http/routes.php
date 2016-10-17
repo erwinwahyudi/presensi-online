@@ -39,5 +39,12 @@ Route::group(['middleware' => 'auth'], function () {
 	// route kelompok
 	Route::get('/unit/{uid}/kelompok/create', 'KelompokController@create');
 	Route::post('/unit/{uid}/kelompok/create', 'KelompokController@store');
+	Route::get('/unit/{uid}/kelompok/edit/{id}', 'KelompokController@edit');
+	Route::post('unit/{uid}/kelompok/update/{id}', 'KelompokController@update');
+	Route::delete('/unit/{uid}/kelompok/delete/{id}', 'KelompokController@destroy');
+
+	//Route manajemen data
+	Route::get('/manajemen-data', 'ManajemenDataController@index');
+	Route::post('/uploadfile', 'ManajemenDataController@uploadfile');
 });
 

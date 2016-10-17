@@ -11,7 +11,7 @@
                         <tbody>
                            @foreach($kelompoks as $kelompok)
                               <tr>
-                                 <td> {{ $kelompok->nama_kelompok }} </td>
+                                 <td><a href={{ url('unit/'.$kelompok->group_id.'/kelompok/edit/'.$kelompok->id) }} > {{ $kelompok->nama_kelompok }} </a> </td>
                                  <td> </td>
                                  <td>                                                                                 
                                         {!! Form::open(array('url' => '/unit/'.$kelompok->group_id.'/kelompok/delete/'.$kelompok->id, 'method' => 'delete')) !!}

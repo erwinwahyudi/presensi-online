@@ -36,7 +36,7 @@
             <li><a href="#"><i class="fa fa-user-secret"></i><span>Admin</span></a></li>
             <li><a href="#"><i class="fa fa-check-square-o"></i><span>Hari Libur</span></a></li>
             <li><a href="#"><i class="fa fa-calendar"></i><span><span>Jadwal Khusus</span></a></li>
-            <li><a href="#"><i class="fa fa-database"></i><span>Manajemen Data</span></a></li>
+            <li><a href="{{ url('manajemen-data') }}"><i class="fa fa-database"></i><span>Manajemen Data</span></a></li>
             <li><a href="#"><i class="fa fa-lock"></i><span>Ubah Password</span></a></li>
 
             <li><a href="{{ url('/logout') }}"><i class="fa fa-power-off"></i><span>Logout</span></a></li>

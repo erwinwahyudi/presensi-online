@@ -30,6 +30,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- iCheck for checkboxes and radio inputs -->
     <link rel="stylesheet" href="{{ asset('bower_components/admin-lte/plugins/iCheck/all.css') }}">
 
+    <!-- bootstrap datepicker -->
+    <link rel="stylesheet" href="{{ asset('bower_components/admin-lte/plugins/datepicker/datepicker3.css') }}">
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -103,6 +106,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <!-- iCheck 1.0.1 -->
 <script src="{{ asset('/bower_components/admin-lte/plugins/iCheck/icheck.min.js') }}"></script>
 
+<!-- bootstrap datepicker -->
+<script src="{{ asset('/bower_components/admin-lte/plugins/datepicker/bootstrap-datepicker.js') }}"></script>
+
 <!-- Optionally, you can add Slimscroll and FastClick plugins.
       Both of these plugins are recommended to enhance the
       user experience -->
@@ -142,6 +148,18 @@ scratch. This page gets rid of all links and provides the needed markup only.
         $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
           checkboxClass: 'icheckbox_flat-green',
           radioClass: 'iradio_flat-green'
+        });
+
+        //Date picker
+        $('#datepicker').datepicker({
+          autoclose: true
+        });
+        $('#monthpicker').datepicker({
+            format: "mm-yyyy",
+            autoclose: true,
+            minViewMode: 'months',
+            viewMode: 'months',
+            pickTime: false
         });
     });
 </script>
