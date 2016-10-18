@@ -1,6 +1,6 @@
 
             <div class="box-body">
-                    <table class="table table-bordered table-striped" id="example1">
+                    <table class="table table-bordered table-striped example1">
                         <thead>
                             <tr>
                                 <th>Nama</th>

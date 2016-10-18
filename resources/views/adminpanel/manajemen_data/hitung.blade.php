@@ -8,7 +8,7 @@
         <div class="box box-info">
             <div class="box-header with-border">
                 <h3 class="box-title">
-                    Upload File Attlog
+                    Hitung Data
                 </h3>
             </div>
             <!-- /.box-header -->
@@ -18,7 +18,7 @@
                 <input name="active" type="hidden" value="1">
                     <div class="box-body">
                         <div class="form-group">
-                            <label class="col-sm-2 control-label">Pilih Bulan:</label>
+                            <label class="col-sm-2 control-label">Pilih Bulan dan Tahun:</label>
                             <div class="col-md-4">
                                 <div class="input-group date">
                                   <div class="input-group-addon">
@@ -27,16 +27,7 @@
                                   <input type="text" name="bulantahun" class="form-control pull-right monthpicker" placeholder="Bulan - Tahun">
                                 </div>
                             </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label" for="exampleInputFile">Upload File</label>
-                            <div class="col-sm-8">
-                              <input type="file" name="attlogfile" id="exampleInputFile">
-                              <p class="help-block">Example block-level help text here.</p>
-                            </div>
-                        </div>
-                                                
+                        </div>                                                
                     </div>
                     <!-- /.box-body -->
                     <div class="box-footer">
@@ -53,4 +44,40 @@
         <!-- /.box -->
     </div>
 </div>
+
+{{-- tabel view terakhir hitung --}}
+{{-- <div class="row">
+    <div class="col-md-12">
+        <div class="box">
+            <div class="box-header with-border">
+                <h3 class="box-title">
+                    Data Log Upload
+                </h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+                    <table class="table table-bordered table-striped example1">
+                        <thead>
+                            <tr>
+                                <th>Waktu Hitung</th>
+                                <th>Bulan/Tahun</th>
+                                <th>File</th>
+                            </tr>
+                        </thead>
+                        <tbody> --}}
+                           {{-- @foreach($filelogs as $filelog) --}}
+                              {{-- <tr>
+                                 <td> </td>
+                                 <td> <td>
+                              </tr> --}}
+                           {{-- @endforeach --}}
+                        {{-- </tbody>                       
+                    </table>
+                </br>
+            </div>
+            <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+    </div>
+</div> --}}
 @stop

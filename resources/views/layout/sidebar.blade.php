@@ -36,17 +36,17 @@
             <li><a href="#"><i class="fa fa-user-secret"></i><span>Admin</span></a></li>
             <li><a href="#"><i class="fa fa-check-square-o"></i><span>Hari Libur</span></a></li>
             <li><a href="#"><i class="fa fa-calendar"></i><span><span>Jadwal Khusus</span></a></li>
-            <li><a href="{{ url('manajemen-data') }}"><i class="fa fa-database"></i><span>Manajemen Data</span></a></li>
+            <li class="treeview">
+                <a href="#"><i class="fa fa-database"></i><span>Manajemen Data</span> <i class="fa fa-angle-left pull-right"></i></a>
+                <ul class="treeview-menu">
+                    <li><a href="{{ url('manajemen-data') }}">Upload File</a></li>
+                    <li><a href="{{ url('hitung-data') }}">Hitung</a></li>
+                    <li><a href="{{ url('logupload') }}">Log Upload</a></li>
+                </ul>
+            </li>
             <li><a href="#"><i class="fa fa-lock"></i><span>Ubah Password</span></a></li>
 
             <li><a href="{{ url('/logout') }}"><i class="fa fa-power-off"></i><span>Logout</span></a></li>
-            <!-- <li class="treeview">
-                <a href="#"><span>Multilevel</span> <i class="fa fa-angle-left pull-right"></i></a>
-                <ul class="treeview-menu">
-                    <li><a href="#">Link in level 2</a></li>
-                    <li><a href="#">Link in level 2</a></li>
-                </ul>
-            </li> -->
         </ul><!-- /.sidebar-menu -->
     </section>
     <!-- /.sidebar -->

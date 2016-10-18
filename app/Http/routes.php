@@ -46,5 +46,10 @@ Route::group(['middleware' => 'auth'], function () {
 	//Route manajemen data
 	Route::get('/manajemen-data', 'ManajemenDataController@index');
 	Route::post('/uploadfile', 'ManajemenDataController@uploadfile');
+
+	//Route logfile upload
+	Route::get('/logupload', 'ManajemenDataController@logupload');
+
+	Route::get('/hitung-data', 'ManajemenDataController@hitungdata');
 });
 
