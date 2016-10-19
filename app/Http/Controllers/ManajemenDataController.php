@@ -8,10 +8,13 @@ use App\Http\Requests;
 
 use Auth;
 use Storage;
+use Carbon;
 
 // ambil model
 use App\Filelog;
 use App\Attlog;
+use App\Fn;
+use App\Hitung;
 
 
 class ManajemenDataController extends Controller
@@ -60,9 +63,9 @@ class ManajemenDataController extends Controller
          $arrays = explode("\r\n", $getfile);
 
         // pisahkan data bulandtahun dari post
-        $expbulantahun = explode("/", $bulantahun);
-            $expbulantahun_bulan    = $expbulantahun[0];
-            $expbulantahun_tahun    = $expbulantahun[1];
+        $fn_bt = Fn::pisah_bulantahun($bulantahun);
+            $bulan    = $fn_bt['bulan'];
+            $tahun    = $fn_bt['tahun'];
 
                 
         // perulangan untuk baca file
@@ -88,7 +91,7 @@ class ManajemenDataController extends Controller
                 $expdate_bulan   = $expdate[1];
 
             //cek dari file attlog apakah sama dg bulan yg d post, jika sama maka insert ke db
-            if($expdate_bulan==$expbulantahun_bulan && $expdate_tahun==$expbulantahun_tahun) {
+            if($expdate_bulan==$bulan && $expdate_tahun==$tahun) {
                 Attlog::create([
                             'datetime'  =>  $datetime,
                             'date'      =>  $date,
@@ -126,7 +129,37 @@ class ManajemenDataController extends Controller
         return view('adminpanel.manajemen_data.logfile', compact('filelogs'));
     }
 
-    public function hitungdata() {
+    public function indexhitung() {
         return view('adminpanel.manajemen_data.hitung');
+    }
+
+    public function hitung(Request $request) {
+        $groupid    = Auth::user()->group_id;
+        $bulantahun = $request->bulantahun;
+
+        $fn_bt = Fn::pisah_bulantahun($bulantahun);
+
+        $bulan = $fn_bt['bulan'];
+        $tahun = $fn_bt['tahun'];
+
+        $cek_libur = Hitung::cek_libur('2015-10-14');
+
+        $nilai = '60';
+        if( $nilai<=60) {
+            echo 'level 1';
+        } else if ($nilai<=75) {
+            echo 'level 2';
+        } else if ($nilai<=90) {
+            echo 'level 3';
+        } else if ($nilai<=105) {
+            echo 'level 4';
+        } else if ($nilai<=120) {
+            echo 'level 5';
+        } else if ($nilai<=240) {
+            echo 'level 6';
+        } else {
+            echo 'no kategori';
+        }
+        // echo $cek_libur;
     }
 }

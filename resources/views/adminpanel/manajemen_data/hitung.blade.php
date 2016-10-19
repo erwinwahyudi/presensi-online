@@ -13,12 +13,11 @@
             </div>
             <!-- /.box-header -->
             <!-- form start -->
-            <form action="/uploadfile" class="form-horizontal" method="POST" enctype="multipart/form-data">
+            <form action="/hitung-data" class="form-horizontal" method="POST" >
                 {{ csrf_field() }}
-                <input name="active" type="hidden" value="1">
                     <div class="box-body">
                         <div class="form-group">
-                            <label class="col-sm-2 control-label">Pilih Bulan dan Tahun:</label>
+                            <label class="col-sm-3 control-label">Pilih Bulan dan Tahun:</label>
                             <div class="col-md-4">
                                 <div class="input-group date">
                                   <div class="input-group-addon">
@@ -31,7 +30,7 @@
                     </div>
                     <!-- /.box-body -->
                     <div class="box-footer">
-                        <div class="col-sm-offset-2">
+                        <div class="col-sm-offset-3">
                             <button class="btn btn-info btn-flat" type="submit">
                                 Proses
                             </button>

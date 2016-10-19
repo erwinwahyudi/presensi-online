@@ -208,6 +208,9 @@ return [
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
 
+        //aliases untuk carbon
+        'Carbon' => 'Carbon\Carbon',
+
     ],
 
 ];
