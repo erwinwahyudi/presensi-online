@@ -135,31 +135,36 @@ class ManajemenDataController extends Controller
 
     public function hitung(Request $request) {
         $groupid    = Auth::user()->group_id;
-        $bulantahun = $request->bulantahun;
+        $dari_tgl   = $request->dari_tgl;
+        $sampai_tgl = $request->sampai_tgl;
 
-        $fn_bt = Fn::pisah_bulantahun($bulantahun);
+        print_r($request->all());
 
-        $bulan = $fn_bt['bulan'];
-        $tahun = $fn_bt['tahun'];
+        $hitung = Hitung::hitung_unit_kerja($groupid, $dari_tgl, $sampai_tgl);
 
-        $cek_libur = Hitung::cek_libur('2015-10-14');
+        // $fn_bt = Fn::pisah_bulantahun($bulantahun);
 
-        $nilai = '60';
-        if( $nilai<=60) {
-            echo 'level 1';
-        } else if ($nilai<=75) {
-            echo 'level 2';
-        } else if ($nilai<=90) {
-            echo 'level 3';
-        } else if ($nilai<=105) {
-            echo 'level 4';
-        } else if ($nilai<=120) {
-            echo 'level 5';
-        } else if ($nilai<=240) {
-            echo 'level 6';
-        } else {
-            echo 'no kategori';
-        }
+        // $bulan = $fn_bt['bulan'];
+        // $tahun = $fn_bt['tahun'];
+
+        // $cek_libur = Hitung::cek_libur('2015-10-14');
+
+        // $nilai = '60';
+        // if( $nilai<=60) {
+        //     echo 'level 1';
+        // } else if ($nilai<=75) {
+        //     echo 'level 2';
+        // } else if ($nilai<=90) {
+        //     echo 'level 3';
+        // } else if ($nilai<=105) {
+        //     echo 'level 4';
+        // } else if ($nilai<=120) {
+        //     echo 'level 5';
+        // } else if ($nilai<=240) {
+        //     echo 'level 6';
+        // } else {
+        //     echo 'no kategori';
+        // }
         // echo $cek_libur;
     }
 }

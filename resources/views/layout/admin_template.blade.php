@@ -152,7 +152,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
         //Date picker
         $('.datepicker').datepicker({
-          autoclose: true
+          autoclose: true,
+          format: "yyyy-mm-dd"
         });
         $('.monthpicker').datepicker({
             format: "mm/yyyy",

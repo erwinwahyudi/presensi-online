@@ -17,13 +17,21 @@
                 {{ csrf_field() }}
                     <div class="box-body">
                         <div class="form-group">
-                            <label class="col-sm-3 control-label">Pilih Bulan dan Tahun:</label>
+                            <label class="col-sm-3 control-label">Pilih Rentang Tanggal:</label>
                             <div class="col-md-4">
                                 <div class="input-group date">
                                   <div class="input-group-addon">
                                     <i class="fa fa-calendar"></i>
                                   </div>
-                                  <input type="text" name="bulantahun" class="form-control pull-right monthpicker" placeholder="Bulan - Tahun">
+                                  <input type="text" name="dari_tgl" class="form-control pull-right datepicker" placeholder="dari tanggal">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="input-group date">
+                                  <div class="input-group-addon">
+                                    <i class="fa fa-calendar"></i>
+                                  </div>
+                                  <input type="text" name="sampai_tgl" class="form-control pull-right datepicker" placeholder="sampai tanggal">
                                 </div>
                             </div>
                         </div>                                                
