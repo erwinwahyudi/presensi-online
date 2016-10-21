@@ -17,8 +17,8 @@ class CreateAttlogTable extends Migration
             $table->dateTime('datetime');
             $table->date('date');
             $table->time('time');
-            $table->integer('user_id');
-            $table->integer('group_id');
+            $table->integer('finger_id');
+            $table->integer('finger_group_id');
         });
     }
 

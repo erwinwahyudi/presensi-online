@@ -58,9 +58,9 @@ class ManajemenDataController extends Controller
                                 ]);
 
         // baca filenya dari folder berdasarkan data yg di upload
-         // $getfile = file_get_contents(getcwd(). $realpath."/".$real_name);
-         $getfile = file_get_contents(getcwd(). "/attlogfile/".$filename);
-         $arrays = explode("\r\n", $getfile);
+        // $getfile = file_get_contents(getcwd(). $realpath."/".$real_name);
+        $getfile = file_get_contents(getcwd(). "/attlogfile/".$filename);
+        $arrays = explode("\r\n", $getfile);
 
         // pisahkan data bulandtahun dari post
         $fn_bt = Fn::pisah_bulantahun($bulantahun);
@@ -69,10 +69,10 @@ class ManajemenDataController extends Controller
 
                 
         // perulangan untuk baca file
-         foreach ($arrays as $arr) {
+        foreach ($arrays as $arr) {
             $arrexp         = explode("\t", trim($arr));
             // user id
-            $userid    = $arrexp[0];
+            $finger_id    = $arrexp[0];
             //datetime
             $datetime   = $arrexp[1];
                 $explspasi      = explode(" ", $datetime);
@@ -81,8 +81,8 @@ class ManajemenDataController extends Controller
             // waktu
             $time = $explspasi[1];
 
-            //group_id
-            $groupid   = $arrexp[2];
+            //finger_group_id
+            $finger_group_id   = $arrexp[2];
 
 
             //pisahkan bulan, tgl dan tahun dari date attlog
@@ -96,13 +96,13 @@ class ManajemenDataController extends Controller
                             'datetime'  =>  $datetime,
                             'date'      =>  $date,
                             'time'      =>  $time,
-                            'user_id'   =>  $userid,
-                            'group_id'  =>  $groupid
+                            'finger_id' =>  $finger_id,
+                            'finger_group_id'  =>  $finger_group_id
                         ]);
-                echo $userid." | ";
+                echo $finger_id." | ";
                 echo $date." | ";
                 echo $time." | ";
-                echo $groupid;             
+                echo $finger_group_id;             
                 echo "<br>";
             } else {
                 //delete file yg sebelumnya disimpan jika tidak ada kondisi cocok
@@ -138,9 +138,20 @@ class ManajemenDataController extends Controller
         $dari_tgl   = $request->dari_tgl;
         $sampai_tgl = $request->sampai_tgl;
 
-        print_r($request->all());
+        // print_r($request->all());
 
+        echo "<pre>";
         $hitung = Hitung::hitung_unit_kerja($groupid, $dari_tgl, $sampai_tgl);
+        print_r($hitung);
+        echo "</pre>";
+
+        // $cek_libur = Hitung::cek_libur('2016-10-14');
+        // echo $cek_libur;
+
+        
+        // echo date('H:i:s', strtotime('07:00:00') - strtotime('06:50:00') );
+        // $kurang = abs( strtotime('07:00:00') - strtotime('06:50:00') );
+        // echo round($kurang / 60);
 
         // $fn_bt = Fn::pisah_bulantahun($bulantahun);
 

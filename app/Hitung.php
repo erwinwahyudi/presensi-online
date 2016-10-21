@@ -11,12 +11,37 @@ class Hitung extends Model
 {
     //cek libur
     public static function cek_libur($tgl) {
+    	//dari daftar libur
     	$libur = DB::table('libur')->where('tanggal', '=', $tgl)->count();
+    	
+    	//cek sabtu minggu
+        $weekDay = date('w', strtotime($tgl));
+        if ( $weekDay == 0 || $weekDay == 6 || ($libur=='1') ) {
+            $libur = '1';
+        } else {
+            $libur = '0';
+        }
     	return $libur;
     }
 
     public static function cek_jadwal_khusus($tglmulai, $tglakhir) {
 
+    }
+
+    public static function selisih_menit($time1, $time2) {
+    	$time = abs( strtotime($time1) - strtotime($time2) );
+        $time = round($time / 60);
+        return $time;
+    }
+
+    public static function cek_jumat($tgl) {
+    	$date  =  date('w', strtotime($tgl));
+    	if($date == 5) {
+    		$jumat = '1';
+    	} else {
+    		$jumat = '0';
+    	}
+    	return $jumat;
     }
 
 
@@ -30,8 +55,203 @@ class Hitung extends Model
 			// $groupid
 			// $kelompok
 
-    		$users = DB::table('users')->where('group_id', '');
+    		$users = DB::table('users')->where('group_id', '=', $groupid)->get();
 
+    		foreach ($users as $user) {
+    			$user_id	 = $user->id;
+    			$finger_id	 = $user->finger_id;
+    			$kelompok_id = $user->kelompok_id;
+    			$tglstart	 = $tglstart;
+    			$tglend		 = $tglend;
+
+    			//inisiasi data awal
+    			$data_block	 = array(
+    								'user_id'				=> $user_id,
+    								'group_id'				=> $groupid,
+					    			'hari'					=> 'NULL',
+					    			'tanggal'				=> 'NULL',
+					    			'masuk_pagi'	  		=> '00:00:00',
+					    			'istirahat'	  			=> '00:00:00',
+					    			'masuk_siang'  			=> '00:00:00',
+					    			'pulang'		  		=> '00:00:00',
+					    			'sesi1'  				=> '00:00:00',
+					    			'sesi2'		  			=> '00:00:00',
+					    			'masuk' 		  		=> '0',
+					    			'terlambat'	  			=> '0',
+					    			'kategori_terlambat_id'	=> '0',
+					    			'kategori_psw_id'  		=> '0',
+					    			'waktu_ganti_terlambat'	=> '00:00:00',
+					    			'ganti_terlambat'		=> '0',
+					    			'lembur'				=> '0',
+					    			'total_lembur'			=> '0',
+					    			'keterangan'			=> '-',
+						    	);
+
+    			//ambil data kelompok berdasarkan kelompok_id di userid
+    			$kelompok  =  DB::table('kelompok')->where('id', $kelompok_id)->first();
+    			
+				$absen_istirahat                 =  $kelompok->absen_istirahat;  
+		        $absen_masuk_istirahat           =  $kelompok->absen_masuk_istirahat;  
+		        $absen_pulang                    =  $kelompok->absen_pulang;  
+		        $hitung_lembur                   =  $kelompok->hitung_lembur;  
+		        $awal_masuk                      =  $kelompok->awal_masuk;  
+		        $akhir_masuk                     =  $kelompok->akhir_masuk;  
+		        $awal_masuk_jumat                =  $kelompok->awal_masuk_jumat;  
+		        $akhir_masuk_jumat               =  $kelompok->akhir_masuk_jumat;  
+		        $awal_istirahat                  =  $kelompok->awal_istirahat;  
+		        $akhir_istirahat                 =  $kelompok->akhir_istirahat;  
+		        $awal_istirahat_jumat            =  $kelompok->awal_istirahat_jumat;  
+		        $akhir_istirahat_jumat           =  $kelompok->akhir_istirahat_jumat;  
+		        $awal_masuk_istirahat            =  $kelompok->awal_masuk_istirahat;  
+		        $akhir_masuk_istirahat           =  $kelompok->akhir_masuk_istirahat;  
+		        $awal_masuk_istirahat_jumat      =  $kelompok->awal_masuk_istirahat_jumat;  
+		        $akhir_masuk_istirahat_jumat     =  $kelompok->akhir_masuk_istirahat_jumat;  
+		        $awal_pulang                     =  $kelompok->awal_pulang;  
+		        $akhir_pulang                    =  $kelompok->akhir_pulang;  
+		        $awal_pulang_jumat               =  $kelompok->awal_pulang_jumat;  
+		        $akhir_pulang_jumat              =  $kelompok->akhir_pulang_jumat;
+			   
+
+			    //looping tanggal berdasarkan rentang
+    			$tanggals  =  DB::table('attlog')->whereBetween('date', [$tglstart, $tglend])
+    											 ->where('finger_id', $finger_id)
+    											 ->groupBy('date')
+    											 ->orderBy('date', 'ASC')->get();
+
+    			foreach ($tanggals as $tanggal) {
+    				$tgl_attlog		= $tanggal->date;
+    			 	$time_attlog	= $tanggal->time;
+
+    			 	//cek libur
+    				$cek_libur = Hitung::cek_libur($tgl_attlog);
+
+    				//jika tidak libur, lakukan perhitungan terhadap tanggal
+    				if($cek_libur=='0'){
+    					$data_block['tanggal'] = $tgl_attlog;
+
+    					//cek jumat atau bukan
+    					$cek_jumat = Hitung::cek_jumat($tgl_attlog);
+    					if($cek_jumat=='0'){		    					    				
+
+		    					#############   MASUK PAGI ####################
+		    			 		//$masuk = select from waktu attlog where tgl = data_tanggal time (batas_awal masuk kelompok sampai istirahat) where userid
+		    			 		$masuk = DB::table('attlog')->whereBetween('time', [$awal_masuk, $awal_istirahat])
+		    			 									->where('finger_id', $finger_id)
+		    			 									->where('date', $tgl_attlog)
+		    			 									->orderBy('time', 'desc')->first();
+		    			 		
+		    			 		
+		    			 		 	$waktu_masuk 				= $masuk->time;	
+		    			 		 	$data_block['masuk_pagi']	= $waktu_masuk; 	
+		    			 		 	if ($waktu_masuk=='0') {
+										$data_block['masuk'] 		= '0';
+										$data_block['masuk_pagi']	= '00:00:00';
+									} elseif ($waktu_masuk > $akhir_masuk) {
+										//terlambat
+										$hitung_selisih = Hitung::selisih_menit($waktu_masuk, $akhir_masuk);
+										$data_block['terlambat'] = '1';
+										if( $hitung_selisih<=60) {
+											$data_block['kategori_terlambat_id'] = '1';
+										}
+								        else if ($hitung_selisih<=75) {
+								            $data_block['kategori_terlambat_id'] = '2';
+								        }
+								        else if ($hitung_selisih<=90) {
+								            $data_block['kategori_terlambat_id'] = '3';
+								        }
+								        else if ($hitung_selisih<=105) {
+								            $data_block['kategori_terlambat_id'] = '4';
+								        }
+								        else if ($hitung_selisih<=120) {
+								            $data_block['kategori_terlambat_id'] = '5';
+								        }
+								        else if ($hitung_selisih<=240) {
+								            $data_block['kategori_terlambat_id'] = '6';
+								        }
+								    } else {
+								    	$data_block['terlambat']				 = '0';
+								    	$data_block['kategori_terlambat_id']	 = '0';        
+								    }   
+								#############   MASUK PAGI ####################
+
+								#############  ISTIRAHAT ####################
+								//cek dulu apa ada absen istirahat di kelompok
+								if($absen_istirahat=='1') {
+									$istirahat = DB::table('attlog')->whereBetween('time', [$awal_istirahat, $akhir_istirahat])
+			    			 									->where('finger_id', $finger_id)
+			    			 									->where('date', $tgl_attlog)
+			    			 									->orderBy('time', 'desc')->first();
+			    			 		
+			    			 		
+			    			 		 	$waktu_istirahat 			  = $istirahat->time;	
+			    			 		 	$data_block['istirahat']	  = $waktu_istirahat; 	
+			    			 		 	if ($waktu_masuk=='0') {
+											$data_block['masuk'] 	  = '0';
+											$data_block['istirahat']  = '00:00:00';
+										else {
+
+										}
+								} else {
+									$data_block['masuk'] 	  = '0';
+									$data_block['istirahat']  = '00:00:00';
+								}
+
+								#############  ISTIRAHAT ####################
+
+								#############  MASUK ISTIRAHAT ####################
+
+								#############  MASUK ISTIRAHAT ####################
+
+								#############  PULANG ####################
+
+								#############  PULANG ####################
+								print_r($data_block);
+						} else {
+								echo 'jumat';
+								#############   MASUK PAGI ####################
+		    			 		//$masuk = select from waktu attlog where tgl = data_tanggal time (batas_awal masuk kelompok sampai istirahat) where userid
+		    			 		$masuk = DB::table('attlog')->whereBetween('time', [$awal_masuk_jumat, $awal_istirahat_jumat])
+		    			 									->where('finger_id', $finger_id)
+		    			 									->where('date', $tgl_attlog)
+		    			 									->orderBy('time', 'desc')->first();
+		    			 		
+		    			 		
+		    			 		 	$waktu_masuk 				= $masuk->time;	
+		    			 		 	$data_block['masuk_pagi']	= $waktu_masuk; 	
+		    			 		 	if ($waktu_masuk=='0') {
+										$data_block['masuk'] = '0';
+									} elseif ($waktu_masuk > $akhir_masuk) {
+										//terlambat
+										$hitung_selisih = Hitung::selisih_menit($waktu_masuk, $akhir_masuk);
+										$data_block['terlambat'] = '1';
+										if( $hitung_selisih<=60) {
+											$data_block['kategori_terlambat_id'] = '1';
+										}
+								        else if ($hitung_selisih<=75) {
+								            $data_block['kategori_terlambat_id'] = '2';
+								        }
+								        else if ($hitung_selisih<=90) {
+								            $data_block['kategori_terlambat_id'] = '3';
+								        }
+								        else if ($hitung_selisih<=105) {
+								            $data_block['kategori_terlambat_id'] = '4';
+								        }
+								        else if ($hitung_selisih<=120) {
+								            $data_block['kategori_terlambat_id'] = '5';
+								        }
+								        else if ($hitung_selisih<=240) {
+								            $data_block['kategori_terlambat_id'] = '6';
+								        }
+								    } else {
+								    	$data_block['terlambat']				 = '0';
+								    	$data_block['kategori_terlambat_id']	 = '0';        
+								    }   
+								#############   MASUK PAGI ####################_jumat
+						}
+    				}
+    			}
+    		}
+    }
 
 
 			// Foreach select userid from users id group dan kelompok and finger_id
@@ -141,7 +361,6 @@ class Hitung extends Model
 			// 			endif
 
 			// 		endforeach
-			// endforeach
-    }
+			// endforeach    
 
 }

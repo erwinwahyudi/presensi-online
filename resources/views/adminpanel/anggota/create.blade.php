@@ -100,7 +100,7 @@
                                 Email
                             </label>
                             <div class="col-sm-4">
-                                <input type="email" name="email" class="form-control" id="inputEmail"  placeholder="email anggota" value="{{ $anggota->email }}">
+                                <input type="email" name="email" class="form-control" id="inputEmail"  placeholder="email anggota" >
                                 </input>
                             </div>
                             <span class="help-block"> {{ $errors->first('email') }} </span>
@@ -111,7 +111,7 @@
                                 Username
                             </label>
                             <div class="col-sm-4">
-                                <input type="text" name="username" class="form-control" id="inputUsername"  placeholder="username anggota" value="{{ $anggota->username }}">
+                                <input type="text" name="username" class="form-control" id="inputUsername"  placeholder="username anggota" >
                                 </input>
                             </div>
                             <span class="help-block"> {{ $errors->first('username') }}  </span>
