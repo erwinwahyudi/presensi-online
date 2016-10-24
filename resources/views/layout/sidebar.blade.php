@@ -31,7 +31,7 @@
         <ul class="sidebar-menu">
             <li class="header">Menu</li>
             <!-- Optionally, you can add icons to the links -->
-            <li class="active"><a href="#"><i class="fa fa-file-text-o"></i><span>Data Kehadiran</span></a></li>
+            <li class="active"><a href="{{ url('/rekap') }}"><i class="fa fa-file-text-o"></i><span>Data Kehadiran</span></a></li>
             <li><a href="{{ url('/unit') }}"><i class="fa fa-users"></i><span>Unit Kerja</span></a></li>
             <li><a href="#"><i class="fa fa-user-secret"></i><span>Admin</span></a></li>
             <li><a href="#"><i class="fa fa-check-square-o"></i><span>Hari Libur</span></a></li>

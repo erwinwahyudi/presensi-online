@@ -50,7 +50,12 @@ Route::group(['middleware' => 'auth'], function () {
 	//Route logfile upload
 	Route::get('/logupload', 'ManajemenDataController@logupload');
 
+	//Route untuk hitung data
 	Route::get('/hitung-data', 'ManajemenDataController@indexhitung');
 	Route::post('/hitung-data', 'ManajemenDataController@hitung');
+
+	//Route rekap data harian
+	Route::get('/rekap', 'RekapController@index');
+	Route::post('/rekap', 'RekapController@rekap_group');
 });
 
