@@ -13,7 +13,7 @@ class CreateKategoriPswTable extends Migration
     public function up()
     {
         Schema::create('kategori_psw', function (Blueprint $table) {
-            $table->increments('id');
+            $table->integer('id');
             $table->integer('level_psw');
             $table->time('rentang_awal');
             $table->time('rentang_akhir');

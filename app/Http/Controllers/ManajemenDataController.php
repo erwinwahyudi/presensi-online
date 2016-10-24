@@ -145,37 +145,5 @@ class ManajemenDataController extends Controller
         print_r($hitung);
         echo "</pre>";
 
-        // $cek_libur = Hitung::cek_libur('2016-10-14');
-        // echo $cek_libur;
-
-        
-        // echo date('H:i:s', strtotime('07:00:00') - strtotime('06:50:00') );
-        // $kurang = abs( strtotime('07:00:00') - strtotime('06:50:00') );
-        // echo round($kurang / 60);
-
-        // $fn_bt = Fn::pisah_bulantahun($bulantahun);
-
-        // $bulan = $fn_bt['bulan'];
-        // $tahun = $fn_bt['tahun'];
-
-        // $cek_libur = Hitung::cek_libur('2015-10-14');
-
-        // $nilai = '60';
-        // if( $nilai<=60) {
-        //     echo 'level 1';
-        // } else if ($nilai<=75) {
-        //     echo 'level 2';
-        // } else if ($nilai<=90) {
-        //     echo 'level 3';
-        // } else if ($nilai<=105) {
-        //     echo 'level 4';
-        // } else if ($nilai<=120) {
-        //     echo 'level 5';
-        // } else if ($nilai<=240) {
-        //     echo 'level 6';
-        // } else {
-        //     echo 'no kategori';
-        // }
-        // echo $cek_libur;
     }
 }

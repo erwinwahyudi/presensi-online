@@ -13,7 +13,7 @@ class CreateKategoriTerlambatTable extends Migration
     public function up()
     {
         Schema::create('kategori_terlambat', function (Blueprint $table) {
-            $table->increments('id');
+            $table->integer('id');
             $table->integer('level_terlambat');
             $table->time('rentang_awal');
             $table->time('rentang_akhir');
