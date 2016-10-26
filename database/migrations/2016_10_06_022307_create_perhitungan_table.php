@@ -25,12 +25,16 @@ class CreatePerhitunganTable extends Migration
             $table->time('sesi2');
             $table->integer('masuk');
             $table->integer('terlambat');
+            $table->integer('ganti_terlambat');
             $table->integer('psw');
             $table->integer('kategori_terlambat_id');
             $table->integer('kategori_psw_id');
             $table->string('waktu_ganti_terlambat');            
             $table->integer('lembur');
             $table->string('total_lembur');
+            $table->string('potongan_terlambat');
+            $table->string('potongan_psw');
+            $table->string('total_potongan');
             $table->string('keterangan');
             $table->integer('group_id');
         });

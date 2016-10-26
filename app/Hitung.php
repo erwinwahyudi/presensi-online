@@ -18,6 +18,8 @@ class Hitung extends Model
 			$users = DB::table('users')->where('group_id', '=', $groupid)->get();
     		//1. Buat perulangan user berdasarkan
     		foreach ($users as $user) {
+
+    			// 1.1.inisiasi data awal yg nanti akan d create k db
     			$nama 		 = $user->nama;
     			$user_id	 = $user->id;
     			$finger_id	 = $user->finger_id;
@@ -25,28 +27,8 @@ class Hitung extends Model
     			$tglstart	 = $tglstart;
     			$tglend		 = $tglend;
 
-    			// 1.1.inisiasi data awal yg nanti akan d create k db
-    			$data_block	 = array(
-    								// 'nama'					=> $nama,
-    								'users_id'				=> $user_id,
-    								'group_id'				=> $groupid,
-					    			'hari'					=> 'NULL',
-					    			'tanggal'				=> 'NULL',
-					    			'masuk_pagi'	  		=> '00:00:00',
-					    			'istirahat'	  			=> '00:00:00',
-					    			'masuk_siang'  			=> '00:00:00',
-					    			'pulang'		  		=> '00:00:00',
-					    			'sesi1'  				=> '00:00:00',
-					    			'sesi2'		  			=> '00:00:00',
-					    			'masuk' 		  		=> '0',
-					    			'terlambat'	  			=> '0',
-					    			'psw'					=> '0',
-					    			'kategori_terlambat_id'	=> '0',
-					    			'kategori_psw_id'  		=> '0',
-					    			'lembur'				=> '0',
-					    			'total_lembur'			=> '0',
-					    			'keterangan'			=> 'NULL',
-						    	);
+    			
+    			
 
     			//1.2. Ambil data kelompok berdasarkan kelompok_id di userid
     			$kelompok  =  DB::table('kelompok')->where('id', $kelompok_id)->first();
@@ -83,6 +65,32 @@ class Hitung extends Model
     			$tanggals = Hitung::rentang_tanggal($tglstart, $tglend);
 
     			foreach ($tanggals as $tanggal) {
+    				$data_block	 = array(
+    								// 'nama'					=> $nama,
+    								'users_id'				=> $user_id,
+    								'group_id'				=> $groupid,
+					    			'hari'					=> 'NULL',
+					    			'tanggal'				=> 'NULL',
+					    			'masuk_pagi'	  		=> '00:00:00',
+					    			'istirahat'	  			=> '00:00:00',
+					    			'masuk_siang'  			=> '00:00:00',
+					    			'pulang'		  		=> '00:00:00',
+					    			'sesi1'  				=> '00:00:00',
+					    			'sesi2'		  			=> '00:00:00',
+					    			'masuk' 		  		=> '0',
+					    			'terlambat'	  			=> '0',
+					    			'ganti_terlambat'	  	=> '0',
+					    			'psw'					=> '0',
+					    			'kategori_terlambat_id'	=> '0',
+					    			'kategori_psw_id'  		=> '0',
+					    			'lembur'				=> '0',
+					    			'total_lembur'			=> '0',
+					    			'potongan_terlambat'	=> '0',
+					    			'potongan_psw'			=> '0',
+					    			'total_potongan'		=> '0',
+					    			'keterangan'			=> 'NULL',
+						    	);
+
     				$tgl_attlog			= $tanggal->format("Y-m-d");
 
     			 	//buat nama hari
@@ -112,6 +120,9 @@ class Hitung extends Model
 		    			 		 	if ( empty($masuk) ) {
 										$data_block['kategori_terlambat_id']	= '6';
 										$data_block['kategori_psw_id']			= '6';
+										$data_block['potongan_terlambat']		= '2.5';
+										$data_block['potongan_psw']				= '2.5';
+										$data_block['total_potongan'] 		= $data_block['potongan_terlambat'] + $data_block['potongan_psw'];
 									//1.3.2.1.3 Jika masuk, maka lakukan perhitungan terhadap masing2 block data
 									} else {
 											$data_block['masuk']	= '1';
@@ -124,21 +135,27 @@ class Hitung extends Model
 												$data_block['terlambat'] = '1';
 												if( $hitung_selisih<=60) {
 													$data_block['kategori_terlambat_id'] = '1';
+													$data_block['potongan_terlambat']	 = '0.25';
 												}
 										        else if ($hitung_selisih<=75) {
 										            $data_block['kategori_terlambat_id'] = '2';
+										            $data_block['potongan_terlambat']	 = '0.5';
 										        }
 										        else if ($hitung_selisih<=90) {
 										            $data_block['kategori_terlambat_id'] = '3';
+										            $data_block['potongan_terlambat']	 = '1';
 										        }
 										        else if ($hitung_selisih<=105) {
 										            $data_block['kategori_terlambat_id'] = '4';
+										            $data_block['potongan_terlambat']	 = '1.5';
 										        }
 										        else if ($hitung_selisih<=120) {
 										            $data_block['kategori_terlambat_id'] = '5';
+										            $data_block['potongan_terlambat']	 = '2';
 										        }
 										        else if ($hitung_selisih<=240) {
 										            $data_block['kategori_terlambat_id'] = '6';
+										            $data_block['potongan_terlambat']	 = '2.5';
 										        }
 										    } else {
 										    	$data_block['masuk_pagi']				 = $masuk->time;
@@ -215,31 +232,39 @@ class Hitung extends Model
 														$hitung_selisih_pulang = Hitung::selisih_menit($awal_pulang, $pulang->time);
 														if( $hitung_selisih_pulang<=60) {
 															$data_block['kategori_psw_id'] = '1';
+															$data_block['potongan_psw']	   = '0.25';
 														}
 												        else if ($hitung_selisih_pulang<=75) {
 												            $data_block['kategori_psw_id'] = '2';
+												            $data_block['potongan_psw']	   = '0.5';
 												        }
 												        else if ($hitung_selisih_pulang<=90) {
 												            $data_block['kategori_psw_id'] = '3';
+												            $data_block['potongan_psw']	   = '1';
 												        }
 												        else if ($hitung_selisih_pulang<=105) {
 												            $data_block['kategori_psw_id'] = '4';
+												            $data_block['potongan_psw']	   = '1.5';
 												        }
 												        else if ($hitung_selisih_pulang<=120) {
 												            $data_block['kategori_psw_id'] = '5';
+												            $data_block['potongan_psw']	   = '2';
 												        }
 												        else if ($hitung_selisih_pulang<=240) {
 												            $data_block['kategori_psw_id'] = '6';
+												            $data_block['potongan_psw']	   = '2.5';
 												        }
 												    } else {
 												    	//cek apakah kategori_terlambat_id = 1
-														if($data_block['kategori_terlambat_id'] == '1') {
+														if($data_block['terlambat']=='1' && $data_block['kategori_terlambat_id'] == '1') {
 															$ganti_pulang = date('H:i:s', strtotime('+'.$hitung_selisih.' minute', strtotime($awal_pulang)) );
 															//jika user mengganti keterlambatan 1, set terlambat jadi 0
-															if($pulang->time >= $ganti_pulang){
+															if($pulang->time > $ganti_pulang){
 																$data_block['kategori_terlambat_id']	= '0';
-															}
-															
+																$data_block['potongan_terlambat']	 	= '0';
+																$data_block['potongan_psw']	 			= '0';
+																$data_block['ganti_terlambat']			= '1';
+															} 														
 														}
 												    	$data_block['pulang']				 	 = $pulang->time;     
 												    }
@@ -247,6 +272,9 @@ class Hitung extends Model
 												$data_block['pulang']			= '00:00:00';
 											}
 											#############  PULANG ####################
+
+											//hitung total potongan
+											$data_block['total_potongan'] 		= $data_block['potongan_terlambat'] + $data_block['potongan_psw'];
 									}    			
 								
 						//1.3.2.2 Jika jumat
@@ -263,6 +291,9 @@ class Hitung extends Model
 		    			 		 	if ( empty($masuk) ) {
 										$data_block['kategori_terlambat_id']	= '6';
 										$data_block['kategori_psw_id']			= '6';
+										$data_block['potongan_terlambat']		= '2.5';
+										$data_block['potongan_psw']				= '2.5';
+										$data_block['total_potongan'] 		= $data_block['potongan_terlambat'] + $data_block['potongan_psw'];
 									//1.3.2.2.3 Jika masuk, maka lakukan perhitungan terhadap masing2 block data
 									} else {
 											$data_block['masuk']	= '1';
@@ -274,21 +305,27 @@ class Hitung extends Model
 												$data_block['terlambat'] = '1';
 												if( $hitung_selisih<=60) {
 													$data_block['kategori_terlambat_id'] = '1';
+													$data_block['potongan_terlambat']	 = '0.25';
 												}
 										        else if ($hitung_selisih<=75) {
 										            $data_block['kategori_terlambat_id'] = '2';
+										            $data_block['potongan_terlambat']	 = '0.5';
 										        }
 										        else if ($hitung_selisih<=90) {
 										            $data_block['kategori_terlambat_id'] = '3';
+										            $data_block['potongan_terlambat']	 = '1';
 										        }
 										        else if ($hitung_selisih<=105) {
 										            $data_block['kategori_terlambat_id'] = '4';
+										            $data_block['potongan_terlambat']	 = '1.5';
 										        }
 										        else if ($hitung_selisih<=120) {
 										            $data_block['kategori_terlambat_id'] = '5';
+										            $data_block['potongan_terlambat']	 = '2';
 										        }
 										        else if ($hitung_selisih<=240) {
 										            $data_block['kategori_terlambat_id'] = '6';
+										            $data_block['potongan_terlambat']	 = '2.5';
 										        }
 										    } else {
 										    	$data_block['masuk_pagi']				 = $masuk->time;
@@ -362,21 +399,27 @@ class Hitung extends Model
 														$hitung_selisih_pulang  = Hitung::selisih_menit($awal_pulang_jumat, $pulang->time);
 														if( $hitung_selisih_pulang<=60) {
 															$data_block['kategori_psw_id'] = '1';
+															$data_block['potongan_psw']	   = '0.25';
 														}
 												        else if ($hitung_selisih_pulang<=75) {
 												            $data_block['kategori_psw_id'] = '2';
+												            $data_block['potongan_psw']	   = '0.5';
 												        }
 												        else if ($hitung_selisih_pulang<=90) {
 												            $data_block['kategori_psw_id'] = '3';
+												            $data_block['potongan_psw']	   = '1';
 												        }
 												        else if ($hitung_selisih_pulang<=105) {
 												            $data_block['kategori_psw_id'] = '4';
+												            $data_block['potongan_psw']	   = '1.5';
 												        }
 												        else if ($hitung_selisih_pulang<=120) {
 												            $data_block['kategori_psw_id'] = '5';
+												            $data_block['potongan_psw']	   = '2';
 												        }
 												        else if ($hitung_selisih_pulang<=240) {
 												            $data_block['kategori_psw_id'] = '6';
+												            $data_block['potongan_psw']	   = '2.5';
 												        }
 												    } else {
 												    	//cek apakah kategori_terlambat_id = 1
@@ -385,7 +428,10 @@ class Hitung extends Model
 															//jika user mengganti keterlambatan 1, set terlambat jadi 0
 															if($pulang->time >= $ganti_pulang){
 																$data_block['kategori_terlambat_id']	= '0';
-															}															
+																$data_block['potongan_terlambat']	 	= '0';
+																$data_block['potongan_psw']	 			= '0';
+																$data_block['ganti_terlambat']			= '1';
+															} 														
 														}
 												    	$data_block['pulang']				 	 = $pulang->time;      
 												    }
@@ -393,9 +439,13 @@ class Hitung extends Model
 												$data_block['pulang']			= '00:00:00';
 											}
 											#############  PULANG ####################
+
+											//hitung total potongan
+											$data_block['total_potongan'] 		= $data_block['potongan_terlambat'] + $data_block['potongan_psw'];
 									}						
 						}
 					print_r($data_block);
+					//insert data ke database perhitungan
 					DB::table('perhitungan')->insert( $data_block );
     				}
     			}
@@ -421,8 +471,8 @@ class Hitung extends Model
         $akhir_tgl 		= new DateTime( $sampai_tgl );
         $akhir_tgl 		= $akhir_tgl->modify( '+1 day' ); 
 
-        $interval 	= new DateInterval('P1D');
-        $rentangtgl  = new DatePeriod($mulai_tgl, $interval ,$akhir_tgl);
+        $interval 		= new DateInterval('P1D');
+        $rentangtgl  	= new DatePeriod($mulai_tgl, $interval ,$akhir_tgl);
 
         return $rentangtgl;
 	}

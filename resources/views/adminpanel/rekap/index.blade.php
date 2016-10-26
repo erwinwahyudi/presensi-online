@@ -66,21 +66,34 @@
                                 <th>Masuk</th>
                                 <th>Tidak Masuk</th>
                                 <th>Terlambat</th>
+                                <th>Ganti Terlambat</th>
                                 <th>PSW</th>
+                                <th>Potongan Terlambat</th>
+                                <th>Potongan PSW</th>
+                                <th>Total Potongan</th>
                                 <th>Jlh Jam Kerja</th>
                             </tr>
                         </thead>
                         <tbody>
-                           <tr>
-                                 <td> </td>
-                                 <td> </td>
-                                 <td> </td>
-                                 <td> </td>
-                                 <td> </td>
-                                 <td> </td>
-                                 <td> </td>
-                                 <td> </td>
-                              </tr>
+                            @if($users!=='0')
+                                <?php $no=0 ?>
+                                @foreach($users as $user)
+                                   <tr>
+                                         <td> {{ $no+=1 }} </td>
+                                         <td> {{ $user->nama }} </td>
+                                         <td> {{ $user->nip }} </td>
+                                         <td> {{ $user->masuk }} </td>
+                                         <td> {{ $user->tidak_masuk }} </td>
+                                         <td> {{ $user->terlambat }} </td>
+                                         <td> {{ $user->ganti_terlambat }} </td>
+                                         <td> {{ $user->psw }} </td>
+                                         <td> {{ $user->potongan_terlambat }} % </td>
+                                         <td> {{ $user->potongan_psw }} %  </td>
+                                         <td> {{ $user->total_potongan }} % </td>
+                                         <td>  </td>
+                                    </tr>
+                                @endforeach
+                            @endif
                         </tbody>                       
                     </table>
                 </br>
