@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
+use Auth;
+
 // ambil request
 use App\Http\Requests\StoreGroupRequest;
 use App\Http\Requests\UpdateGroupRequest;
@@ -25,8 +27,15 @@ class UnitKerjaController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        $groups     = Group::all();
+    {   
+        $level   = Auth::user()->level;
+        $groupid = Auth::user()->group_id;
+        if($level=='superadmin') {
+            $groups     = Group::all();
+        } elseif($level=='admin') {
+            $groups     = Group::where('id', $groupid)->get();
+        }
+        
         return view('adminpanel.unit_kerja.index', compact('groups'));
     }
 

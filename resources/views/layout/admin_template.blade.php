@@ -118,12 +118,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
         $(".select2").select2();
 
         // datatable
-        $(".example1").DataTable();
+        $(".example1").DataTable({
+            // "ordering": false,
+        });
         $('.example2').DataTable({
           "paging": true,
           "lengthChange": false,
           "searching": false,
-          "ordering": true,
+          
           "info": true,
           "autoWidth": false
         });
@@ -155,11 +157,20 @@ scratch. This page gets rid of all links and provides the needed markup only.
           autoclose: true,
           format: "yyyy-mm-dd"
         });
+
         $('.monthpicker').datepicker({
             format: "mm/yyyy",
             autoclose: true,
             minViewMode: 'months',
             viewMode: 'months',
+            pickTime: false
+        });
+
+        $('.yearpicker').datepicker({
+            format: "yyyy",
+            autoclose: true,
+            minViewMode: 'years',
+            viewMode: 'years',
             pickTime: false
         });
     });

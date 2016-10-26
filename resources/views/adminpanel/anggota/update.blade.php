@@ -111,7 +111,7 @@
                                 Username
                             </label>
                             <div class="col-sm-4">
-                                <input type="text" name="username" class="form-control" id="inputUsername"  placeholder="username anggota" value="{{ $anggota->user }}">
+                                <input type="text" name="username" class="form-control" id="inputUsername"  placeholder="username anggota" value="{{ $anggota->username }}">
                                 </input>
                             </div>
                             <span class="help-block"> {{ $errors->first('username') }}  </span>

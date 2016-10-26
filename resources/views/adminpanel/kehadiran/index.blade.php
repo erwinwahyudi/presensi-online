@@ -1,5 +1,5 @@
 @extends('layout.admin_template')
-@section('judul_page', 'Data Kehadiran')
+@section('judul_page', 'Data Kehadiran User')
 
 @section('konten')
 <div class="row">
@@ -17,13 +17,13 @@
                 {{ csrf_field() }}
                     <div class="box-body">
                         <div class="form-group">
-                            <label class="col-sm-2 control-label">Pilih Bulan:</label>
+                            <label class="col-sm-2 control-label">Pilih Tahun:</label>
                             <div class="col-md-4">
                                 <div class="input-group date">
                                   <div class="input-group-addon">
                                     <i class="fa fa-calendar"></i>
                                   </div>
-                                  <input type="text" name="bulantahun" class="form-control pull-right monthpicker" placeholder="Bulan - Tahun">
+                                  <input type="text" name="tahun" class="form-control pull-right yearpicker" placeholder="Tahun">
                                 </div>
                             </div>
                         </div>                                                
@@ -60,9 +60,7 @@
                     <table class="table table-bordered table-striped example1">
                         <thead>
                             <tr>
-                                <th>No</th>
-                                <th>Nama</th>
-                                <th>Nip</th>
+                                <th>Bulan</th>
                                 <th>Masuk</th>
                                 <th>Tidak Masuk</th>
                                 <th>Terlambat</th>
@@ -75,29 +73,21 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @if($data['users']!=='0')
                                 <?php $no=0 ?>
-                                @foreach($data['users'] as $user)
+                                @foreach($datas as $key => $data)
                                    <tr>
                                          <td> {{ $no+=1 }} </td>
-                                         <td> 
-                                              <a href="{{ url('/rekap/'.$data['bulan'].'/'.$data['tahun'].'/'.$user->id) }}" > 
-                                                    {{ $user->nama }} 
-                                              </a>
-                                         </td>
-                                         <td> {{ $user->nip }} </td>
-                                         <td> {{ $user->masuk }} </td>
-                                         <td> {{ $user->tidak_masuk }} </td>
-                                         <td> {{ $user->terlambat }} </td>
-                                         <td> {{ $user->ganti_terlambat }} </td>
-                                         <td> {{ $user->psw }} </td>
-                                         <td> {{ $user->potongan_terlambat }} % </td>
-                                         <td> {{ $user->potongan_psw }} %  </td>
-                                         <td> {{ $user->total_potongan }} % </td>
+                                         <td> {{ $data ['masuk'] }} </td>
+                                         <td> {{ $data ['tidak_masuk'] }} </td>
+                                         <td> {{ $data ['terlambat'] }} </td>
+                                         <td> {{ $data ['ganti_terlambat'] }} </td>
+                                         <td> {{ $data ['psw'] }} </td>
+                                         <td> {{ $data ['potongan_terlambat'] }} % </td>
+                                         <td> {{ $data ['potongan_psw'] }} %  </td>
+                                         <td> {{ $data ['total_potongan'] }} % </td>
                                          <td>  </td>
                                     </tr>
                                 @endforeach
-                            @endif
                         </tbody>                       
                     </table>
                 </br>

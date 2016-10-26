@@ -20,7 +20,6 @@ use App\Hitung;
 class ManajemenDataController extends Controller
 {
     
-
     public function index()
     {
         return view('adminpanel.manajemen_data.index');
@@ -123,17 +122,20 @@ class ManajemenDataController extends Controller
     }
  
 
-    public function logupload() {
+    public function logupload() 
+    {
         $filelogs = Filelog::all();
 
         return view('adminpanel.manajemen_data.logfile', compact('filelogs'));
     }
 
-    public function indexhitung() {
+    public function indexhitung() 
+    {
         return view('adminpanel.manajemen_data.hitung');
     }
 
-    public function hitung(Request $request) {
+    public function hitung(Request $request) 
+    {
         $groupid    = Auth::user()->group_id;
         $dari_tgl   = $request->dari_tgl;
         $sampai_tgl = $request->sampai_tgl;

@@ -16,46 +16,60 @@ Route::auth();
 	
 
 
-Route::group(['middleware' => 'auth'], function () {
+Route::group(['middleware' => ['web', 'auth']], function () {
 	Route::get('/', 'HomeController@index');
+	
+	Route::group(['middleware' => 'adminsuperadmin'], function () {
+		// route anggota
+		Route::get('/unit/{uid}/anggota/create', 'AnggotaController@create');
+		Route::post('/unit/{uid}/anggota/create', 'AnggotaController@store');
+		Route::get('/unit/{uid}/anggota/edit/{id}', 'AnggotaController@edit');
+		Route::post('/unit/{uid}/anggota/update/{id}', 'AnggotaController@update');
+		Route::delete('/unit/{uid}/anggota/delete/{id}', 'AnggotaController@destroy');
 
-	// menu unit kerja
-	Route::get('/unit', 'UnitKerjaController@index'); 
-	Route::get('/unit/create', 'UnitKerjaController@create');
-	Route::post('/unit/create', 'UnitKerjaController@store');
-	Route::get('/unit/edit/{id}', 'UnitKerjaController@edit');
-	Route::post('/unit/update/{id}', 'UnitKerjaController@update');
-	Route::delete('/unit/delete/{id}', 'UnitKerjaController@destroy');
-	Route::get('/unit/{uid}', 'UnitKerjaController@detail');
+		// route kelompok
+		Route::get('/unit/{uid}/kelompok/create', 'KelompokController@create');
+		Route::post('/unit/{uid}/kelompok/create', 'KelompokController@store');
+		Route::get('/unit/{uid}/kelompok/edit/{id}', 'KelompokController@edit');
+		Route::post('unit/{uid}/kelompok/update/{id}', 'KelompokController@update');
+		Route::delete('/unit/{uid}/kelompok/delete/{id}', 'KelompokController@destroy');
 
-	// route anggota
-	Route::get('/unit/{uid}/anggota/create', 'AnggotaController@create');
-	Route::post('/unit/{uid}/anggota/create', 'AnggotaController@store');
-	Route::get('/unit/{uid}/anggota/edit/{id}', 'AnggotaController@edit');
-	Route::post('/unit/{uid}/anggota/update/{id}', 'AnggotaController@update');
-	Route::delete('/unit/{uid}/anggota/delete/{id}', 'AnggotaController@destroy');
-	// route update masih belum
+		// menu unit kerja
+		Route::get('/unit', 'UnitKerjaController@index'); 
+		Route::get('/unit/create', 'UnitKerjaController@create');
+		Route::post('/unit/create', 'UnitKerjaController@store');
+		Route::get('/unit/edit/{id}', 'UnitKerjaController@edit');
+		Route::post('/unit/update/{id}', 'UnitKerjaController@update');
+		Route::delete('/unit/delete/{id}', 'UnitKerjaController@destroy');
+		Route::get('/unit/{uid}', 'UnitKerjaController@detail');
 
-	// route kelompok
-	Route::get('/unit/{uid}/kelompok/create', 'KelompokController@create');
-	Route::post('/unit/{uid}/kelompok/create', 'KelompokController@store');
-	Route::get('/unit/{uid}/kelompok/edit/{id}', 'KelompokController@edit');
-	Route::post('unit/{uid}/kelompok/update/{id}', 'KelompokController@update');
-	Route::delete('/unit/{uid}/kelompok/delete/{id}', 'KelompokController@destroy');
+		//Route manajemen data
+		Route::get('/manajemen-data', 'ManajemenDataController@index');
+		Route::post('/uploadfile', 'ManajemenDataController@uploadfile');
 
-	//Route manajemen data
-	Route::get('/manajemen-data', 'ManajemenDataController@index');
-	Route::post('/uploadfile', 'ManajemenDataController@uploadfile');
+		//Route logfile upload
+		Route::get('/logupload', 'ManajemenDataController@logupload');
 
-	//Route logfile upload
-	Route::get('/logupload', 'ManajemenDataController@logupload');
+		//Route untuk hitung data
+		Route::get('/hitung-data', 'ManajemenDataController@indexhitung');
+		Route::post('/hitung-data', 'ManajemenDataController@hitung');
 
-	//Route untuk hitung data
-	Route::get('/hitung-data', 'ManajemenDataController@indexhitung');
-	Route::post('/hitung-data', 'ManajemenDataController@hitung');
+		//Route rekap data harian
+		Route::get('/rekap', 'RekapController@index');
+		Route::post('/rekap', 'RekapController@rekap_group');
+		Route::get('/rekap/{bln}/{thn}/{uid}', 'RekapController@rekap_user');
+	});
 
-	//Route rekap data harian
-	Route::get('/rekap', 'RekapController@index');
-	Route::post('/rekap', 'RekapController@rekap_group');
+
+	Route::group(['middleware' => 'superadmin'], function () {
+
+	});
+
+	Route::group(['middleware' => 'anggota'], function () {
+		//Route rekap data harian
+		Route::get('/kehadiran', 'KehadiranController@index');
+		Route::post('/kehadiran', 'KehadiranController@rekap');
+		Route::get('/kehadiran/{bln}/{thn}/{uid}', 'KehadiranController@detail');
+	});
 });
 
