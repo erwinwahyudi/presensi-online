@@ -2,7 +2,7 @@
 @section('judul_page', 'Data Kehadiran')
 
 @section('konten')
-<div class="row">
+{{-- <div class="row">
     <div class="col-md-8">
         <!-- Horizontal Form -->
         <div class="box box-info">
@@ -42,23 +42,8 @@
         </div>
         <!-- /.box -->
     </div>
-</div>
+</div> --}}
 
-<!-- /.col -->
-    <div class="col-md-4 col-sm-6 col-xs-12">
-      <div class="info-box">
-        <span class="info-box-icon bg-green"><i class="fa fa-user"></i></span>
-
-        <div class="info-box-content">
-          <span class="info-box-number"> {{ $user->nama }} </span>
-          <span class="info-box-text"> {{ $user->nip }}  </span>
-          {{-- <span class="progress-description"> {{ $user->jabatan }} </span> --}}
-        </div>
-        <!-- /.info-box-content -->
-      </div>
-      <!-- /.info-box -->
-    </div>
-<!-- /.col -->
 
 {{-- <!-- ./col -->
 <div class="col-lg-3 col-xs-6">
@@ -76,6 +61,22 @@
 </div>
 <!-- ./col --> --}}
 
+<!-- /.col -->
+    <div class="col-md-4 col-sm-6 col-xs-12">
+      <div class="info-box">
+        <span class="info-box-icon bg-green"><i class="fa fa-user"></i></span>
+
+        <div class="info-box-content">
+          <span class="info-box-number"> {{ $user->nama }} </span>
+          <span class="info-box-text"> {{ $user->nip }}  </span>
+          {{-- <span class="progress-description"> {{ $user->jabatan }} </span> --}}
+        </div>
+        <!-- /.info-box-content -->
+      </div>
+      <!-- /.info-box -->
+    </div>
+<!-- /.col -->
+
 
 {{-- table data unit --}}
 <div class="row">
@@ -92,43 +93,15 @@
                     <table class="table table-bordered table-striped example1">
                         <thead>
                             <tr>
-                                <th>Tgl</th>
-                                <th>Hri</th>                                
-                                <th>Masuk</th>
-                                <th>Msk Pagi</th>
-                                <th>Istirahat</th>
-                                <th>Msk Siang</th>
-                                <th>Pulang</th>
-                                <th>Terlambat</th>
-                                <th>Ganti Terlambat</th>
-                                <th>PSW</th>
-                                <th>Potongan Terlambat</th>
-                                <th>Potongan PSW</th>
-                                <th>Total Potongan</th>
-                                <th>Ket</th>
+                                <th>Tanggal</th>
+                                <th>Waktu</th>            
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($perhitungans as $perhitungan)
+                            @foreach($attlogs as $attlog)
                                    <tr>
-                                         <td>
-                                              <a href="{{ url('/rekap/log/'.$user->id.'/'.$perhitungan->tanggal) }}" >
-                                                     {{ $perhitungan->tanggal }} 
-                                              </a> 
-                                         </td>
-                                         <td> {{ $perhitungan->hari }} </td>                                         
-                                         <td> {{ $perhitungan->masuk }} </td>
-                                         <td> {{ $perhitungan->masuk_pagi }} </td>
-                                         <td> {{ $perhitungan->istirahat }} </td>
-                                         <td> {{ $perhitungan->masuk_siang }} </td>
-                                         <td> {{ $perhitungan->pulang }} </td>
-                                         <td> {{ $perhitungan->terlambat }} </td>
-                                         <td> {{ $perhitungan->ganti_terlambat }} </td>
-                                         <td> {{ $perhitungan->psw }} </td>
-                                         <td> {{ $perhitungan->potongan_terlambat }} % </td>
-                                         <td> {{ $perhitungan->potongan_psw }} %  </td>
-                                         <td> {{ $perhitungan->total_potongan }} % </td>
-                                         <td> {{ $perhitungan->keterangan }} </td>
+                                         <td> {{ $attlog->date }} </td>                                         
+                                         <td> {{ $attlog->time }} </td>
                                     </tr>
                             @endforeach
                         </tbody>                       

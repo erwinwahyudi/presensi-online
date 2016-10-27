@@ -13,6 +13,7 @@ use DB;
 use App\Perhitungan;
 use App\Fn;
 use App\User;
+use App\Attlog;
 
 class RekapController extends Controller
 {
@@ -126,5 +127,22 @@ class RekapController extends Controller
 					 ->where('group_id', $groupid)->first();
 
     	return view('adminpanel.rekap.detil_user', compact('perhitungans', 'user'));
+    }
+
+    public function log($uid, $tgl)
+    {
+    	$groupid    = Auth::user()->group_id;
+    	$user 		= User::where('id', $uid)
+    					  ->where('group_id', $groupid)->first();
+
+    	$fingerid   = $user->finger_id;
+
+    	$attlogs 	= Attlog::join('group','attlog.finger_group_id', '=', 'group.finger_group_id' )
+    						->where('group.id', $groupid)
+    						->where('finger_id', $fingerid)
+    						->where('date', $tgl)
+    						->orderBy('time', 'asc')->get();
+
+    	return view('adminpanel.rekap.log', compact('attlogs', 'user'));    	
     }
 }

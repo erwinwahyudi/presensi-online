@@ -112,7 +112,7 @@ class ManajemenDataController extends Controller
 
         // if ( $save ) {
             return redirect('/manajemen-data')
-                    ->with('status_error', 'info')
+                    ->with('status_error', 'success')
                     ->with('pesan_error', 'Data berhasil diupload.');
         // } else {
         //     return redirect()->back()

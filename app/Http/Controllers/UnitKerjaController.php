@@ -76,7 +76,7 @@ class UnitKerjaController extends Controller
 
         if($save) {
             return redirect('/unit/create')
-                    ->with('status_error', 'info')
+                    ->with('status_error', 'success')
                     ->with('pesan_error', 'Data berhasil ditambah.');
         } else {
             return redirect()->back()
@@ -123,7 +123,7 @@ class UnitKerjaController extends Controller
         $group->update($request->all());
 
         return redirect()->back()
-                    ->with('status_error', 'info')
+                    ->with('status_error', 'success')
                     ->with('pesan_error', 'Data berhasil di update');
         //atau bisa juga dengan cara ini untuk update data
         // $umur = $request->input('umur');
@@ -149,7 +149,7 @@ class UnitKerjaController extends Controller
         $group->delete();
 
         return redirect('/unit')
-                    ->with('status_error', 'info')
+                    ->with('status_error', 'success')
                     ->with('pesan_error', 'Data terhapus');
     }
 

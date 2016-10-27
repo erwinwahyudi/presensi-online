@@ -37,7 +37,7 @@
 
             @if( (Auth::user()->level == 'admin') || (Auth::user()->level == 'superadmin') )
                 <li><a href="{{ url('/unit') }}"><i class="fa fa-users"></i><span>Unit Kerja</span></a></li>
-                <li><a href="#"><i class="fa fa-check-square-o"></i><span>Hari Libur</span></a></li>
+                <li><a href="{{ URL('/libur') }}"><i class="fa fa-check-square-o"></i><span>Hari Libur</span></a></li>
                 <li><a href="#"><i class="fa fa-calendar"></i><span><span>Jadwal Khusus</span></a></li>
                 <li class="treeview">
                     <a href="#"><i class="fa fa-database"></i><span>Manajemen Data</span> <i class="fa fa-angle-left pull-right"></i></a>

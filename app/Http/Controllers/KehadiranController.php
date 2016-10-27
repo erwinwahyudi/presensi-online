@@ -13,6 +13,7 @@ use DB;
 use App\Perhitungan;
 use App\Fn;
 use App\User;
+use App\Attlog;
 
 class KehadiranController extends Controller
 {
@@ -74,6 +75,7 @@ class KehadiranController extends Controller
 	                                        ->where('users_id', $userid)->first();
 	              $total_potongan = $total_potongan->total_potongan;
 
+	              $datas[$bulan]['tahun']				= $tahun;
 	              $datas[$bulan]['bulan']               = $bulan;
 	              $datas[$bulan]['user_id']             = $userid;
 	              $datas[$bulan]['masuk']               = $masuk;
@@ -91,5 +93,34 @@ class KehadiranController extends Controller
     	// echo "</pre>";
 
     	return view('adminpanel.kehadiran.index', compact('datas'));
+    }
+
+    public function detail($bln, $thn)
+    {
+    	$groupid    = Auth::user()->group_id;
+    	$userid 	= Auth::user()->id;
+    	$perhitungans = Perhitungan::where('users_id', $userid)
+    								->where('group_id', $groupid)
+    								->where('tanggal', 'LIKE', $thn.'-'.$bln.'%')
+    								->orderBy('tanggal', 'asc')->get();
+
+    	$user = User::where('id', $userid)
+					 ->where('group_id', $groupid)->first();
+
+    	return view('adminpanel.kehadiran.detil', compact('perhitungans', 'user'));
+    }
+
+    public function log_hadir($tgl)
+    {
+    	$fingerid 	= Auth::user()->finger_id;
+    	$groupid    = Auth::user()->group_id;
+
+    	$attlogs 	= Attlog::join('group','attlog.finger_group_id', '=', 'group.finger_group_id' )
+    						->where('group.id', $groupid)
+    						->where('finger_id', $fingerid)
+    						->where('date', $tgl)
+    						->orderBy('time', 'asc')->get();
+
+    	return view('adminpanel.kehadiran.log', compact('attlogs'));    	
     }
 }

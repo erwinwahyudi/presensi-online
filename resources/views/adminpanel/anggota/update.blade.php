@@ -89,7 +89,14 @@
                               <select name="kelompok_id" class="form-control select2" style="width: 100%;">
                                     <option value="0"> - </option>
                                 @foreach($kelompoks as $kelompok)
-                                    <option value="{{ $kelompok->id }}"> {{ $kelompok->nama_kelompok }} </option>
+                                    <?php
+                                        if( $kelompok->id == $anggota->kelompok_id ) {
+                                            $selected = "selected";
+                                        } else {
+                                            $selected = "no selected";
+                                        }
+                                    ?>
+                                    <option value="{{ $kelompok->id }}" {{ $selected }}> {{ $kelompok->nama_kelompok }} </option>
                                 @endforeach
                               </select>
                            </div>

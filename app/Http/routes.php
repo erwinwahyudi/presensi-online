@@ -56,8 +56,12 @@ Route::group(['middleware' => ['web', 'auth']], function () {
 
 		//Route rekap data harian
 		Route::get('/rekap', 'RekapController@index');
-		Route::post('/rekap', 'RekapController@rekap_group');
+		Route::post('/rekap', 'RekapController@rekap_group');				
+		Route::get('/rekap/log/{uid}/{tgl}', 'RekapController@log');
 		Route::get('/rekap/{bln}/{thn}/{uid}', 'RekapController@rekap_user');
+
+		//Route CRUD libur
+		Route::get('libur', 'LiburController@index');
 	});
 
 
@@ -68,8 +72,9 @@ Route::group(['middleware' => ['web', 'auth']], function () {
 	Route::group(['middleware' => 'anggota'], function () {
 		//Route rekap data harian
 		Route::get('/kehadiran', 'KehadiranController@index');
-		Route::post('/kehadiran', 'KehadiranController@rekap');
-		Route::get('/kehadiran/{bln}/{thn}/{uid}', 'KehadiranController@detail');
+		Route::post('/kehadiran', 'KehadiranController@rekap');		
+		Route::get('/kehadiran/log/{tgl}', 'KehadiranController@log_hadir');
+		Route::get('/kehadiran/{bln}/{thn}', 'KehadiranController@detail');
 	});
 });
 

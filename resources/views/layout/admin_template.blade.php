@@ -122,10 +122,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
             // "ordering": false,
         });
         $('.example2').DataTable({
+          "ordering": false,
           "paging": true,
-          "lengthChange": false,
-          "searching": false,
-          
+          "lengthChange": true,
+          "searching": false,          
           "info": true,
           "autoWidth": false
         });

@@ -73,7 +73,7 @@ class AnggotaController extends Controller
                     ]);
         if ( $save ) {
             return redirect('/unit/'.$group_id)
-                    ->with('status_error', 'info')
+                    ->with('status_error', 'success')
                     ->with('pesan_error', 'Data berhasil ditambah.');
         } else {
             return redirect()->back()
@@ -147,7 +147,7 @@ class AnggotaController extends Controller
         
         if ( $update ) {
             return redirect('/unit/'.$group_id)
-                    ->with('status_error', 'info')
+                    ->with('status_error', 'success')
                     ->with('pesan_error', 'Data berhasil ditambah.');
         } else {
             return redirect()->back()
@@ -168,7 +168,7 @@ class AnggotaController extends Controller
 
         $user->delete();
         return redirect()->back()
-                    ->with('status_error', 'info')
+                    ->with('status_error', 'success')
                     ->with('pesan_error', 'Data terhapus');
     }
 }

@@ -26,14 +26,13 @@ class Hitung extends Model
     			$kelompok_id = $user->kelompok_id;
     			$tglstart	 = $tglstart;
     			$tglend		 = $tglend;
-
     			
     			
 
     			//1.2. Ambil data kelompok berdasarkan kelompok_id di userid
     			$kelompok  =  DB::table('kelompok')->where('id', $kelompok_id)->first();
     			
-				$absen_istirahat                 =  $kelompok->absen_istirahat;  
+    			$absen_istirahat                 =  $kelompok->absen_istirahat;  
 		        $absen_masuk_istirahat           =  $kelompok->absen_masuk_istirahat;  
 		        $absen_pulang                    =  $kelompok->absen_pulang;  
 		        $hitung_lembur                   =  $kelompok->hitung_lembur;  
@@ -69,8 +68,8 @@ class Hitung extends Model
     								// 'nama'					=> $nama,
     								'users_id'				=> $user_id,
     								'group_id'				=> $groupid,
-					    			'hari'					=> 'NULL',
-					    			'tanggal'				=> 'NULL',
+					    			'hari'					=> '',
+					    			'tanggal'				=> '',
 					    			'masuk_pagi'	  		=> '00:00:00',
 					    			'istirahat'	  			=> '00:00:00',
 					    			'masuk_siang'  			=> '00:00:00',
@@ -88,7 +87,7 @@ class Hitung extends Model
 					    			'potongan_terlambat'	=> '0',
 					    			'potongan_psw'			=> '0',
 					    			'total_potongan'		=> '0',
-					    			'keterangan'			=> 'NULL',
+					    			'keterangan'			=> '',
 						    	);
 
     				$tgl_attlog			= $tanggal->format("Y-m-d");
@@ -111,26 +110,44 @@ class Hitung extends Model
     							//1.3.2.1.1. Cek apakah di tanggal, user absen pagi
     							//rule  : - waktu paling terakhir absen yg akan dijadikan waktu masuk.
 		    					//$masuk = select from waktu attlog where tgl = data_tanggal time (batas_awal masuk kelompok sampai istirahat) where userid
-		    			 		$masuk = DB::table('attlog')->whereBetween('time', [$awal_masuk, $awal_istirahat])
+		    			 			$fullday = DB::table('attlog')->join('group','attlog.finger_group_id', '=', 'group.finger_group_id' )
+								    						->whereBetween('time', [$awal_masuk, $akhir_pulang])
+								    						->where('group.id', $groupid)
 		    			 									->where('finger_id', $finger_id)
 		    			 									->where('date', $tgl_attlog)
 		    			 									->orderBy('time', 'desc')->first();
 		    			 		
-		    			 			//1.3.2.1.2. Jika tidak ditemukan data, maka user tidak masuk, semua data block akan dikosongkan
-		    			 		 	if ( empty($masuk) ) {
-										$data_block['kategori_terlambat_id']	= '6';
-										$data_block['kategori_psw_id']			= '6';
-										$data_block['potongan_terlambat']		= '2.5';
-										$data_block['potongan_psw']				= '2.5';
-										$data_block['total_potongan'] 		= $data_block['potongan_terlambat'] + $data_block['potongan_psw'];
+		    			 			//1.3.2.1.2. Jika tidak ditemukan data absen dalam 1hari maka user tidak masuk, semua data block akan dikosongkan
+		    			 		 	if ( empty($fullday) ) {
+										// $data_block['kategori_terlambat_id']		= '6';
+										// $data_block['kategori_psw_id']			= '6';
+										// $data_block['potongan_terlambat']		= '2.5';
+										// $data_block['potongan_psw']				= '2.5';
+										$data_block['total_potongan'] 			= '5';
+										$data_block['keterangan']				= 'Tidak Masuk';
 									//1.3.2.1.3 Jika masuk, maka lakukan perhitungan terhadap masing2 block data
 									} else {
+											$masuk = DB::table('attlog')->join('group','attlog.finger_group_id', '=', 'group.finger_group_id' )
+								    						->whereBetween('time', [$awal_masuk, $awal_istirahat])
+								    						->where('group.id', $groupid)
+		    			 									->where('finger_id', $finger_id)
+		    			 									->where('date', $tgl_attlog)
+		    			 									->orderBy('time', 'desc')->first();
+		    			 					//cek apakah user absen pagi
+		    			 					if( empty($masuk) ) {
+		    			 						//set default awal masuk jadi jam 9
+		    			 						$waktu_masuk 	 			=  '09:00:00';
+		    			 						$data_block['keterangan']	=  'Tidak Absen Pagi';
+		    			 					} else {
+		    			 						$waktu_masuk	 			=  $masuk->time;
+		    			 					}
+
 											$data_block['masuk']	= '1';
 											#############   MASUK PAGI ####################		    			 		
-											if ($masuk->time > $akhir_masuk) {
+											if ($waktu_masuk > $akhir_masuk) {
 												//terlambat
-												$data_block['masuk_pagi']	= $masuk->time;
-												$hitung_selisih = Hitung::selisih_menit($masuk->time, $akhir_masuk);
+												$data_block['masuk_pagi']	= $waktu_masuk;
+												$hitung_selisih = Hitung::selisih_menit($waktu_masuk, $akhir_masuk);
 												
 												$data_block['terlambat'] = '1';
 												if( $hitung_selisih<=60) {
@@ -158,7 +175,7 @@ class Hitung extends Model
 										            $data_block['potongan_terlambat']	 = '2.5';
 										        }
 										    } else {
-										    	$data_block['masuk_pagi']				 = $masuk->time;
+										    	$data_block['masuk_pagi']				 = $waktu_masuk;
 										    	$data_block['terlambat']				 = '0';
 										    	$data_block['kategori_terlambat_id']	 = '0';        
 										    }
@@ -168,7 +185,9 @@ class Hitung extends Model
 										    #############  ISTIRAHAT ####################
 											//cek dulu apa ada absen istirahat di kelompok
 											if($absen_istirahat=='1') {
-												$istirahat = DB::table('attlog')->whereBetween('time', [$awal_istirahat, $akhir_istirahat])
+												$istirahat = DB::table('attlog')->join('group','attlog.finger_group_id', '=', 'group.finger_group_id' )
+													    						->whereBetween('time', [$awal_istirahat, $akhir_istirahat])
+													    						->where('group.id', $groupid)
 							    			 									->where('finger_id', $finger_id)
 							    			 									->where('date', $tgl_attlog)
 							    			 									->orderBy('time', 'desc')->first();
@@ -189,7 +208,9 @@ class Hitung extends Model
 											#############  MASUK ISTIRAHAT ####################
 											//cek dulu apa ada absen istirahat di kelompok
 											if($absen_masuk_istirahat=='1') {
-												$masuk_siang = DB::table('attlog')->whereBetween('time', [$awal_masuk_istirahat, $akhir_masuk_istirahat])
+												$masuk_siang = DB::table('attlog')->join('group','attlog.finger_group_id', '=', 'group.finger_group_id' )
+													    						->whereBetween('time', [$awal_masuk_istirahat, $akhir_masuk_istirahat])
+													    						->where('group.id', $groupid)
 							    			 									->where('finger_id', $finger_id)
 							    			 									->where('date', $tgl_attlog)
 							    			 									->orderBy('time', 'desc')->first();
@@ -216,10 +237,12 @@ class Hitung extends Model
 												// 	// echo '<br>awal pulang : '.$awal_pulang;
 												// }
 
-												$pulang = DB::table('attlog')->whereBetween('time', [$akhir_masuk_istirahat, $akhir_pulang])
-		    			 									->where('finger_id', $finger_id)
-		    			 									->where('date', $tgl_attlog)
-		    			 									->orderBy('time', 'desc')->first();
+												$pulang = DB::table('attlog')->join('group','attlog.finger_group_id', '=', 'group.finger_group_id' )
+												    						->whereBetween('time', [$akhir_masuk_istirahat, $akhir_pulang])
+												    						->where('group.id', $groupid)
+						    			 									->where('finger_id', $finger_id)
+						    			 									->where('date', $tgl_attlog)
+						    			 									->orderBy('time', 'desc')->first();
 
 		    			 							if (empty($pulang)) {
 		    			 								$data_block['pulang'] 			= '00:00:00';
@@ -282,26 +305,44 @@ class Hitung extends Model
 								//1.3.2.2.1. Cek apakah di tanggal, user absen pagi
     							//rule  : - waktu paling terakhir absen yg akan dijadikan waktu masuk.
 		    					//$masuk = select from waktu attlog where tgl = data_tanggal time (batas_awal masuk kelompok sampai istirahat) where userid
-		    			 		$masuk = DB::table('attlog')->whereBetween('time', [$awal_masuk_jumat, $awal_istirahat_jumat])
+		    			 		$fullday = DB::table('attlog')->join('group','attlog.finger_group_id', '=', 'group.finger_group_id' )
+								    						->whereBetween('time', [$awal_masuk_jumat, $akhir_pulang_jumat])
+								    						->where('group.id', $groupid)
 		    			 									->where('finger_id', $finger_id)
 		    			 									->where('date', $tgl_attlog)
 		    			 									->orderBy('time', 'desc')->first();
 		    			 		
-		    			 			//1.3.2.2.2. Jika tidak ditemukan data, maka user tidak masuk, semua data block akan dikosongkan
-		    			 		 	if ( empty($masuk) ) {
-										$data_block['kategori_terlambat_id']	= '6';
-										$data_block['kategori_psw_id']			= '6';
-										$data_block['potongan_terlambat']		= '2.5';
-										$data_block['potongan_psw']				= '2.5';
-										$data_block['total_potongan'] 		= $data_block['potongan_terlambat'] + $data_block['potongan_psw'];
+		    			 			//1.3.2.1.2. Jika tidak ditemukan data absen dalam 1hari maka user tidak masuk, semua data block akan dikosongkan
+		    			 		 	if ( empty($fullday) ) {
+										// $data_block['kategori_terlambat_id']		= '6';
+										// $data_block['kategori_psw_id']			= '6';
+										// $data_block['potongan_terlambat']		= '2.5';
+										// $data_block['potongan_psw']				= '2.5';
+										$data_block['total_potongan'] 			= '5';
+										$data_block['keterangan']				= 'Tidak Masuk';
 									//1.3.2.2.3 Jika masuk, maka lakukan perhitungan terhadap masing2 block data
 									} else {
+											$masuk = DB::table('attlog')->join('group','attlog.finger_group_id', '=', 'group.finger_group_id' )
+											    						->whereBetween('time', [$awal_masuk_jumat, $awal_istirahat_jumat])
+											    						->where('group.id', $groupid)
+					    			 									->where('finger_id', $finger_id)
+					    			 									->where('date', $tgl_attlog)
+					    			 									->orderBy('time', 'desc')->first();
+					    			 		//cek apakah user absen pagi
+		    			 					if( empty($masuk) ) {
+		    			 						//set default awal masuk jadi jam 9
+		    			 						$waktu_masuk_jumat 	 		=  '09:00:00';
+		    			 						$data_block['keterangan']	=  'Tidak Absen Pagi';
+		    			 					} else {
+		    			 						$waktu_masuk_jumat 			=  $masuk->time;
+		    			 					}
+
 											$data_block['masuk']	= '1';
-											#############   MASUK PAGI ####################		    			 		
-											if ($masuk->time > $akhir_masuk) {
+											#############   MASUK PAGI ####################	
+											if ($waktu_masuk_jumat > $akhir_masuk_jumat) {
 												//terlambat
-												$data_block['masuk_pagi']	= $masuk->time;
-												$hitung_selisih = Hitung::selisih_menit($masuk->time, $akhir_masuk);
+												$data_block['masuk_pagi']	= $waktu_masuk_jumat;
+												$hitung_selisih = Hitung::selisih_menit($waktu_masuk_jumat, $akhir_masuk_jumat);
 												$data_block['terlambat'] = '1';
 												if( $hitung_selisih<=60) {
 													$data_block['kategori_terlambat_id'] = '1';
@@ -328,7 +369,7 @@ class Hitung extends Model
 										            $data_block['potongan_terlambat']	 = '2.5';
 										        }
 										    } else {
-										    	$data_block['masuk_pagi']				 = $masuk->time;
+										    	$data_block['masuk_pagi']				 = $waktu_masuk_jumat;
 										    	$data_block['terlambat']				 = '0';
 										    	$data_block['kategori_terlambat_id']	 = '0';        
 										    }
@@ -337,7 +378,9 @@ class Hitung extends Model
 										    #############  ISTIRAHAT ####################
 											//cek dulu apa ada absen istirahat di kelompok
 											if($absen_istirahat=='1') {
-												$istirahat = DB::table('attlog')->whereBetween('time', [$awal_istirahat_jumat, $akhir_istirahat_jumat])
+												$istirahat = DB::table('attlog')->join('group','attlog.finger_group_id', '=', 'group.finger_group_id' )
+													    						->whereBetween('time', [$awal_istirahat_jumat, $akhir_istirahat_jumat])
+													    						->where('group.id', $groupid)
 							    			 									->where('finger_id', $finger_id)
 							    			 									->where('date', $tgl_attlog)
 							    			 									->orderBy('time', 'desc')->first();
@@ -358,10 +401,12 @@ class Hitung extends Model
 											#############  MASUK ISTIRAHAT ####################
 											//cek dulu apa ada absen istirahat di kelompok
 											if($absen_masuk_istirahat=='1') {
-												$masuk_siang = DB::table('attlog')->whereBetween('time', [$awal_masuk_istirahat_jumat, $akhir_masuk_istirahat_jumat])
-							    			 									->where('finger_id', $finger_id)
-							    			 									->where('date', $tgl_attlog)
-							    			 									->orderBy('time', 'desc')->first();
+												$masuk_siang = DB::table('attlog')->join('group','attlog.finger_group_id', '=', 'group.finger_group_id' )
+														    						->whereBetween('time', [$awal_masuk_istirahat_jumat, $akhir_masuk_istirahat_jumat])
+														    						->where('group.id', $groupid)
+								    			 									->where('finger_id', $finger_id)
+								    			 									->where('date', $tgl_attlog)
+								    			 									->orderBy('time', 'desc')->first();
 						    			 		
 						    			 		
 						    			 		 	// $waktu_istirahat 			  = $istirahat->time;	
@@ -385,10 +430,12 @@ class Hitung extends Model
 												// 	echo '<br>awal pulang jumat : '.$awal_pulang_jumat;
 												// }
 
-												$pulang = DB::table('attlog')->whereBetween('time', [$akhir_masuk_istirahat_jumat, $akhir_pulang_jumat])
-		    			 									->where('finger_id', $finger_id)
-		    			 									->where('date', $tgl_attlog)
-		    			 									->orderBy('time', 'desc')->first();
+												$pulang = DB::table('attlog')->join('group','attlog.finger_group_id', '=', 'group.finger_group_id' )
+												    						->whereBetween('time', [$akhir_masuk_istirahat_jumat, $akhir_pulang_jumat])
+												    						->where('group.id', $groupid)
+						    			 									->where('finger_id', $finger_id)
+						    			 									->where('date', $tgl_attlog)
+						    			 									->orderBy('time', 'desc')->first();
 		    			 							if (empty($pulang)) {
 		    			 								$data_block['pulang'] 			= '00:00:00';
 		    			 								$data_block['kategori_psw_id']	= '6';

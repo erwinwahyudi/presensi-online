@@ -73,18 +73,21 @@
                             </tr>
                         </thead>
                         <tbody>
-                                <?php $no=0 ?>
                                 @foreach($datas as $key => $data)
                                    <tr>
-                                         <td> {{ $no+=1 }} </td>
-                                         <td> {{ $data ['masuk'] }} </td>
-                                         <td> {{ $data ['tidak_masuk'] }} </td>
-                                         <td> {{ $data ['terlambat'] }} </td>
-                                         <td> {{ $data ['ganti_terlambat'] }} </td>
-                                         <td> {{ $data ['psw'] }} </td>
-                                         <td> {{ $data ['potongan_terlambat'] }} % </td>
-                                         <td> {{ $data ['potongan_psw'] }} %  </td>
-                                         <td> {{ $data ['total_potongan'] }} % </td>
+                                         <td> 
+                                              <a href="{{ url('/kehadiran/'.$data['bulan'].'/'.$data['tahun']) }}" >
+                                                     {{ $data['bulan'] }} 
+                                              </a>
+                                         </td>
+                                         <td> {{ $data['masuk'] }} </td>
+                                         <td> {{ $data['tidak_masuk'] }} </td>
+                                         <td> {{ $data['terlambat'] }} </td>
+                                         <td> {{ $data['ganti_terlambat'] }} </td>
+                                         <td> {{ $data['psw'] }} </td>
+                                         <td> {{ $data['potongan_terlambat'] }} % </td>
+                                         <td> {{ $data['potongan_psw'] }} %  </td>
+                                         <td> {{ $data['total_potongan'] }} % </td>
                                          <td>  </td>
                                     </tr>
                                 @endforeach

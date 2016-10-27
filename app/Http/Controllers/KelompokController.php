@@ -119,7 +119,7 @@ class KelompokController extends Controller
 
         if( $save ) {
             return redirect('/unit/'.$group_id)
-                    ->with('status_error', 'info')
+                    ->with('status_error', 'success')
                     ->with('pesan_error', 'Data berhasil ditambah.');
         } else {
             return redirect()->back()
@@ -240,7 +240,7 @@ class KelompokController extends Controller
 
         if( $update ) {
             return redirect('/unit/'.$group_id)
-                    ->with('status_error', 'info')
+                    ->with('status_error', 'success')
                     ->with('pesan_error', 'Data berhasil ditambah.');
         } else {
             return redirect()->back()
@@ -261,7 +261,7 @@ class KelompokController extends Controller
         $kelompok->delete();
 
         return redirect()->back()
-                    ->with('status_error', 'info')
+                    ->with('status_error', 'success')
                     ->with('pesan_error', 'Data berhasil dihapus');
     }
 }

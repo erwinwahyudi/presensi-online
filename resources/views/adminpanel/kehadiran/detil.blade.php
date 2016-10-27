@@ -45,7 +45,7 @@
 </div>
 
 <!-- /.col -->
-    <div class="col-md-4 col-sm-6 col-xs-12">
+    <div class="col-md-3 col-sm-6 col-xs-12">
       <div class="info-box">
         <span class="info-box-icon bg-green"><i class="fa fa-user"></i></span>
 
@@ -93,7 +93,7 @@
                         <thead>
                             <tr>
                                 <th>Tgl</th>
-                                <th>Hri</th>                                
+                                <th>Hari</th>                                
                                 <th>Masuk</th>
                                 <th>Msk Pagi</th>
                                 <th>Istirahat</th>
@@ -112,7 +112,7 @@
                             @foreach($perhitungans as $perhitungan)
                                    <tr>
                                          <td>
-                                              <a href="{{ url('/rekap/log/'.$user->id.'/'.$perhitungan->tanggal) }}" >
+                                              <a href="{{ url('/kehadiran/log/'.$perhitungan->tanggal) }}" >
                                                      {{ $perhitungan->tanggal }} 
                                               </a> 
                                          </td>
