@@ -75,6 +75,10 @@ Route::group(['middleware' => ['web', 'auth']], function () {
 		Route::post('/kehadiran', 'KehadiranController@rekap');		
 		Route::get('/kehadiran/log/{tgl}', 'KehadiranController@log_hadir');
 		Route::get('/kehadiran/{bln}/{thn}', 'KehadiranController@detail');
+
+		//Route untuk izin
+		Route::get('/izin', 'IzinController@index');
+		Route::post('/izin', 'IzinController@create');
 	});
 });
 
