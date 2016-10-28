@@ -1,4 +1,4 @@
-<form action="/unit/update/{{ $group->id }}" class="form-horizontal" method="POST">
+<form action="unit/update/{{ $group->id }}" class="form-horizontal" method="POST">
     {{ csrf_field() }}
     <input name="active" type="hidden" value="1">
         <div class="box-body">

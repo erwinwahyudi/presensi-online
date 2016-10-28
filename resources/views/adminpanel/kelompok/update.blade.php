@@ -13,7 +13,7 @@
             </div>
             <!-- /.box-header -->
             <!-- form start -->
-            <form action="/unit/{{ $kelompok->group_id }}/kelompok/update/{{ $kelompok->id }}" class="form-horizontal" method="POST">
+            <form action="unit/{{ $kelompok->group_id }}/kelompok/update/{{ $kelompok->id }}" class="form-horizontal" method="POST">
                 {{ csrf_field() }}
                     <input type="hidden" name="group_id" value="{{ $kelompok->group_id }}">
                     <div class="box-body">

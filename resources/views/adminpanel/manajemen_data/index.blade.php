@@ -13,7 +13,7 @@
             </div>
             <!-- /.box-header -->
             <!-- form start -->
-            <form action="/uploadfile" class="form-horizontal" method="POST" enctype="multipart/form-data">
+            <form action="uploadfile" class="form-horizontal" method="POST" enctype="multipart/form-data">
                 {{ csrf_field() }}
                 <input name="active" type="hidden" value="1">
                     <div class="box-body">

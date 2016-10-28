@@ -13,7 +13,7 @@
             </div>
             <!-- /.box-header -->
             <!-- form start -->
-            <form action="/unit/create" class="form-horizontal" method="POST">
+            <form action="unit/create" class="form-horizontal" method="POST">
                 {{ csrf_field() }}
                 <input name="active" type="hidden" value="1">
                     <div class="box-body">
