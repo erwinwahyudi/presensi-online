@@ -84,7 +84,7 @@
         <div class="box">
             <div class="box-header with-border">
                 <h3 class="box-title">
-                    Data Kehadiran User
+                    Data Log Absen
                 </h3>
             </div>
             <!-- /.box-header -->
@@ -102,6 +102,45 @@
                                    <tr>
                                          <td> {{ $attlog->date }} </td>                                         
                                          <td> {{ $attlog->time }} </td>
+                                    </tr>
+                            @endforeach
+                        </tbody>                       
+                    </table>
+                </br>
+            </div>
+            <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+    </div>
+</div>
+
+
+{{-- table izin --}}
+<div class="row">
+    <div class="col-md-12">
+        <div class="box">
+            <div class="box-header with-border">
+                <h3 class="box-title">
+                    Data Izin
+                </h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">               
+                <br>
+                    <table class="table table-bordered table-striped example1">
+                        <thead>
+                            <tr>
+                                <th>Tgl Mulai</th>
+                                <th>Tgl Selesai</th>
+                                <th>Keterangan</th>            
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($izins as $izin)
+                                   <tr>
+                                         <td> {{ $izin->tgl_mulai_izin }} </td>                                         
+                                         <td> {{ $izin->tgl_selesai_izin }} </td>
+                                         <td> {{ $izin->keterangan }} </td>
                                     </tr>
                             @endforeach
                         </tbody>                       

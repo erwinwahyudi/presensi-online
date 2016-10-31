@@ -143,6 +143,10 @@ class RekapController extends Controller
     						->where('date', $tgl)
     						->orderBy('time', 'asc')->get();
 
-    	return view('adminpanel.rekap.log', compact('attlogs', 'user'));    	
+    	$izins		= DB::table('izin')->join('kategori_izin', 'izin.kode_izin', '=', 'kategori_izin.kode_izin')
+    								   ->where('users_id', $uid)
+    								   ->where('group_id', $groupid)->get();
+
+    	return view('adminpanel.rekap.log', compact('attlogs', 'user', 'izins'));    	
     }
 }

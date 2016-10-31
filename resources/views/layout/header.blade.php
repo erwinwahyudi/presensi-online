@@ -2,7 +2,7 @@
 <header class="main-header">
 
     <!-- Logo -->
-    <a href="index2.html" class="logo"><b>Sistem </b> PRESENSI</a>
+    <a href="index2.html" class="logo"><b>PRESENSI </b> Online</a>
 
     <!-- Header Navbar -->
     <nav class="navbar navbar-static-top" role="navigation">

@@ -46,34 +46,45 @@ class IzinController extends Controller
         $tgl_selesai_izin   = $request->tgl_selesai_izin;
         $kode_izin          = $request->kode_izin;
         $file               = $request->file('file_surat');
-
-        if($request->hasFile('file_surat')) {
-            $real_name  =  $file->getClientOriginalName();
-            $extfile    =  $file->getClientOriginalExtension();
-            $filename   =  md5(time().rand()).".".$extfile;
-            $lokasi     =  public_path().'/file_surat';
-
-            //pindah file
-            $file->move($lokasi, $filename);
-        }
-
-        $save   =  Izin::create([
-                                    'users_id'          => $userid,
-                                    'group_id'          => $groupid,
-                                    'tgl_mulai_izin'    => $tgl_mulai_izin,
-                                    'tgl_selesai_izin'  => $tgl_selesai_izin,
-                                    'kode_izin'         => $kode_izin,
-                                    'file_surat'        => $filename,
-                                ]);
-
-        if ( $save ) {
+        //cek apakah di rentang tgl, sudah ada data
+        $cek_tgl    = DB::table('izin')->whereBetween('tgl_mulai_izin', [$tgl_mulai_izin, $tgl_selesai_izin])
+                                       ->where('users_id', $userid)
+                                       ->where('group_id', $groupid)->count();
+        if( $cek_tgl > 0 ) {
             return redirect('/izin')
-                    ->with('status_error', 'success')
-                    ->with('pesan_error', 'Data berhasil ditambah.');
+                        ->with('status_error', 'danger')
+                        ->with('pesan_error', 'Duplikat entri tanggal');
         } else {
-            return redirect()->back()
-                    ->with('status_error', 'danger')
-                    ->with('pesan_error', 'Data gagal disimpan, terjadi kesalahan');
-        }
+            if($request->hasFile('file_surat')) {
+                $real_name  =  $file->getClientOriginalName();
+                $extfile    =  $file->getClientOriginalExtension();
+                $filename   =  md5(time().rand()).".".$extfile;
+                $lokasi     =  public_path().'/file_surat';
+
+                //pindah file
+                $file->move($lokasi, $filename);
+            }
+
+            $save   =  Izin::create([
+                                        'users_id'          => $userid,
+                                        'group_id'          => $groupid,
+                                        'tgl_mulai_izin'    => $tgl_mulai_izin,
+                                        'tgl_selesai_izin'  => $tgl_selesai_izin,
+                                        'kode_izin'         => $kode_izin,
+                                        'file_surat'        => $filename,
+                                    ]);
+
+            if ( $save ) {
+                return redirect('/izin')
+                        ->with('status_error', 'success')
+                        ->with('pesan_error', 'Data berhasil ditambah.');
+            } else {
+                return redirect()->back()
+                        ->with('status_error', 'danger')
+                        ->with('pesan_error', 'Data gagal disimpan, terjadi kesalahan');
+            }
+        }        
     }
+
+    
 }

@@ -83,12 +83,14 @@ class Hitung extends Model
 					    			'kategori_terlambat_id'	=> '0',
 					    			'kategori_psw_id'  		=> '0',
 					    			'lembur'				=> '0',
+					    			'izin'					=> '0',
 					    			'total_lembur'			=> '0',
 					    			'potongan_terlambat'	=> '0',
 					    			'potongan_psw'			=> '0',
 					    			'total_potongan'		=> '0',
 					    			'keterangan'			=> '',
 						    	);
+
 
     				$tgl_attlog			= $tanggal->format("Y-m-d");
 
@@ -119,12 +121,11 @@ class Hitung extends Model
 		    			 		
 		    			 			//1.3.2.1.2. Jika tidak ditemukan data absen dalam 1hari maka user tidak masuk, semua data block akan dikosongkan
 		    			 		 	if ( empty($fullday) ) {
-										// $data_block['kategori_terlambat_id']		= '6';
-										// $data_block['kategori_psw_id']			= '6';
-										// $data_block['potongan_terlambat']		= '2.5';
-										// $data_block['potongan_psw']				= '2.5';
-										$data_block['total_potongan'] 			= '5';
-										$data_block['keterangan']				= 'Tidak Masuk';
+		    			 		 		$data = Hitung::get_data_tidak_masuk($user_id, $groupid, $tgl_attlog);
+
+		    			 		 		$data_block['keterangan'] 		= $data->keterangan;
+		    			 		 		$data_block['total_potongan']	= $data->total_potongan;
+		    			 		 		$data_block['izin']				= $data->izin;
 									//1.3.2.1.3 Jika masuk, maka lakukan perhitungan terhadap masing2 block data
 									} else {
 											$masuk = DB::table('attlog')->join('group','attlog.finger_group_id', '=', 'group.finger_group_id' )
@@ -314,12 +315,11 @@ class Hitung extends Model
 		    			 		
 		    			 			//1.3.2.1.2. Jika tidak ditemukan data absen dalam 1hari maka user tidak masuk, semua data block akan dikosongkan
 		    			 		 	if ( empty($fullday) ) {
-										// $data_block['kategori_terlambat_id']		= '6';
-										// $data_block['kategori_psw_id']			= '6';
-										// $data_block['potongan_terlambat']		= '2.5';
-										// $data_block['potongan_psw']				= '2.5';
-										$data_block['total_potongan'] 			= '5';
-										$data_block['keterangan']				= 'Tidak Masuk';
+		    			 		 		$data = Hitung::get_data_tidak_masuk($user_id, $groupid, $tgl_attlog);
+
+		    			 		 		$data_block['keterangan'] 		= $data->keterangan;
+		    			 		 		$data_block['total_potongan']	= $data->total_potongan;
+		    			 		 		$data_block['izin']				= $data->izin;
 									//1.3.2.2.3 Jika masuk, maka lakukan perhitungan terhadap masing2 block data
 									} else {
 											$masuk = DB::table('attlog')->join('group','attlog.finger_group_id', '=', 'group.finger_group_id' )
@@ -500,6 +500,34 @@ class Hitung extends Model
     }
 
     ####################################### PRIVATE FUNCTION ##########################################
+    //hitung potongan untuk cuti atau tidak masuk tanpa keterangan
+    private static function get_data_tidak_masuk($user_id, $groupid, $tgl_attlog)
+    {
+    	$data = (object) '';
+    	$cek_tgl = DB::table('izin')->where('users_id', $user_id)
+									->where('group_id', $groupid)
+									->where('tgl_mulai_izin', '<=', $tgl_attlog)
+									->where('tgl_selesai_izin', '>=', $tgl_attlog)->count();
+		if( $cek_tgl > 0 ) {
+			$get_potongan 	= DB::table('izin')->join('kategori_izin', 'izin.kode_izin', '=', 'kategori_izin.kode_izin')
+									->where('users_id', $user_id)
+									->where('group_id', $groupid)
+									->where('tgl_mulai_izin', '<=', $tgl_attlog)
+									->where('tgl_selesai_izin', '>=', $tgl_attlog)->first();
+			$potongan 		= $get_potongan->kode_izin;
+			//ambil potongan berdasarkan kode
+			$potongan 		= substr($potongan, 0, 1);
+			$data->total_potongan	= $potongan;
+			$data->izin				= '1';
+			$data->keterangan		= $get_potongan->keterangan;
+		} else {
+			$data->total_potongan   = '5';
+			$data->izin				= '0';
+			$data->keterangan		= 'Tidak Masuk';
+		}
+		return $data;
+    }
+
     private static function nama_hari($date)
 	{
 		$hari = date('N', strtotime($date));
