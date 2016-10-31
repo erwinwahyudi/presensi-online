@@ -54,6 +54,7 @@ class Kernel extends HttpKernel
         'superadmin'  => \App\Http\Middleware\SuperAdmin::class,
         'admin'  => \App\Http\Middleware\Admin::class,
         'adminsuperadmin'  => \App\Http\Middleware\AdminSuperAdmin::class,
+        'anggotaadmin'  => \App\Http\Middleware\AnggotaAdmin::class,
         // middleware untuk hak akses
     ];
 }

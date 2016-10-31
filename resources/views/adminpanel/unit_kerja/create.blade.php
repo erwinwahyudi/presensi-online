@@ -13,7 +13,8 @@
             </div>
             <!-- /.box-header -->
             <!-- form start -->
-            <form action="unit/create" class="form-horizontal" method="POST">
+            {!! Form::open(['url' => 'unit/create', 'class' => 'form-horizontal']) !!}
+            {{-- <form action="/unit/create" class="form-horizontal" method="POST"> --}}
                 {{ csrf_field() }}
                 <input name="active" type="hidden" value="1">
                     <div class="box-body">
@@ -27,20 +28,7 @@
                             </div>
                             <span class="help-block"> {{ $errors->first('nama_group') }} </span></p>
                         </div>
-                        <!-- <div class="form-group">
-                           <label class="col-sm-2 control-label">Sub Unit</label>
-                           <div class="col-sm-10">
-                              <select class="form-control select2" style="width: 100%;">
-                                <option selected="selected">Alabama</option>
-                                <option>Alaska</option>
-                                <option>California</option>
-                                <option>Delaware</option>
-                                <option>Tennessee</option>
-                                <option>Texas</option>
-                                <option>Washington</option>
-                              </select>
-                           </div>
-                         </div> -->
+                        
                         <div class="form-group{{ $errors->has('finger_group_id') ? 'has-error' : '' }}">
                            <label class="col-sm-2 control-label" for="inputFingerGroupId">
                                 ID Finger Unit
@@ -61,7 +49,8 @@
                     </div>
                     <!-- /.box-footer -->
                 </input>
-            </form>
+            {{-- </form> --}}
+            {!! Form::close() !!}
         </div>
         <!-- /.box -->
     </div>

@@ -16,7 +16,7 @@ Route::auth();
 	
 
 
-Route::group(['middleware' => ['web', 'auth']], function () {
+Route::group(['middleware' => 'auth'], function () {
 	Route::get('/', 'HomeController@index');
 	
 	Route::group(['middleware' => 'adminsuperadmin'], function () {
@@ -69,16 +69,18 @@ Route::group(['middleware' => ['web', 'auth']], function () {
 
 	});
 
+	Route::group(['middleware' => 'anggotaadmin'], function () {
+		//Route untuk izin
+		Route::get('/izin', 'IzinController@index');
+		Route::post('/izin', 'IzinController@create');
+	});
+
 	Route::group(['middleware' => 'anggota'], function () {
 		//Route rekap data harian
 		Route::get('/kehadiran', 'KehadiranController@index');
 		Route::post('/kehadiran', 'KehadiranController@rekap');		
 		Route::get('/kehadiran/log/{tgl}', 'KehadiranController@log_hadir');
-		Route::get('/kehadiran/{bln}/{thn}', 'KehadiranController@detail');
-
-		//Route untuk izin
-		Route::get('/izin', 'IzinController@index');
-		Route::post('/izin', 'IzinController@create');
+		Route::get('/kehadiran/{bln}/{thn}', 'KehadiranController@detail');		
 	});
 });
 

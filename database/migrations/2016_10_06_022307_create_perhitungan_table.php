@@ -31,6 +31,7 @@ class CreatePerhitunganTable extends Migration
             $table->integer('kategori_psw_id');
             $table->string('waktu_ganti_terlambat');            
             $table->integer('lembur');
+            $table->integer('izin');
             $table->string('total_lembur');
             $table->string('potongan_terlambat');
             $table->string('potongan_psw');

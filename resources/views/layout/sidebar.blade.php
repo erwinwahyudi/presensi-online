@@ -58,6 +58,9 @@
 
             @if(Auth::user()->level == 'anggota')     
                 <li class="active"><a href="{{ url('kehadiran') }}"><i class="fa fa-file-text-o"></i><span>Kehadiran</span></a></li>           
+            @endif
+
+            @if(Auth::user()->level == 'anggota' || Auth::user()->level == 'admin')     
                 <li class="treeview">
                     <a href="#"><i class="fa fa-database"></i><span>Izin</span> <i class="fa fa-angle-left pull-right"></i></a>
                     <ul class="treeview-menu">

@@ -13,10 +13,26 @@
             </div>
             <!-- /.box-header -->
             <!-- form start -->
-            <form action="{{ url('izin') }}" class="form-horizontal" method="POST" enctype="multipart/form-data">
-                {{ csrf_field() }}
+            {!! Form::open(['url' => 'izin', 'class' => 'form-horizontal', 'enctype' => 'multipart/form-data']) !!}
+            {{-- <form action="izin" class="form-horizontal" method="POST" enctype="multipart/form-data"> --}}
                 
                     <div class="box-body">
+
+                        @if ( Auth::user()->level == 'admin' )
+                          <div class="form-group">
+                           <label class="col-sm-2 control-label">Pilih User</label>
+                           <div class="col-sm-4">
+                              <select name="users_id" class="form-control select2" style="width: 100%;">
+                                    @foreach($users as $user)
+                                        <option value="{{ $user->id }}"> {{ $user->nama }} </option>
+                                    @endforeach
+                              </select>
+                           </div>
+                          </div>
+                        @else
+                          <input type="hidden" name="users_id" value="{{ $users }}">
+                        @endif
+                        <input type="hidden" name="group_id" value="{{ Auth::user()->group_id }}">
                         <div class="form-group {{ $errors->has('tgl_mulai_izin') ? 'has-error' : '' }}">
                             <label class="col-sm-2 control-label" for="inputFingerId">
                                 Tgl Mulai Izin
@@ -26,9 +42,10 @@
                                   <div class="input-group-addon">
                                     <i class="fa fa-calendar"></i>
                                   </div>
-                                  <input type="text" name="tgl_mulai_izin" class="form-control pull-right datepicker" placeholder="dari tanggal">
+                                  <input type="text" name="tgl_mulai_izin" value="{{ old('tgl_mulai_izin') }}" class="form-control pull-right datepicker" class="form-control pull-right" placeholder="dari tanggal">
                                 </div>
                             </div>
+                            <span class="help-block"> {{ $errors->first('tgl_mulai_izin') }} </span>
                         </div>
                         <div class="form-group {{ $errors->has('tgl_selesai_izin') ? 'has-error' : '' }}">
                             <label class="col-sm-2 control-label" for="inputFingerId">
@@ -39,29 +56,30 @@
                                   <div class="input-group-addon">
                                     <i class="fa fa-calendar"></i>
                                   </div>
-                                  <input type="text" name="tgl_selesai_izin" class="form-control pull-right datepicker" placeholder="sampai tanggal">
+                                  <input type="text" name="tgl_selesai_izin" value="{{ old('tgl_selesai_izin') }}" class="form-control pull-right datepicker" placeholder="sampai tanggal">
                                 </div>
                             </div>
+                            <span class="help-block"> {{ $errors->first('tgl_selesai_izin') }} </span>
                         </div>
 
                         <div class="form-group">
                            <label class="col-sm-2 control-label">Jenis Izin/Cuti</label>
                            <div class="col-sm-4">
                               <select name="kode_izin" class="form-control select2" style="width: 100%;">
-                                    <option value="0"> - </option>
-                                {{-- @foreach($kelompoks as $kelompok) --}}
-                                    {{-- <option value="{{ $kelompok->id }}"> {{ $kelompok->nama_kelompok }} </option> --}}
-                                {{-- @endforeach --}}
+                                    @foreach($kat_izins as $kat_izin)
+                                        <option value="{{ $kat_izin->kode_izin }}"> {{ $kat_izin->keterangan }} </option>
+                                    @endforeach
                               </select>
                            </div>
-                         </div>
+                        </div>
 
-                         <div class="form-group">
+                         <div class="form-group {{ $errors->has('file_surat') ? 'has-error' : '' }}">
                             <label class="col-sm-2 control-label" for="exampleInputFile">Upload File Surat</label>
-                            <div class="col-sm-8">
+                            <div class="col-sm-4">
                               <input type="file" name="file_surat" id="exampleInputFile">
                               {{-- <p class="help-block">Example block-level help text here.</p> --}}
                             </div>
+                            <span class="help-block"> {{ $errors->first('file_surat') }} </span>
                         </div>
 
 
@@ -76,7 +94,8 @@
                     </div>
                     <!-- /.box-footer -->
                 </input>
-            </form>
+            {{-- </form> --}}
+            {!! Form::close() !!}
         </div>
         <!-- /.box -->
     </div>
