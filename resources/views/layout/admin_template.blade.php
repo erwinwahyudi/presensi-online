@@ -23,6 +23,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     
     <!-- DataTables -->
     <link rel="stylesheet" href="{{ asset('/bower_components/admin-lte/plugins/datatables/dataTables.bootstrap.css') }}">
+    {{-- <link rel="stylesheet" href="{{ asset('/bower_components/admin-lte/plugins/datatables/extensions/Responsive/css/dataTables.responsive.css') }}"> --}}
     
     <!-- Bootstrap time Picker -->
     <link rel="stylesheet" href="{{ asset('/bower_components/admin-lte/plugins/timepicker/bootstrap-timepicker.min.css') }}">
@@ -39,6 +40,17 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
     <![endif]-->
+    <style type="text/css">
+        .small-box {
+            height: 80px;
+            padding: 0px 0px 5px 0px;
+            margin-bottom: 5px;
+        }
+        .small-box>.inner {
+            padding-left: 30px;
+        }
+
+    </style>
 </head>
 <body class="skin-blue">
 <div class="wrapper">
@@ -99,6 +111,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <!-- DataTables -->
 <script src="{{ asset('/bower_components/admin-lte/plugins/datatables/jquery.dataTables.min.js') }}"></script>
 <script src="{{ asset('/bower_components/admin-lte/plugins/datatables/dataTables.bootstrap.min.js') }}"></script>
+{{-- <script src="{{ asset('/bower_components/admin-lte/plugins/datatables/extensions/Responsive/js/dataTables.responsive.js') }}"></script> --}}
 
 <!-- bootstrap time picker -->
 <script src="{{ asset('/bower_components/admin-lte/plugins/timepicker/bootstrap-timepicker.min.js') }}"></script>
@@ -120,6 +133,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         // datatable
         $(".example1").DataTable({
             // "ordering": false,
+            responsive: true,
         });
         $('.example2').DataTable({
           "ordering": false,
@@ -127,7 +141,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
           "lengthChange": true,
           "searching": false,          
           "info": true,
-          "autoWidth": false
+          "autoWidth": false,
+          "responsive": true,
         });
 
         //Timepicker

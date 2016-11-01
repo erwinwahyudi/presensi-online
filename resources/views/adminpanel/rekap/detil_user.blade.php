@@ -13,7 +13,7 @@
             </div>
             <!-- /.box-header -->
             <!-- form start -->
-                    <input type="hidden" name="userid" value="{{ $user->id }}" id="userid">
+                    <input type="hidden" name="userid" value="{{ $data['user']->id }}" id="userid">
                     <div class="box-body">
                         <div class="form-group">
                             <label class="col-sm-2 control-label">Pilih Bulan:</label>
@@ -43,21 +43,21 @@
     </div>
 </div>
 
-<!-- /.col -->
-<div class="col-md-4 col-sm-6 col-xs-12">
-  <div class="info-box">
-    <span class="info-box-icon bg-green"><i class="fa fa-user"></i></span>
-
-    <div class="info-box-content">
-      <span class="info-box-number"> {{ $user->nama }} </span>
-      <span class="info-box-text"> {{ $user->nip }}  </span>
-      {{-- <span class="progress-description"> {{ $user->jabatan }} </span> --}}
-    </div>
-    <!-- /.info-box-content -->
+<div class="col-md-4">
+  <!-- Widget: user widget style 1 -->
+  <div class="box box-widget widget-user-2">
+    <!-- Add the bg color to the header using any of the bg-* classes -->
+    <div class="widget-user-header bg-green">
+      <div class="widget-user-image">
+        <img class="img-circle" src="https://almsaeedstudio.com/themes/AdminLTE/dist/img/user7-128x128.jpg" alt="User Avatar">
+      </div>
+      <!-- /.widget-user-image -->
+      <h3 class="widget-user-username"> {{ $data['user']->nama }} </h3>
+      <h4 class="widget-user-desc"> {{ $data['user']->jabatan }} </h4>
+     </div>
   </div>
-  <!-- /.info-box -->
+  <!-- /.widget-user -->
 </div>
-<!-- /.col -->
 
 {{-- table data unit --}}
 <div class="row">
@@ -70,8 +70,9 @@
             </div>
             <!-- /.box-header -->
             <div class="box-body">               
-                <br>
-                    <table class="table table-bordered table-striped example1">
+                <br> 
+                    <table class="table table-responsive table-bordered table-striped example1">
+                    {{-- <table class="table table-bordered table-striped example1"> --}}
                         <thead>
                             <tr>
                                 <th>Tgl</th>
@@ -92,10 +93,10 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($perhitungans as $perhitungan)
+                            @foreach($data['perhitungans'] as $perhitungan)
                                    <tr>
                                          <td>
-                                              <a href="{{ url('/rekap/log/'.$user->id.'/'.$perhitungan->tanggal) }}" >
+                                              <a href="{{ url('rekap/log/'.$data['user']->id.'/'.$perhitungan->tanggal) }}" >
                                                      {{ $perhitungan->tanggal }} 
                                               </a> 
                                          </td>
@@ -122,6 +123,82 @@
             <!-- /.box-body -->
         </div>
         <!-- /.box -->
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-2 col-xs-6">
+        <!-- small box -->
+        <div class="small-box bg-green">
+            <div class="inner">
+                <h3>{{ $data['masuk'] }} <sup style="font-size: 20px">hari</sup></h3>
+
+                <p>Masuk</p>
+            </div>
+        </div>
+        <div class="small-box bg-green">        
+            <div class="inner">
+                <h3>{{ $data['tidak_masuk'] }} <sup style="font-size: 20px">hari</sup></h3>
+
+                <p>Tidak Masuk</p>
+            </div>
+        </div>
+    </div>
+
+   <div class="col-lg-2 col-xs-6">
+        <!-- small box -->
+        <div class="small-box bg-green">
+            <div class="inner">
+                <h3>{{ $data['terlambat'] }} <sup style="font-size: 20px">hari</sup></h3>
+
+                <p>Terlambat</p>
+            </div>
+        </div>
+        <div class="small-box bg-green">
+            {{-- <div class="inner" style="margin-top: 20px;"> --}}
+            <div class="inner">
+                <h3>{{ $data['ganti_terlambat'] }} <sup style="font-size: 20px">hari</sup></h3>
+
+                <p>Ganti Terlambat</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-2 col-xs-6">
+        <!-- small box -->
+        <div class="small-box bg-green">
+            <div class="inner">
+                <h3>{{ $data['psw'] }} <sup style="font-size: 20px">kali</sup></h3>
+
+                <p>PSW</p>
+            </div>
+        </div>
+        <div class="small-box bg-green">
+            <div class="inner">
+                <h3>{{ $data['izin'] }} <sup style="font-size: 20px">kali</sup></h3>
+
+                <p>Izin</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-3 col-xs-6">
+        <!-- small box -->
+        <div class="small-box bg-green">
+            <div class="inner">
+                <h3>00:00 <sup style="font-size: 20px">jam/menit</sup></h3>
+
+                <p>Jumlah Jam Kerja</p>
+            </div>
+        </div>
+    
+        <div class="small-box bg-red">
+            <div class="inner">
+                <h3>{{ $data['total_potongan'] }} <sup style="font-size: 20px">%</sup></h3>
+
+                <p>Total Potongan</p>
+            </div>
+        </div>
     </div>
 </div>
 

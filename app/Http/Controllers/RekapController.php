@@ -69,6 +69,12 @@ class RekapController extends Controller
 	                          ->where('users_id', $user_id)
 	                          ->where('psw', '1')->count();
 
+	              $izin = Perhitungan::where('tanggal', 'LIKE', $tahun.'-'.$bulan.'%')
+					          ->where('group_id', $groupid)
+					          ->where('users_id', $user_id)
+					          ->where('izin', '1')
+					          ->where('masuk', '0')->count();
+
 	              $potongan_terlambat  = Perhitungan::select('potongan_terlambat', DB::raw('SUM(potongan_terlambat) as total_potongan_terlambat'))
 	                                        ->where('tanggal', 'LIKE', $tahun.'-'.$bulan.'%')
 	                                        ->where('group_id', $groupid)
@@ -99,6 +105,7 @@ class RekapController extends Controller
 	              $users[$key]->terlambat           = $terlambat;
 	              $users[$key]->ganti_terlambat     = $ganti_terlambat;
 	              $users[$key]->psw                 = $psw;
+	              $users[$key]->izin 				= $izin;
 	              $users[$key]->potongan_terlambat  = $potongan_terlambat;
 	              $users[$key]->potongan_psw        = $potongan_psw;
 	              $users[$key]->total_potongan      = $total_potongan;
@@ -118,15 +125,71 @@ class RekapController extends Controller
     public function rekap_user($bln, $thn, $uid)
     {
     	$groupid    = Auth::user()->group_id;
-    	$perhitungans = Perhitungan::where('users_id', $uid)
+    	$user_id    = $uid;
+    	$tahun		= $thn;
+    	$bulan 		= $bln;
+    	$data['perhitungans'] = Perhitungan::where('users_id', $uid)
     								->where('group_id', $groupid)
     								->where('tanggal', 'LIKE', $thn.'-'.$bln.'%')
     								->orderBy('tanggal', 'asc')->get();
 
-    	$user = User::where('id', $uid)
+    	$data['user'] = User::where('id', $uid)
 					 ->where('group_id', $groupid)->first();
 
-    	return view('adminpanel.rekap.detil_user', compact('perhitungans', 'user'));
+		$data['masuk'] = Perhitungan::where('tanggal', 'LIKE', $tahun.'-'.$bulan.'%')
+		      ->where('group_id', $groupid)
+		      ->where('users_id', $user_id)
+		      ->where('masuk', '1')->count();
+
+		$data['tidak_masuk'] = Perhitungan::where('tanggal', 'LIKE', $tahun.'-'.$bulan.'%')
+		          ->where('group_id', $groupid)
+		          ->where('users_id', $user_id)
+		          ->where('masuk', '0')->count();
+
+		$data['terlambat'] = Perhitungan::where('tanggal', 'LIKE', $tahun.'-'.$bulan.'%')
+		          ->where('group_id', $groupid)
+		          ->where('users_id', $user_id)
+		          ->where('terlambat', '1')->count();
+
+		$data['ganti_terlambat'] = Perhitungan::where('tanggal', 'LIKE', $tahun.'-'.$bulan.'%')
+		          ->where('group_id', $groupid)
+		          ->where('users_id', $user_id)
+		          ->where('ganti_terlambat', '1')->count();
+
+		$data['psw'] = Perhitungan::where('tanggal', 'LIKE', $tahun.'-'.$bulan.'%')
+		          ->where('group_id', $groupid)
+		          ->where('users_id', $user_id)
+		          ->where('psw', '1')->count();
+
+		$data['izin'] = Perhitungan::where('tanggal', 'LIKE', $tahun.'-'.$bulan.'%')
+		          ->where('group_id', $groupid)
+		          ->where('users_id', $user_id)
+		          ->where('izin', '1')
+		          ->where('masuk', '0')->count();
+
+		$potongan_terlambat  = Perhitungan::select('potongan_terlambat', DB::raw('SUM(potongan_terlambat) as total_potongan_terlambat'))
+		                        ->where('tanggal', 'LIKE', $tahun.'-'.$bulan.'%')
+		                        ->where('group_id', $groupid)
+		                        ->where('users_id', $user_id)
+		                        ->where('kategori_terlambat_id', '!=', '0')->first();
+		$potongan_terlambat  = $potongan_terlambat->total_potongan_terlambat;
+
+
+		$potongan_psw  = Perhitungan::select('potongan_terlambat', DB::raw('SUM(potongan_psw) as total_potongan_psw'))
+		                        ->where('tanggal', 'LIKE', $tahun.'-'.$bulan.'%')
+		                        ->where('group_id', $groupid)
+		                        ->where('users_id', $user_id)
+		                        ->where('kategori_psw_id', '!=', '0')->first();
+		$potongan_psw = $potongan_psw->total_potongan_psw;
+
+
+		$total_potongan  = Perhitungan::select('total_potongan', DB::raw('SUM(total_potongan) as total_potongan'))
+		                        ->where('tanggal', 'LIKE', $tahun.'-'.$bulan.'%')
+		                        ->where('group_id', $groupid)
+		                        ->where('users_id', $user_id)->first();
+		$data['total_potongan'] = $total_potongan->total_potongan;
+
+    	return view('adminpanel.rekap.detil_user', compact('data'));
     }
 
     public function log($uid, $tgl)
