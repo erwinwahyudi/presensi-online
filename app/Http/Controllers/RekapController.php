@@ -145,7 +145,9 @@ class RekapController extends Controller
 
     	$izins		= DB::table('izin')->join('kategori_izin', 'izin.kode_izin', '=', 'kategori_izin.kode_izin')
     								   ->where('users_id', $uid)
-    								   ->where('group_id', $groupid)->get();
+    								   ->where('group_id', $groupid)
+    								   ->where('tgl_mulai_izin', '<=', $tgl)
+									   ->where('tgl_selesai_izin', '>=', $tgl)->get();
 
     	return view('adminpanel.rekap.log', compact('attlogs', 'user', 'izins'));    	
     }

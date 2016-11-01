@@ -13,8 +13,7 @@
             </div>
             <!-- /.box-header -->
             <!-- form start -->
-            <form action="{{ url('unit/'.$anggota->group_id.'/anggota/update/'.$anggota->id) }}" class="form-horizontal" method="POST">
-                {{ csrf_field() }}
+            {!! Form::open(['url' => 'unit/'.$anggota->group_id.'/anggota/update/'.$anggota->id, 'class' => 'form-horizontal']) !!}
                 <input type="hidden" name="level" value="{{ $anggota->level }}">
                 <input type="hidden" name="group_id" value="{{ $anggota->group_id }}">
                     <div class="box-body">
@@ -145,7 +144,7 @@
                     </div>
                     <!-- /.box-footer -->
                 </input>
-            </form>
+            {!! Form::close() !!}
         </div>
         <!-- /.box -->
     </div>

@@ -14,8 +14,7 @@
             <!-- /.box-header -->
             <!-- form start -->
             {!! Form::open(['url' => 'izin', 'class' => 'form-horizontal', 'enctype' => 'multipart/form-data']) !!}
-            {{-- <form action="izin" class="form-horizontal" method="POST" enctype="multipart/form-data"> --}}
-                
+            
                     <div class="box-body">
 
                         @if ( Auth::user()->level == 'admin' )
@@ -82,7 +81,6 @@
                             <span class="help-block"> {{ $errors->first('file_surat') }} </span>
                         </div>
 
-
                     </div>
                     <!-- /.box-body -->
                     <div class="box-footer">
@@ -93,8 +91,7 @@
                         </div>
                     </div>
                     <!-- /.box-footer -->
-                </input>
-            {{-- </form> --}}
+
             {!! Form::close() !!}
         </div>
         <!-- /.box -->

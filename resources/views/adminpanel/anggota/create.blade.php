@@ -13,9 +13,8 @@
             </div>
             <!-- /.box-header -->
             <!-- form start -->
-            <form action="{{ url('unit/'.$unit_id.'/anggota/create') }}" class="form-horizontal" method="POST">
-                {{ csrf_field() }}
-                <input type="hidden" name="level" value="anggota">
+            {!! Form::open(['url' => 'unit/'.$unit_id.'/anggota/create', 'class' => 'form-horizontal']) !!}
+               <input type="hidden" name="level" value="anggota">
                 <input type="hidden" name="group_id" value="{{ $unit_id }}">
                     <div class="box-body">
                         <div class="form-group {{ $errors->has('finger_id') ? 'has-error' : '' }}">
@@ -138,7 +137,7 @@
                     </div>
                     <!-- /.box-footer -->
                 </input>
-            </form>
+            {!! Form::close() !!}
         </div>
         <!-- /.box -->
     </div>

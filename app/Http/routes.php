@@ -78,7 +78,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::group(['middleware' => 'anggota'], function () {
 		//Route rekap data harian
 		Route::get('/kehadiran', 'KehadiranController@index');
-		Route::post('/kehadiran', 'KehadiranController@rekap');		
+		Route::post('/kehadiran', 'KehadiranController@rekap_tahun');		
 		Route::get('/kehadiran/log/{tgl}', 'KehadiranController@log_hadir');
 		Route::get('/kehadiran/{bln}/{thn}', 'KehadiranController@detail');		
 	});

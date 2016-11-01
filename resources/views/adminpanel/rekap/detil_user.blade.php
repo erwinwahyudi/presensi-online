@@ -81,8 +81,8 @@
                                 <th>Istrht</th>
                                 <th>Msk Siang</th>
                                 <th>Pulang</th>
-                                <th>Terlambat</th>
-                                <th>Ganti Terlambat</th>
+                                <th>Trlambat</th>
+                                <th>Ganti Trlambat</th>
                                 <th>PSW</th>
                                 <th>Izin</th>
                                 <th>Ptgn Terlambat</th>

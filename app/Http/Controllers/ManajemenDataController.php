@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+ini_set('max_execution_time', '1000');
+
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -147,5 +149,8 @@ class ManajemenDataController extends Controller
         print_r($hitung);
         echo "</pre>";
 
+        return redirect()->back()
+                    ->with('status_error', 'success')
+                    ->with('pesan_error', 'Perhitungan selesai.');
     }
 }

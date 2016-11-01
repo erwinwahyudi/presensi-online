@@ -13,8 +13,7 @@
             </div>
             <!-- /.box-header -->
             <!-- form start -->
-            <form action="rekap" class="form-horizontal" method="POST">
-                {{ csrf_field() }}
+            {!! Form::open(['url' => 'kehadiran', 'class' => 'form-horizontal']) !!}
                     <div class="box-body">
                         <div class="form-group">
                             <label class="col-sm-2 control-label">Pilih Tahun:</label>
@@ -38,7 +37,7 @@
                     </div>
                     <!-- /.box-footer -->
                 </input>
-            </form>
+            {!! Form::close() !!}
         </div>
         <!-- /.box -->
     </div>
