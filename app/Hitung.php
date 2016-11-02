@@ -15,7 +15,8 @@ class Hitung extends Model
    
     public static function hitung_unit_kerja($groupid, $tglstart, $tglend) {
 			
-			$users = DB::table('users')->where('group_id', '=', $groupid)->get();
+			$users = DB::table('users')->where('group_id', $groupid)
+									   ->where('level', 'anggota')->get();
     		//1. Buat perulangan user berdasarkan
     		foreach ($users as $user) {
 
@@ -85,6 +86,7 @@ class Hitung extends Model
 					    			'lembur'				=> '0',
 					    			'izin'					=> '0',
 					    			'total_lembur'			=> '0',
+					    			'jam_kerja'				=> '0',
 					    			'potongan_terlambat'	=> '0',
 					    			'potongan_psw'			=> '0',
 					    			'total_potongan'		=> '0',
@@ -297,6 +299,25 @@ class Hitung extends Model
 											}
 											#############  PULANG ####################
 
+											############### HITUNG TOTAL JAM KERJA 1 HARI #################################
+											if($absen_pulang == 1) {
+												//jika user absen pulang
+												if(!empty($pulang->time)) {
+													if( $data_block['psw'] == 0 && $data_block['terlambat'] == 0 ) {
+														$data_block['jam_kerja']	=  Hitung::selisih_menit($awal_pulang,  $akhir_masuk);
+													} elseif( $data_block['psw'] == 1 && $data_block['terlambat'] == 0 ) {
+														$data_block['jam_kerja']	=  Hitung::selisih_menit($pulang->time, $akhir_masuk);
+													} elseif( $data_block['psw'] == 0 && $data_block['terlambat'] == 1 ) {
+														if( $data_block['kategori_terlambat_id'] == 1 && $data_block['ganti_terlambat'] == 1 ) {
+															$data_block['jam_kerja']	=  Hitung::selisih_menit($awal_pulang, $akhir_masuk);
+														} else {
+															$data_block['jam_kerja']	=  Hitung::selisih_menit($awal_pulang, $waktu_masuk);
+														}
+													}
+												}
+											}
+											############### HITUNG TOTAL JAM KERJA 1 HARI #################################
+
 											//hitung total potongan
 											$data_block['total_potongan'] 		= $data_block['potongan_terlambat'] + $data_block['potongan_psw'];
 									}    			
@@ -486,6 +507,27 @@ class Hitung extends Model
 												$data_block['pulang']			= '00:00:00';
 											}
 											#############  PULANG ####################
+
+
+											############### HITUNG TOTAL JAM KERJA 1 HARI #################################
+											if($absen_pulang == 1) {
+												//jika user absen pulang
+												//jika user absen pulang
+												if(!empty($pulang->time)) {
+													if( $data_block['psw'] == 0 && $data_block['terlambat'] == 0 ) {
+														$data_block['jam_kerja']	=  Hitung::selisih_menit($awal_pulang_jumat, $akhir_masuk_jumat);
+													} elseif( $data_block['psw'] == 1 && $data_block['terlambat'] == 0 ) {
+														$data_block['jam_kerja']	=  Hitung::selisih_menit($pulang->time, $akhir_masuk_jumat);
+													} elseif( $data_block['psw'] == 0 && $data_block['terlambat'] == 1 ) {
+														if( $data_block['kategori_terlambat_id'] == 1 && $data_block['ganti_terlambat'] == 1 ) {
+															$data_block['jam_kerja']	=  Hitung::selisih_menit($awal_pulang_jumat, $akhir_masuk_jumat);
+														} else {
+															$data_block['jam_kerja']	=  Hitung::selisih_menit($awal_pulang_jumat, $waktu_masuk_jumat);
+														}
+													}
+												}
+											}
+											############### HITUNG TOTAL JAM KERJA 1 HARI #################################s
 
 											//hitung total potongan
 											$data_block['total_potongan'] 		= $data_block['potongan_terlambat'] + $data_block['potongan_psw'];

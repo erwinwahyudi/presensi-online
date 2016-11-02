@@ -22,7 +22,7 @@
                                   <div class="input-group-addon">
                                     <i class="fa fa-calendar"></i>
                                   </div>
-                                  <input type="text" name="bulantahun" class="form-control pull-right monthpicker" placeholder="Bulan - Tahun" id="bulantahun">
+                                  <input type="text" name="bulantahun" class="form-control pull-right monthpicker" placeholder="Bulan - Tahun" id="bulantahun" required>
                                 </div>
                             </div>
                         </div>                                                
@@ -53,7 +53,7 @@
       </div>
       <!-- /.widget-user-image -->
       <h3 class="widget-user-username"> {{ $data['user']->nama }} </h3>
-      <h4 class="widget-user-desc"> {{ $data['user']->jabatan }} </h4>
+      <h4 class="widget-user-desc"> {{ $data['user']->jabatan }} &nbsp; </h4>
      </div>
   </div>
   <!-- /.widget-user -->
@@ -186,7 +186,7 @@
         <!-- small box -->
         <div class="small-box bg-green">
             <div class="inner">
-                <h3>00:00 <sup style="font-size: 20px">jam/menit</sup></h3>
+                <h3>{{ $data['total_jam_kerja'] }}<sup style="font-size: 20px">&nbsp;jam/menit</sup></h3>
 
                 <p>Jumlah Jam Kerja</p>
             </div>

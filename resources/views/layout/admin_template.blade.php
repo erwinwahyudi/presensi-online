@@ -194,8 +194,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
             var bulantahun = $('#bulantahun').val();
             var userid     = $('#userid').val();
             // alert(bulantahun);
-            var link =  '{{ url("/rekap") }}/' + bulantahun +'/'+userid;
-            window.location.href = link;
+            if(bulantahun !== '') {
+                var link =  '{{ url("/rekap") }}/' + bulantahun +'/'+userid;
+                window.location.href = link;
+            }
         });
 
     });

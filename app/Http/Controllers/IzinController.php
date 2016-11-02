@@ -33,10 +33,12 @@ class IzinController extends Controller
         $this->validate($request, [
             'tgl_mulai_izin'    => 'required',
             'tgl_selesai_izin'  => 'required',
+            'dinas'             => 'required',
             'file_surat'        => 'required',
         ], [
             'tgl_mulai_izin.required'   => 'tgl harus di isi.',
             'tgl_selesai_izin.required' => 'tgl harus di isi.',
+            'dinas.required'            => 'Pilih kategori dinas',
             'file_surat.required'       => 'file surat tidak boleh kosong.',
         ]);
 
@@ -44,6 +46,7 @@ class IzinController extends Controller
         $groupid            = $request->group_id;
         $tgl_mulai_izin     = $request->tgl_mulai_izin;
         $tgl_selesai_izin   = $request->tgl_selesai_izin;
+        $dinas              = $request->dinas;
         $kode_izin          = $request->kode_izin;
         $file               = $request->file('file_surat');
         //cek apakah di rentang tgl, sudah ada data
@@ -70,6 +73,7 @@ class IzinController extends Controller
                                         'group_id'          => $groupid,
                                         'tgl_mulai_izin'    => $tgl_mulai_izin,
                                         'tgl_selesai_izin'  => $tgl_selesai_izin,
+                                        'dinas'             => $dinas,
                                         'kode_izin'         => $kode_izin,
                                         'file_surat'        => $filename,
                                     ]);

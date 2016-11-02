@@ -23,7 +23,7 @@
                                   <div class="input-group-addon">
                                     <i class="fa fa-calendar"></i>
                                   </div>
-                                  <input type="text" name="bulantahun" class="form-control pull-right monthpicker" placeholder="Bulan - Tahun">
+                                  <input type="text" name="bulantahun" required="" class="form-control pull-right monthpicker" placeholder="Bulan - Tahun">
                                 </div>
                             </div>
                         </div>                                                
@@ -96,7 +96,7 @@
                                          <td> {{ $user->potongan_terlambat }} % </td>
                                          <td> {{ $user->potongan_psw }} %  </td>
                                          <td> {{ $user->total_potongan }} % </td>
-                                         <td>  </td>
+                                         <td> {{ $user->total_jam_kerja }} jam/menit  </td>
                                     </tr>
                                 @endforeach
                             @endif

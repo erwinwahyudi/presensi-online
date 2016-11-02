@@ -49,7 +49,7 @@
                               </div>
                         </div>
 
-                        <div class="form-group">
+                        {{-- <div class="form-group">
                             <label class="col-sm-2 control-label" for="inputNama">
                                 Hitung Lembur
                             </label>
@@ -58,7 +58,7 @@
                                 &nbsp;
                                 <input type="radio" name="hitung_lembur" value="0" class="flat-red" checked>&nbsp; Tidak
                             </div>
-                        </div>
+                        </div> --}}
 
                         <hr>
 

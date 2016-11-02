@@ -14,4 +14,12 @@ class Fn extends Model
      	return array('bulan' => $bulan, 
      				 'tahun' => $tahun);	
     }
+
+    public static function total_jam_kerja($value) {
+    	$menit 	= $value / 60;
+		$j  	= floor( $menit );
+		$m  	= ($value - ($j * 60) );
+		$total 	= $j.":".$m;
+		return $total;
+    }
 }

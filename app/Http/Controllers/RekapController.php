@@ -97,6 +97,14 @@ class RekapController extends Controller
 	                                        ->where('users_id', $user_id)->first();
 	              $total_potongan = $total_potongan->total_potongan;
 
+	              $jam_kerja  = Perhitungan::select('jam_kerja', DB::raw('SUM(jam_kerja) as jam_kerja'))
+	                                        ->where('tanggal', 'LIKE', $tahun.'-'.$bulan.'%')
+	                                        ->where('group_id', $groupid)
+	                                        ->where('users_id', $user_id)->first();
+	              $jam_kerja = $jam_kerja->jam_kerja;
+
+	              $total_jam_kerja	= Fn::total_jam_kerja($jam_kerja);
+
 	              $users[$key]->user_id             = $user_id;
 	              $users[$key]->nama                = $nama;
 	              $users[$key]->nip                 = $nip;
@@ -109,6 +117,7 @@ class RekapController extends Controller
 	              $users[$key]->potongan_terlambat  = $potongan_terlambat;
 	              $users[$key]->potongan_psw        = $potongan_psw;
 	              $users[$key]->total_potongan      = $total_potongan;
+	              $users[$key]->total_jam_kerja		= $total_jam_kerja;
 	          } 
 	          $data['users'] = $users;
 	      } else {
@@ -188,6 +197,14 @@ class RekapController extends Controller
 		                        ->where('group_id', $groupid)
 		                        ->where('users_id', $user_id)->first();
 		$data['total_potongan'] = $total_potongan->total_potongan;
+
+		$jam_kerja  = Perhitungan::select('jam_kerja', DB::raw('SUM(jam_kerja) as jam_kerja'))
+	                                        ->where('tanggal', 'LIKE', $tahun.'-'.$bulan.'%')
+	                                        ->where('group_id', $groupid)
+	                                        ->where('users_id', $user_id)->first();
+		$jam_kerja = $jam_kerja->jam_kerja;
+
+		$data['total_jam_kerja']	= Fn::total_jam_kerja($jam_kerja);
 
     	return view('adminpanel.rekap.detil_user', compact('data'));
     }

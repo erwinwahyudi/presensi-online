@@ -46,6 +46,7 @@
                             </div>
                             <span class="help-block"> {{ $errors->first('tgl_mulai_izin') }} </span>
                         </div>
+
                         <div class="form-group {{ $errors->has('tgl_selesai_izin') ? 'has-error' : '' }}">
                             <label class="col-sm-2 control-label" for="inputFingerId">
                                 Tgl Selesai Izin
@@ -59,6 +60,18 @@
                                 </div>
                             </div>
                             <span class="help-block"> {{ $errors->first('tgl_selesai_izin') }} </span>
+                        </div>
+
+                        <div class="form-group {{ $errors->has('dinas') ? 'has-error' : '' }}">
+                            <label class="col-sm-2 control-label" for="inputNama">
+                                Kategori Izin
+                            </label>
+                            <div class="col-sm-4">
+                                <input type="radio" name="dinas" value="1" class="flat-red" checked>&nbsp; Dinas
+                                &nbsp;
+                                <input type="radio" name="dinas" value="0" class="flat-red" >&nbsp; Non Dinas
+                            </div>
+                            <span class="help-block"> {{ $errors->first('dinas') }} </span>
                         </div>
 
                         <div class="form-group">
