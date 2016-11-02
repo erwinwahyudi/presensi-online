@@ -73,6 +73,7 @@ Route::group(['middleware' => 'auth'], function () {
 		//Route untuk izin
 		Route::get('/izin', 'IzinController@index');
 		Route::post('/izin', 'IzinController@create');
+		Route::get('/log-izin', 'IzinController@log');
 	});
 
 	Route::group(['middleware' => 'anggota'], function () {

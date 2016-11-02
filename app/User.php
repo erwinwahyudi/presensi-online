@@ -31,4 +31,8 @@ class User extends Authenticatable
     public function kelompok() {
         return $this->belongsTo('\App\User');
     }
+
+    public function izin() {
+        return $this->hasMany('\App\Izin');
+    }
 }

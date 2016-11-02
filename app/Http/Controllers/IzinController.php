@@ -90,5 +90,19 @@ class IzinController extends Controller
         }        
     }
 
+    public function log()
+    {
+        if( Auth::user()->level == 'admin' ) {
+            $groupid    = Auth::user()->group_id;
+            $izins      = Izin::join('users', 'users.id', '=' , 'izin.users_id')
+                                    ->where('izin.group_id', $groupid)->get();
+        } else {
+            $userid     = Auth::user()->id;
+            $izins      = Izin::where('users_id', $userid)->get();
+        }
+        
+        return view('adminpanel.izin.log_izin', compact('izins'));
+    }
+
     
 }
