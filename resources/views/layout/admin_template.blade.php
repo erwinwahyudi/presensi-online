@@ -195,7 +195,16 @@ scratch. This page gets rid of all links and provides the needed markup only.
             var userid     = $('#userid').val();
             // alert(bulantahun);
             if(bulantahun !== '') {
-                var link =  '{{ url("/rekap") }}/' + bulantahun +'/'+userid;
+                var link =  '{{ url("rekap") }}/' + bulantahun +'/'+userid;
+                window.location.href = link;
+            }
+        });
+
+        $('#ganti_bulan_user').click(function() {
+            var bulantahun = $('#bulantahun').val();
+            // alert(bulantahun);
+            if(bulantahun !== '') {
+                var link =  '{{ url("kehadiran") }}/' + bulantahun;
                 window.location.href = link;
             }
         });

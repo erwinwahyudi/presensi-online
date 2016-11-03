@@ -39,7 +39,7 @@
                                      ?>
                                  <td> {{ $dinas }} </td>
                                  <td>
-                                   <a href="{{ url('/file_surat/'.$izin->file_surat) }}" class="btn btn-xs btn-success"> Download </a>                                 
+                                   <a href="{{ url('file_surat/'.$izin->file_surat) }}" class="btn btn-xs btn-success" target="_BLANK"> Lihat </a>                                 
                                  </td>
                               </tr>
                            @endforeach

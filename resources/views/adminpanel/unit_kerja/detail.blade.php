@@ -10,18 +10,6 @@
               <li class="active"><a href="#profil" data-toggle="tab">Profil</a></li>
               <li><a href="#anggota" data-toggle="tab">Anggota</a></li>
               <li><a href="#kelompok" data-toggle="tab">Kelompok</a></li>
-              {{-- <li class="dropdown">
-                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                  Dropdown <span class="caret"></span>
-                </a>
-                <ul class="dropdown-menu">
-                  <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Action</a></li>
-                  <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Another action</a></li>
-                  <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Something else here</a></li>
-                  <li role="presentation" class="divider"></li>
-                  <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Separated link</a></li>
-                </ul>
-              </li> --}}
               <li class="pull-right"><a href="#" class="text-muted"><i class="fa fa-gear"></i></a></li>
             </ul>
             <div class="tab-content">
@@ -32,13 +20,13 @@
 
 
               <div class="tab-pane" id="anggota">
-                  <a href="{{ url('/unit/'.$group->id.'/anggota/create') }}" class="btn btn-sm btn-info">Tambah Anggota</a> <br>
+                  <a href="{{ url('unit/'.$group->id.'/anggota/create') }}" class="btn btn-sm btn-info">Tambah Anggota</a> <br>
                   @include('adminpanel.anggota.daftar')
               </div>
               <!-- /.tab-pane -->
 
               <div class="tab-pane" id="kelompok">
-                  <a href="{{ url('/unit/'.$group->id.'/kelompok/create') }}" class="btn btn-sm btn-info"> Tambah Kelompok </a>
+                  <a href="{{ url('unit/'.$group->id.'/kelompok/create') }}" class="btn btn-sm btn-info"> Tambah Kelompok </a>
                   @include('adminpanel.kelompok.daftar')
               </div>
               <!-- /.tab-pane -->

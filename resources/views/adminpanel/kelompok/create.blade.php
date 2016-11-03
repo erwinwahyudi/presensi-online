@@ -13,8 +13,7 @@
             </div>
             <!-- /.box-header -->
             <!-- form start -->
-            <form action="unit/{{ $unit_id }}/kelompok/create" class="form-horizontal" method="POST">
-                {{ csrf_field() }}
+            {!! Form::open(['url' => 'unit/'.$unit_id.'/kelompok/create', 'class' => 'form-horizontal']) !!}
                     <input type="hidden" name="group_id" value="{{ $unit_id }}">
                     <div class="box-body">
                         <div class="form-group {{ $errors->has('nama_kelompok') ? 'has-error' : '' }}">
@@ -262,7 +261,7 @@
 
                     <!-- /.box-footer -->
                 </input>
-            </form>
+            {!! Form::close() !!}
         </div>
         <!-- /.box -->
     </div>

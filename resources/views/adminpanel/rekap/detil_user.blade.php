@@ -43,21 +43,6 @@
     </div>
 </div>
 
-<div class="col-md-4">
-  <!-- Widget: user widget style 1 -->
-  <div class="box box-widget widget-user-2">
-    <!-- Add the bg color to the header using any of the bg-* classes -->
-    <div class="widget-user-header bg-green">
-      <div class="widget-user-image">
-        <img class="img-circle" src="https://almsaeedstudio.com/themes/AdminLTE/dist/img/user7-128x128.jpg" alt="User Avatar">
-      </div>
-      <!-- /.widget-user-image -->
-      <h3 class="widget-user-username"> {{ $data['user']->nama }} </h3>
-      <h4 class="widget-user-desc"> {{ $data['user']->jabatan }} &nbsp; </h4>
-     </div>
-  </div>
-  <!-- /.widget-user -->
-</div>
 
 {{-- table data unit --}}
 <div class="row">
@@ -67,6 +52,14 @@
                 <h3 class="box-title">
                     Data Kehadiran User
                 </h3>
+                <br><br>
+
+                <div class="user-block">
+                    <img class="img-circle" src="https://almsaeedstudio.com/themes/AdminLTE/dist/img/user1-128x128.jpg" alt="User Image">
+                    <span class="username"><a href="#"> {{ $data['user']->nama }} </a></span>
+                    <span class="description"> {{ $data['user']->nip }} - {{ $data['user']->jabatan }} </span>
+                </div>
+              <!-- /.user-block -->
             </div>
             <!-- /.box-header -->
             <div class="box-body">               

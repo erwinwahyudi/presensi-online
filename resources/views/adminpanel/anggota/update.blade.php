@@ -92,7 +92,7 @@
                                         if( $kelompok->id == $anggota->kelompok_id ) {
                                             $selected = "selected";
                                         } else {
-                                            $selected = "no selected";
+                                            $selected = "";
                                         }
                                     ?>
                                     <option value="{{ $kelompok->id }}" {{ $selected }}> {{ $kelompok->nama_kelompok }} </option>

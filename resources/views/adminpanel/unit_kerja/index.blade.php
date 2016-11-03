@@ -14,7 +14,7 @@
             <div class="box-body">
                {{-- <div class="row"> --}}
                   <p>
-                    <a href="{{ url('/unit/create') }} ">
+                    <a href="{{ url('unit/create') }} ">
                         <button class="btn btn-info" type="button">
                             Tambah Unit
                         </button>
@@ -33,10 +33,10 @@
                         <tbody>
                            @foreach($groups as $group)
                               <tr>
-                                 <td> <a href="{{ url('/unit/'.$group->id) }}"> {{ $group->nama_group }} </a> </td>
+                                 <td> <a href="{{ url('unit/'.$group->id) }}"> {{ $group->nama_group }} </a> </td>
                                  <td> {{ $group->finger_group_id }} </td>
                                  <td>                                                                                 
-                                        {!! Form::open(array('url' => '/unit/delete/'.$group->id, 'method' => 'delete')) !!}
+                                        {!! Form::open(array('url' => 'unit/delete/'.$group->id, 'method' => 'delete')) !!}
                                           <a class="btn btn-xs btn-success" href="{{ url('unit/edit/'.$group->id) }}">Ubah</a> 
                                           <button type="submit" class="btn btn-xs btn-danger" onclick="return confirm('Apakah anda akan menghapus data?')">Hapus</button>
                                        {!! Form::close() !!}

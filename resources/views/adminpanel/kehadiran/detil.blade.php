@@ -13,8 +13,6 @@
             </div>
             <!-- /.box-header -->
             <!-- form start -->
-            <form action="" class="form-horizontal" method="POST">
-                {{ csrf_field() }}
                     <div class="box-body">
                         <div class="form-group">
                             <label class="col-sm-2 control-label">Pilih Bulan:</label>
@@ -23,7 +21,7 @@
                                   <div class="input-group-addon">
                                     <i class="fa fa-calendar"></i>
                                   </div>
-                                  <input type="text" name="bulantahun" class="form-control pull-right monthpicker" placeholder="Bulan - Tahun">
+                                  <input type="text" name="bulantahun" class="form-control pull-right monthpicker" placeholder="Bulan - Tahun" id="bulantahun" required>
                                 </div>
                             </div>
                         </div>                                                
@@ -31,14 +29,12 @@
                     <!-- /.box-body -->
                     <div class="box-footer">
                         <div class="col-sm-offset-2">
-                            <button class="btn btn-info btn-flat" type="submit">
+                            <button class="btn btn-info btn-flat" type="button" id="ganti_bulan_user">
                                 Proses
                             </button>
                         </div>
                     </div>
                     <!-- /.box-footer -->
-                </input>
-            </form>
         </div>
         <!-- /.box -->
     </div>
@@ -112,7 +108,7 @@
                             @foreach($perhitungans as $perhitungan)
                                    <tr>
                                          <td>
-                                              <a href="{{ url('/kehadiran/log/'.$perhitungan->tanggal) }}" >
+                                              <a href="{{ url('kehadiran/log/'.$perhitungan->tanggal) }}" >
                                                      {{ $perhitungan->tanggal }} 
                                               </a> 
                                          </td>

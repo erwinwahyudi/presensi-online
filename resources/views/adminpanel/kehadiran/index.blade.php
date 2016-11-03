@@ -75,7 +75,7 @@
                                 @foreach($datas as $key => $data)
                                    <tr>
                                          <td> 
-                                              <a href="{{ url('/kehadiran/'.$data['bulan'].'/'.$data['tahun']) }}" >
+                                              <a href="{{ url('kehadiran/'.$data['bulan'].'/'.$data['tahun']) }}" >
                                                      {{ $data['bulan'] }} 
                                               </a>
                                          </td>
