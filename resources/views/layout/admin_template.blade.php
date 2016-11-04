@@ -49,6 +49,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
         .small-box>.inner {
             padding-left: 30px;
         }
+        .callout {
+            border-radius: 3px;
+            margin: 0 0 5px 0;
+            padding: 9px 30px 15px 15px;
+            border-left: 5px solid #eee;
+        }
+        .nm-group {
+            font-weight: bold;
+        }
 
     </style>
 </head>

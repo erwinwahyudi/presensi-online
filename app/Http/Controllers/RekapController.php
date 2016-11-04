@@ -137,6 +137,7 @@ class RekapController extends Controller
     	$user_id    = $uid;
     	$tahun		= $thn;
     	$bulan 		= $bln;
+
     	$data['perhitungans'] = Perhitungan::where('users_id', $uid)
     								->where('group_id', $groupid)
     								->where('tanggal', 'LIKE', $thn.'-'.$bln.'%')
@@ -144,6 +145,9 @@ class RekapController extends Controller
 
     	$data['user'] = User::where('id', $uid)
 					 ->where('group_id', $groupid)->first();
+
+		$data['kelompok'] 	= DB::table('kelompok')->where('id', $data['user']->kelompok_id)->first();
+		$data['group'] 		= DB::table('group')->where('id', $data['user']->group_id)->first();
 
 		$data['masuk'] = Perhitungan::where('tanggal', 'LIKE', $tahun.'-'.$bulan.'%')
 		      ->where('group_id', $groupid)

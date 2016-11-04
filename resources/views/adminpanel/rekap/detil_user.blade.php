@@ -43,6 +43,95 @@
     </div>
 </div>
 
+{{-- widget perhitungan --}}
+<div class="row">
+
+    <div class="col-lg-3 col-xs-6">
+        <div class="callout callout-info" >
+            <h3 class="nm-group"> {{ $data['group']->nama_group }} </h3>
+        </div>
+        <div class="callout callout-info" >
+            <h3> {{ $data['kelompok']->nama_kelompok }} </h3>
+        </div>
+    </div>
+
+    <div class="col-lg-2 col-xs-6">
+        <!-- small box -->
+        <div class="small-box bg-green">
+            <div class="inner">
+                <h3>{{ $data['masuk'] }} <sup style="font-size: 20px">hari</sup></h3>
+
+                <p>Masuk</p>
+            </div>
+        </div>
+        <div class="small-box bg-green">        
+            <div class="inner">
+                <h3>{{ $data['tidak_masuk'] }} <sup style="font-size: 20px">hari</sup></h3>
+
+                <p>Tidak Masuk</p>
+            </div>
+        </div>
+    </div>
+
+   <div class="col-lg-2 col-xs-6">
+        <!-- small box -->
+        <div class="small-box bg-green">
+            <div class="inner">
+                <h3>{{ $data['terlambat'] }} <sup style="font-size: 20px">hari</sup></h3>
+
+                <p>Terlambat</p>
+            </div>
+        </div>
+        <div class="small-box bg-green">
+            {{-- <div class="inner" style="margin-top: 20px;"> --}}
+            <div class="inner">
+                <h3>{{ $data['ganti_terlambat'] }} <sup style="font-size: 20px">hari</sup></h3>
+
+                <p>Ganti Terlambat</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-2 col-xs-6">
+        <!-- small box -->
+        <div class="small-box bg-green">
+            <div class="inner">
+                <h3>{{ $data['psw'] }} <sup style="font-size: 20px">kali</sup></h3>
+
+                <p>PSW</p>
+            </div>
+        </div>
+        <div class="small-box bg-green">
+            <div class="inner">
+                <h3>{{ $data['izin'] }} <sup style="font-size: 20px">kali</sup></h3>
+
+                <p>Izin</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-3 col-xs-6">
+        <!-- small box -->
+        <div class="small-box bg-green">
+            <div class="inner">
+                <h3>{{ $data['total_jam_kerja'] }}<sup style="font-size: 20px">&nbsp;jam/menit</sup></h3>
+
+                <p>Jumlah Jam Kerja</p>
+            </div>
+        </div>
+    
+        <div class="small-box bg-red">
+            <div class="inner">
+                <h3>{{ $data['total_potongan'] }} <sup style="font-size: 20px">%</sup></h3>
+
+                <p>Total Potongan</p>
+            </div>
+        </div>
+    </div>
+</div>
+{{-- /. widget perhitungan --}}
+
+<br>
 
 {{-- table data unit --}}
 <div class="row">
@@ -119,80 +208,6 @@
     </div>
 </div>
 
-<div class="row">
-    <div class="col-lg-2 col-xs-6">
-        <!-- small box -->
-        <div class="small-box bg-green">
-            <div class="inner">
-                <h3>{{ $data['masuk'] }} <sup style="font-size: 20px">hari</sup></h3>
 
-                <p>Masuk</p>
-            </div>
-        </div>
-        <div class="small-box bg-green">        
-            <div class="inner">
-                <h3>{{ $data['tidak_masuk'] }} <sup style="font-size: 20px">hari</sup></h3>
-
-                <p>Tidak Masuk</p>
-            </div>
-        </div>
-    </div>
-
-   <div class="col-lg-2 col-xs-6">
-        <!-- small box -->
-        <div class="small-box bg-green">
-            <div class="inner">
-                <h3>{{ $data['terlambat'] }} <sup style="font-size: 20px">hari</sup></h3>
-
-                <p>Terlambat</p>
-            </div>
-        </div>
-        <div class="small-box bg-green">
-            {{-- <div class="inner" style="margin-top: 20px;"> --}}
-            <div class="inner">
-                <h3>{{ $data['ganti_terlambat'] }} <sup style="font-size: 20px">hari</sup></h3>
-
-                <p>Ganti Terlambat</p>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-lg-2 col-xs-6">
-        <!-- small box -->
-        <div class="small-box bg-green">
-            <div class="inner">
-                <h3>{{ $data['psw'] }} <sup style="font-size: 20px">kali</sup></h3>
-
-                <p>PSW</p>
-            </div>
-        </div>
-        <div class="small-box bg-green">
-            <div class="inner">
-                <h3>{{ $data['izin'] }} <sup style="font-size: 20px">kali</sup></h3>
-
-                <p>Izin</p>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-lg-3 col-xs-6">
-        <!-- small box -->
-        <div class="small-box bg-green">
-            <div class="inner">
-                <h3>{{ $data['total_jam_kerja'] }}<sup style="font-size: 20px">&nbsp;jam/menit</sup></h3>
-
-                <p>Jumlah Jam Kerja</p>
-            </div>
-        </div>
-    
-        <div class="small-box bg-red">
-            <div class="inner">
-                <h3>{{ $data['total_potongan'] }} <sup style="font-size: 20px">%</sup></h3>
-
-                <p>Total Potongan</p>
-            </div>
-        </div>
-    </div>
-</div>
 
 @stop
