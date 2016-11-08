@@ -371,7 +371,7 @@ div.FixedHeader_Cloned table {
 }
 
 /*hack supaya bisa scroll*/
-@media screen and (max-width: 1200px) {
+@media screen and (max-width: 1366px) {
 	table {
 		overflow-x: auto;
 		display: block;

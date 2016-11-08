@@ -8,6 +8,7 @@ use App\Http\Requests;
 
 use Auth;
 use DB;
+use PDF;
 
 // ambil model
 use App\Perhitungan;
@@ -235,4 +236,6 @@ class RekapController extends Controller
 
     	return view('adminpanel.rekap.log', compact('attlogs', 'user', 'izins'));    	
     }
+
+    				
 }

@@ -62,6 +62,10 @@ Route::group(['middleware' => 'auth'], function () {
 
 		//Route CRUD libur
 		Route::get('libur', 'LiburController@index');
+
+		// route untuk pdf
+		Route::get('/group/pdf/{bln}/{thn}/{kid}/{gid}', 'PdfController@print_group');
+		Route::get('/detil/pdf/{bln}/{thn}/{kid}/{gid}', 'PdfController@print_detil');
 	});
 
 

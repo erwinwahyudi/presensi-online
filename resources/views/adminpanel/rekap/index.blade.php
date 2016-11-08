@@ -54,6 +54,15 @@
                     <h3 class="box-title">
                         {{ $kelompok->nama_kelompok }}
                     </h3>
+                    <div class="row">
+                      <div class="col-md-1 pull-right">
+                          <a class="btn btn-sm btn-success btn-flat" href="{{ url('group/pdf/'.$data['bulan'].'/'.$data['tahun'].'/'.$kelompok->id.'/'.Auth::user()->group_id) }}">Cetak</a> 
+                      </div>
+                      <div class="col-md-1 pull-right">
+                          <a class="btn btn-sm btn-success btn-flat" href="{{ url('detil/pdf/'.$data['bulan'].'/'.$data['tahun'].'/'.$kelompok->id.'/'.Auth::user()->group_id) }}">Cetak Detil</a> 
+                      </div>
+                    </div>
+                    
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
