@@ -65,7 +65,7 @@ Route::group(['middleware' => 'auth'], function () {
 
 		// route untuk pdf
 		Route::get('/group/pdf/{bln}/{thn}/{kid}/{gid}', 'PdfController@print_group');
-		Route::get('/detil/pdf/{bln}/{thn}/{kid}/{gid}', 'PdfController@print_detil');
+		Route::get('/detil/pdf/{bln}/{thn}/{kid}/{gid}', 'PdfController@print_detil_all');
 	});
 
 

@@ -55,11 +55,11 @@
                         {{ $kelompok->nama_kelompok }}
                     </h3>
                     <div class="row">
-                      <div class="col-md-1 pull-right">
-                          <a class="btn btn-sm btn-success btn-flat" href="{{ url('group/pdf/'.$data['bulan'].'/'.$data['tahun'].'/'.$kelompok->id.'/'.Auth::user()->group_id) }}">Cetak</a> 
+                      <div class="col-md-1 pull-right" style="padding-left:5px;">
+                          <a class="btn btn-sm btn-success btn-flat" target="_BLANK" href="{{ url('detil/pdf/'.$data['bulan'].'/'.$data['tahun'].'/'.$kelompok->id.'/'.Auth::user()->group_id) }}">Cetak Detil</a> 
                       </div>
                       <div class="col-md-1 pull-right">
-                          <a class="btn btn-sm btn-success btn-flat" href="{{ url('detil/pdf/'.$data['bulan'].'/'.$data['tahun'].'/'.$kelompok->id.'/'.Auth::user()->group_id) }}">Cetak Detil</a> 
+                          <a class="btn btn-sm btn-success btn-flat" target="_BLANK" href="{{ url('group/pdf/'.$data['bulan'].'/'.$data['tahun'].'/'.$kelompok->id.'/'.Auth::user()->group_id) }}">Cetak</a> 
                       </div>
                     </div>
                     

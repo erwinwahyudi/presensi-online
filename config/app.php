@@ -157,7 +157,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         // package laravel collective
         Collective\Html\HtmlServiceProvider::class,
-        Barryvdh\DomPDF\serviceProvider::class,
+        Barryvdh\DomPDF\ServiceProvider::class,
     ],
 
     /*
@@ -210,7 +210,7 @@ return [
 
         //aliases untuk carbon
         'Carbon' => 'Carbon\Carbon',
-        'PDF'    => Barryvdh\DomPDF\Facade::class,
+        'PDF' => Barryvdh\DomPDF\Facade::class,
 
     ],
 
