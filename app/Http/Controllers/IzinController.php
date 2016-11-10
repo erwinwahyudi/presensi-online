@@ -31,23 +31,38 @@ class IzinController extends Controller
     public function create(Request $request)
     {
         $this->validate($request, [
-            'tgl_mulai_izin'    => 'required',
-            'tgl_selesai_izin'  => 'required',
+            // 'tgl_mulai_izin'    => 'required',
+            // 'tgl_selesai_izin'  => 'required',
             'dinas'             => 'required',
             'file_surat'        => 'required',
+            'tglrentang'        => 'required',
         ], [
-            'tgl_mulai_izin.required'   => 'tgl harus di isi.',
-            'tgl_selesai_izin.required' => 'tgl harus di isi.',
+            // 'tgl_mulai_izin.required'   => 'tgl harus di isi.',
+            // 'tgl_selesai_izin.required' => 'tgl harus di isi.',
             'dinas.required'            => 'Pilih kategori dinas',
             'file_surat.required'       => 'file surat tidak boleh kosong.',
+            'tglrentang.required'       => 'Tanggal rentang harus diisi.',
         ]);
 
+        // echo "<pre>";
+        // print_r($request->all()); die();
+        // echo "</pre>"; die();
+
         $userid             = $request->users_id;
-        $groupid            = $request->group_id;
-        $tgl_mulai_izin     = $request->tgl_mulai_izin;
-        $tgl_selesai_izin   = $request->tgl_selesai_izin;
+        $groupid            = $request->group_id;        
         $dinas              = $request->dinas;
-        $kode_izin          = $request->kode_izin;
+        $tglrentang         = $request->tglrentang;
+
+        $exp_tglrentang     = explode("-", $tglrentang);
+        $tgl_mulai_izin     = str_replace( "/", "-", $exp_tglrentang[0] );
+        $tgl_selesai_izin   = str_replace( "/", "-", $exp_tglrentang[1] );
+
+        if($dinas == '1') {
+            $kode_izin      = '';
+        } else {
+            $kode_izin      = $request->kode_izin;
+        }
+
         $file               = $request->file('file_surat');
         //cek apakah di rentang tgl, sudah ada data
         $cek_tgl    = DB::table('izin')->whereBetween('tgl_mulai_izin', [$tgl_mulai_izin, $tgl_selesai_izin])

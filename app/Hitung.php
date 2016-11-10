@@ -125,6 +125,8 @@ class Hitung extends Model
 		    			 		 	if ( empty($fullday) ) {
 		    			 		 		$data = Hitung::get_data_tidak_masuk($user_id, $groupid, $tgl_attlog);
 
+		    			 		 		$data_block['jam_kerja']		= $data->jam_kerja;
+										$data_block['masuk']			= $data->masuk;				
 		    			 		 		$data_block['keterangan'] 		= $data->keterangan;
 		    			 		 		$data_block['total_potongan']	= $data->total_potongan;
 		    			 		 		$data_block['izin']				= $data->izin;
@@ -286,7 +288,7 @@ class Hitung extends Model
 															$ganti_pulang = date('H:i:s', strtotime('+'.$hitung_selisih.' minute', strtotime($awal_pulang)) );
 															//jika user mengganti keterlambatan 1, set terlambat jadi 0
 															if($pulang->time > $ganti_pulang){
-																$data_block['kategori_terlambat_id']	= '0';
+																$data_block['kategori_terlambat_id']	= '1';
 																$data_block['potongan_terlambat']	 	= '0';
 																$data_block['potongan_psw']	 			= '0';
 																$data_block['ganti_terlambat']			= '1';
@@ -304,14 +306,14 @@ class Hitung extends Model
 												//jika user absen pulang
 												if(!empty($pulang->time)) {
 													if( $data_block['psw'] == 0 && $data_block['terlambat'] == 0 ) {
-														$data_block['jam_kerja']	=  Hitung::selisih_menit($awal_pulang,  $akhir_masuk);
+														$data_block['jam_kerja']	=  Hitung::selisih_menit($awal_pulang,  $akhir_masuk) - 60;
 													} elseif( $data_block['psw'] == 1 && $data_block['terlambat'] == 0 ) {
-														$data_block['jam_kerja']	=  Hitung::selisih_menit($pulang->time, $akhir_masuk);
+														$data_block['jam_kerja']	=  Hitung::selisih_menit($pulang->time, $akhir_masuk) - 60;
 													} elseif( $data_block['psw'] == 0 && $data_block['terlambat'] == 1 ) {
 														if( $data_block['kategori_terlambat_id'] == 1 && $data_block['ganti_terlambat'] == 1 ) {
-															$data_block['jam_kerja']	=  Hitung::selisih_menit($awal_pulang, $akhir_masuk);
+															$data_block['jam_kerja']	=  Hitung::selisih_menit($awal_pulang, $akhir_masuk) - 60;
 														} else {
-															$data_block['jam_kerja']	=  Hitung::selisih_menit($awal_pulang, $waktu_masuk);
+															$data_block['jam_kerja']	=  Hitung::selisih_menit($awal_pulang, $waktu_masuk) - 60;
 														}
 													}
 												}
@@ -338,6 +340,8 @@ class Hitung extends Model
 		    			 		 	if ( empty($fullday) ) {
 		    			 		 		$data = Hitung::get_data_tidak_masuk($user_id, $groupid, $tgl_attlog);
 
+		    			 		 		$data_block['jam_kerja']		= $data->jam_kerja;
+										$data_block['masuk']			= $data->masuk;			
 		    			 		 		$data_block['keterangan'] 		= $data->keterangan;
 		    			 		 		$data_block['total_potongan']	= $data->total_potongan;
 		    			 		 		$data_block['izin']				= $data->izin;
@@ -495,7 +499,7 @@ class Hitung extends Model
 															$ganti_pulang = date('H:i:s', strtotime('+'.$hitung_selisih.' minute', strtotime($awal_pulang_jumat)) );
 															//jika user mengganti keterlambatan 1, set terlambat jadi 0
 															if($pulang->time >= $ganti_pulang){
-																$data_block['kategori_terlambat_id']	= '0';
+																$data_block['kategori_terlambat_id']	= '1';
 																$data_block['potongan_terlambat']	 	= '0';
 																$data_block['potongan_psw']	 			= '0';
 																$data_block['ganti_terlambat']			= '1';
@@ -515,14 +519,14 @@ class Hitung extends Model
 												//jika user absen pulang
 												if(!empty($pulang->time)) {
 													if( $data_block['psw'] == 0 && $data_block['terlambat'] == 0 ) {
-														$data_block['jam_kerja']	=  Hitung::selisih_menit($awal_pulang_jumat, $akhir_masuk_jumat);
+														$data_block['jam_kerja']	=  Hitung::selisih_menit($awal_pulang_jumat, $akhir_masuk_jumat) - 90;
 													} elseif( $data_block['psw'] == 1 && $data_block['terlambat'] == 0 ) {
-														$data_block['jam_kerja']	=  Hitung::selisih_menit($pulang->time, $akhir_masuk_jumat);
+														$data_block['jam_kerja']	=  Hitung::selisih_menit($pulang->time, $akhir_masuk_jumat) - 90;
 													} elseif( $data_block['psw'] == 0 && $data_block['terlambat'] == 1 ) {
 														if( $data_block['kategori_terlambat_id'] == 1 && $data_block['ganti_terlambat'] == 1 ) {
-															$data_block['jam_kerja']	=  Hitung::selisih_menit($awal_pulang_jumat, $akhir_masuk_jumat);
+															$data_block['jam_kerja']	=  Hitung::selisih_menit($awal_pulang_jumat, $akhir_masuk_jumat) - 90;
 														} else {
-															$data_block['jam_kerja']	=  Hitung::selisih_menit($awal_pulang_jumat, $waktu_masuk_jumat);
+															$data_block['jam_kerja']	=  Hitung::selisih_menit($awal_pulang_jumat, $waktu_masuk_jumat) - 90;
 														}
 													}
 												}
@@ -556,13 +560,26 @@ class Hitung extends Model
 									->where('group_id', $groupid)
 									->where('tgl_mulai_izin', '<=', $tgl_attlog)
 									->where('tgl_selesai_izin', '>=', $tgl_attlog)->first();
-			$potongan 		= $get_potongan->kode_izin;
-			//ambil potongan berdasarkan kode
-			$potongan 		= substr($potongan, 0, 1);
-			$data->total_potongan	= $potongan;
-			$data->izin				= '1';
-			$data->keterangan		= $get_potongan->keterangan;
+			//cek apakah user izin dinas atau non dinas
+			if( $get_potongan->dinas == '1') {
+				$data->jam_kerja 		= '450';
+				$data->masuk     		= '1';
+				$data->total_potongan	= '0';
+				$data->izin				= '0';
+				$data->keterangan		= 'Dinas';
+			} else {
+				$data->jam_kerja 		= '0';
+				$data->masuk     		= '0';
+				$potongan 		 		= $get_potongan->kode_izin;
+				//ambil potongan berdasarkan kode
+				$potongan 		 		= substr($potongan, 0, 1);
+				$data->total_potongan	= $potongan;
+				$data->izin				= '1';
+				$data->keterangan		= $get_potongan->keterangan;
+			}
 		} else {
+			$data->jam_kerja 		= '0';
+			$data->masuk     		= '0';
 			$data->total_potongan   = '5';
 			$data->izin				= '0';
 			$data->keterangan		= 'Tidak Masuk';

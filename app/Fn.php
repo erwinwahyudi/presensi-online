@@ -16,7 +16,7 @@ class Fn extends Model
     }
 
     public static function total_jam_kerja($value) {
-        $value  = $value - 60; //kurang 60menit waktu istirahat
+        //$value  = $value - 60; //kurang 60menit waktu istirahat
         $menit 	= $value / 60;         
 		$j  	= floor( $menit );
 		$m  	= ($value - ($j * 60) );

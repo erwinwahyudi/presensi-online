@@ -34,6 +34,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- bootstrap datepicker -->
     <link rel="stylesheet" href="{{ asset('bower_components/admin-lte/plugins/datepicker/datepicker3.css') }}">
 
+    <!-- Daterange picker -->
+    <link rel="stylesheet" href="{{ asset('bower_components/admin-lte/plugins/daterangepicker/daterangepicker.css') }}" >
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -128,6 +130,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <!-- iCheck 1.0.1 -->
 <script src="{{ asset('/bower_components/admin-lte/plugins/iCheck/icheck.min.js') }}"></script>
 
+<!-- daterangepicker -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>
+<script src="{{ asset('/bower_components/admin-lte/plugins/daterangepicker/daterangepicker.js') }}"></script>
+
 <!-- bootstrap datepicker -->
 <script src="{{ asset('/bower_components/admin-lte/plugins/datepicker/bootstrap-datepicker.js') }}"></script>
 
@@ -179,7 +185,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         //Date picker
         $('.datepicker').datepicker({
           autoclose: true,
-          format: "yyyy-mm-dd"
+          format: "yyyy-mm-dd",
         });
 
         $('.monthpicker').datepicker({
@@ -197,7 +203,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
             viewMode: 'years',
             pickTime: false
         });
-       
+
+        //Date range picker
+        $('#tglrentang').daterangepicker({
+            locale: {
+              format: 'YYYY/MM/DD'
+            }
+        });
+             
 
         $('#ganti_bulan').click(function() {
             var bulantahun = $('#bulantahun').val();
@@ -217,6 +230,17 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 window.location.href = link;
             }
         });
+
+        $('input:radio[name="dinas"]').change(
+            function(){
+                if ($(this).val() == '1') {
+                    $('#non-dinas').hide();
+                }
+                else {
+                    $('#non-dinas').show();
+                }
+        });
+
 
     });
 </script>
