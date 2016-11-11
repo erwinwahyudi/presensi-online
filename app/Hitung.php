@@ -251,6 +251,7 @@ class Hitung extends Model
 
 		    			 							if (empty($pulang)) {
 		    			 								$data_block['pulang'] 			= '00:00:00';
+		    			 								$data_block['keterangan']		= 'Tidak absen pulang';
 		    			 								$data_block['kategori_psw_id']	= '6';
 		    			 							} elseif($pulang->time < $awal_pulang) {
 														//psw
@@ -463,6 +464,7 @@ class Hitung extends Model
 						    			 									->orderBy('time', 'desc')->first();
 		    			 							if (empty($pulang)) {
 		    			 								$data_block['pulang'] 			= '00:00:00';
+		    			 								$data_block['keterangan']		= 'Tidak absen pulang';
 		    			 								$data_block['kategori_psw_id']	= '6';
 		    			 							} elseif($pulang->time < $awal_pulang_jumat) {
 														//psw
