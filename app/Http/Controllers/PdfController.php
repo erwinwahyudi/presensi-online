@@ -214,4 +214,23 @@ class PdfController extends Controller
 
     	return $pdf->stream();
     }
+
+    public function kartu($bln, $thn, $kid, $gid)
+    {
+    	$data['users']  = DB::table('users')->where('group_id', $gid)->where('kelompok_id', $kid)->get();
+
+    	foreach ($data['users'] as $key => $user) {
+    		$userid 	= $user->id;
+    		$data['users'][$key]->hitung_izin	= DB::table('izin')->where('users_id', $userid)->where('tgl_mulai_izin', 'LIKE', $thn.'-'.$bln.'%')->count();
+    		$data['users'][$key]->izin	= DB::table('izin')->where('users_id', $userid)->where('tgl_mulai_izin', 'LIKE', $thn.'-'.$bln.'%')->get();
+    	}
+
+    	// echo "<pre>";
+    	// print_r($data);
+    	// echo "</pre>";
+
+    	$pdf 	= PDF::loadView('adminpanel.pdf.kartu', compact('data') )
+    					->setPaper('a4')->setOrientation('potrait');
+    	return $pdf->stream();
+    }
 }

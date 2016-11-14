@@ -61,6 +61,9 @@
                       <div class="col-md-1 pull-right">
                           <a class="btn btn-sm btn-success btn-flat" target="_BLANK" href="{{ url('group/pdf/'.$data['bulan'].'/'.$data['tahun'].'/'.$kelompok->id.'/'.Auth::user()->group_id) }}">Cetak</a> 
                       </div>
+                      <div class="col-md-1 pull-right">
+                          <a class="btn btn-sm btn-success btn-flat" target="_BLANK" href="{{ url('kartu/pdf/'.$data['bulan'].'/'.$data['tahun'].'/'.$kelompok->id.'/'.Auth::user()->group_id) }}">Cetak Kartu</a> 
+                      </div>
                     </div>
                     
                 </div>
