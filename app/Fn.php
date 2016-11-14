@@ -23,4 +23,40 @@ class Fn extends Model
 		$total 	= $j.":".$m;
 		return $total;
     }
+
+    public static function date_to_string($date){
+        if($date!=NULL){
+            $date = explode('-', $date);
+
+            if($date[1]=='01'){
+                $bulan = 'Januari';
+            } else if($date[1]=='02') {
+                $bulan = 'Februari';
+            } else if($date[1]=='03') {
+                $bulan = 'Maret';
+            } else if($date[1]=='04') {
+                $bulan = 'April';
+            } else if($date[1]=='05') {
+                $bulan = 'Mei';
+            } else if($date[1]=='06') {
+                $bulan = 'Juni';
+            } else if($date[1]=='07') {
+                $bulan = 'Juli';
+            } else if($date[1]=='08') {
+                $bulan = 'Agustus';
+            } else if($date[1]=='09') {
+                $bulan = 'September';
+            } else if($date[1]=='10') {
+                $bulan = 'Oktober';
+            } else if($date[1]=='11') {
+                $bulan = 'November';
+            } else if($date[1]=='12') {
+                $bulan = 'Desember';
+            }
+
+            $tgl = (int)$date[2];
+
+            return $tgl.' '.$bulan.' '.$date[0];
+        }
+    }
 }

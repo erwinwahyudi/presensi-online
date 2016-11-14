@@ -86,7 +86,7 @@
                   <tr>
                         <td width="20%">Hari/Tgl</td>
                         <td width="2%">:</td>
-                        <td> {{ $izin->tgl_mulai_izin }} - {{ $izin->tgl_selesai_izin }} </td>
+                        <td> {{ $izin->tgl_mulai }} - {{ $izin->tgl_selesai }} </td>
                   </tr>
                   <tr>
                         <td width="20%">Alasan</td>
@@ -100,7 +100,7 @@
                 <table border="0" style="width:100%; text-align: center;"">
                   <tr>
                         <td>Mengetahui,</td>
-                        <td>Pontianak, {{ $izin->tgl_mulai_izin }}</td>
+                        <td>Pontianak, {{ $izin->tgl_mulai }}</td>
                   </tr>
                   <tr>
                         <td>Atasan Langsung</td>

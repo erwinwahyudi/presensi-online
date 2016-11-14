@@ -57,15 +57,22 @@
                                 Kategori Izin
                             </label>
                             <div class="col-sm-4">
-                                {{-- <input type="radio" name="dinas" value="1" class="flat-red" checked>&nbsp; Dinas
-                                &nbsp;
-                                <input type="radio" name="dinas" value="0" class="flat-red" >&nbsp; Non Dinas --}}
-
                                 <input type="radio" name="dinas" value="1" checked>&nbsp; Dinas
                                 &nbsp;
                                 <input type="radio" name="dinas" value="0" >&nbsp; Non Dinas
                             </div>
                             <span class="help-block"> {{ $errors->first('dinas') }} </span>
+                        </div>
+
+                        <div class="form-group {{ $errors->has('keterangan') ? 'has-error' : '' }}" id="dinas">
+                            <label class="col-sm-2 control-label" for="inputFingerId">
+                                Perihal Dinas
+                            </label>
+
+                            <div class="col-md-5">
+                               <textarea name="keterangan" class="form-control" rows="2" placeholder="perihal dinas"></textarea>
+                            </div>
+                            <span class="help-block"> {{ $errors->first('keterangan') }} </span>
                         </div>
 
                         <div class="form-group" id="non-dinas" style="display:none;">

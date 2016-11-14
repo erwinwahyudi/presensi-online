@@ -223,6 +223,11 @@ class PdfController extends Controller
     		$userid 	= $user->id;
     		$data['users'][$key]->hitung_izin	= DB::table('izin')->where('users_id', $userid)->where('tgl_mulai_izin', 'LIKE', $thn.'-'.$bln.'%')->count();
     		$data['users'][$key]->izin	= DB::table('izin')->where('users_id', $userid)->where('tgl_mulai_izin', 'LIKE', $thn.'-'.$bln.'%')->get();
+    		
+    		foreach ($data['users'][$key]->izin as $k => $value) {
+    			$data['users'][$key]->izin[$k]->tgl_mulai 		= Fn::date_to_string( $value->tgl_mulai_izin ); 
+    			$data['users'][$key]->izin[$k]->tgl_selesai 	= Fn::date_to_string( $value->tgl_selesai_izin );   			
+    		}
     	}
 
     	// echo "<pre>";

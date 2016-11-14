@@ -235,9 +235,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
             function(){
                 if ($(this).val() == '1') {
                     $('#non-dinas').hide();
+                    $('#dinas').show();
                 }
-                else {
+                else if ($(this).val() == '0') {
                     $('#non-dinas').show();
+                    $('#dinas').hide();
                 }
         });
 
