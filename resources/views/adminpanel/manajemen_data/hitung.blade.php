@@ -13,8 +13,7 @@
             </div>
             <!-- /.box-header -->
             <!-- form start -->
-            <form action="hitung-data" class="form-horizontal" method="POST" >
-                {{ csrf_field() }}
+            {!! Form::open(['url' => 'hitung-data', 'class' => 'form-horizontal']) !!}
                     <div class="box-body">
                         <div class="form-group">
                             <label class="col-sm-3 control-label">Pilih Rentang Tanggal:</label>
@@ -46,7 +45,7 @@
                     </div>
                     <!-- /.box-footer -->
                 </input>
-            </form>
+            {!! Form::close() !!}
         </div>
         <!-- /.box -->
     </div>

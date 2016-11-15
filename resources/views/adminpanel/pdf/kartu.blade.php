@@ -91,7 +91,7 @@
                   <tr>
                         <td width="20%">Alasan</td>
                         <td width="2%">:</td>
-                        <td> </td>
+                        <td> {{ $izin->keterangan }} </td>
                   </tr>
                 </table>
 
@@ -107,8 +107,8 @@
                         <td></td>
                   </tr>
                   <tr>
-                        <td style="padding-top:50px;">Nama Atasan, S.Kom, M.Kom</td>
-                        <td style="padding-top:50px;">Nama Pegawai, S.Kom</td>
+                        <td style="padding-top:50px;"> ______________________ </td>
+                        <td style="padding-top:50px;">{{ $user->nama }}</td>
                   </tr>
                 </table>
                 <br> <hr style="border-top: 1px dashed #8c8b8b;margin:50px 0px;">

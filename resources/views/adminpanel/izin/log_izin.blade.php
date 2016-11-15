@@ -21,6 +21,7 @@
                                 <th>Tgl Mulai</th>
                                 <th>Tgl Selesai</th>
                                 <th>Kategori</th>
+                                <th>Keterangan</th>
                                 <th>File</th>
                             </tr>
                         </thead>
@@ -38,6 +39,7 @@
                                           }
                                      ?>
                                  <td> {{ $dinas }} </td>
+                                 <td> {{ $izin->keterangan }} </td>
                                  <td>
                                    <a href="{{ url('file_surat/'.$izin->file_surat) }}" class="btn btn-xs btn-success" target="_BLANK"> Lihat </a>                                 
                                  </td>

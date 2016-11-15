@@ -32,16 +32,17 @@ class IzinController extends Controller
     {
         $this->validate($request, [
             // 'tgl_mulai_izin'    => 'required',
-            // 'tgl_selesai_izin'  => 'required',
+            'tglrentang'        => 'required',
             'dinas'             => 'required',
             'file_surat'        => 'required',
             'tglrentang'        => 'required',
         ], [
             // 'tgl_mulai_izin.required'   => 'tgl harus di isi.',
-            // 'tgl_selesai_izin.required' => 'tgl harus di isi.',
+            'tglrentang.required'       => 'tgl harus di isi.',
             'dinas.required'            => 'Pilih kategori dinas',
             'file_surat.required'       => 'file surat tidak boleh kosong.',
             'tglrentang.required'       => 'Tanggal rentang harus diisi.',
+
         ]);
 
         // echo "<pre>";
@@ -57,10 +58,13 @@ class IzinController extends Controller
         $tgl_mulai_izin     = str_replace( "/", "-", $exp_tglrentang[0] );
         $tgl_selesai_izin   = str_replace( "/", "-", $exp_tglrentang[1] );
 
+        //jia dinas
         if($dinas == '1') {
             $kode_izin      = '';
+            $keterangan     = $request->keterangan;
         } else {
             $kode_izin      = $request->kode_izin;
+            $keterangan     = $request->keterangan_izin;
         }
 
         $file               = $request->file('file_surat');
@@ -90,6 +94,7 @@ class IzinController extends Controller
                                         'tgl_selesai_izin'  => $tgl_selesai_izin,
                                         'dinas'             => $dinas,
                                         'kode_izin'         => $kode_izin,
+                                        'keterangan'        => $keterangan,
                                         'file_surat'        => $filename,
                                     ]);
 

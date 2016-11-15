@@ -13,7 +13,7 @@
             </div>
             <!-- /.box-header -->
             <!-- form start -->
-            <form action="hitung-data" class="form-horizontal" method="POST" >
+            <form action="" class="form-horizontal" method="POST" >
                 {{ csrf_field() }}
                     <div class="box-body">
                         <div class="form-group">

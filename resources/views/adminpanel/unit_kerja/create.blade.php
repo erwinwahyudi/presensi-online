@@ -14,8 +14,6 @@
             <!-- /.box-header -->
             <!-- form start -->
             {!! Form::open(['url' => 'unit/create', 'class' => 'form-horizontal']) !!}
-            {{-- <form action="/unit/create" class="form-horizontal" method="POST"> --}}
-                {{ csrf_field() }}
                 <input name="active" type="hidden" value="1">
                     <div class="box-body">
                         <div class="form-group{{ $errors->has('nama_group') ? 'has-error' : '' }}">

@@ -557,7 +557,8 @@ class Hitung extends Model
 									->where('tgl_mulai_izin', '<=', $tgl_attlog)
 									->where('tgl_selesai_izin', '>=', $tgl_attlog)->count();
 		if( $cek_tgl > 0 ) {
-			$get_potongan 	= DB::table('izin')->join('kategori_izin', 'izin.kode_izin', '=', 'kategori_izin.kode_izin')
+			// $get_potongan 	= DB::table('izin')->join('kategori_izin', 'izin.kode_izin', '=', 'kategori_izin.kode_izin')
+			$get_potongan 	= DB::table('izin')
 									->where('users_id', $user_id)
 									->where('group_id', $groupid)
 									->where('tgl_mulai_izin', '<=', $tgl_attlog)
@@ -568,7 +569,7 @@ class Hitung extends Model
 				$data->masuk     		= '1';
 				$data->total_potongan	= '0';
 				$data->izin				= '0';
-				$data->keterangan		= 'Dinas';
+				$data->keterangan		= $get_potongan->keterangan;
 			} else {
 				$data->jam_kerja 		= '0';
 				$data->masuk     		= '0';

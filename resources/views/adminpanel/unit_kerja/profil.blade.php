@@ -1,5 +1,4 @@
-<form action="unit/update/{{ $group->id }}" class="form-horizontal" method="POST">
-    {{ csrf_field() }}
+{!! Form::open(['url' => 'unit/update/'.$group->id, 'class' => 'form-horizontal']) !!}
     <input name="active" type="hidden" value="1">
         <div class="box-body">
             <div class="form-group{{ $errors->has('nama_group') ? 'has-error' : '' }}">
@@ -32,4 +31,4 @@
         </div>
         <!-- /.box-footer -->
     </input>
-</form>                   
+{!! Form::close() !!}                 

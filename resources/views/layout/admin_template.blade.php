@@ -17,6 +17,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- Theme style -->
     <link href="{{ asset('/bower_components/admin-lte/dist/css/AdminLTE.min.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('/bower_components/admin-lte/dist/css/skins/skin-blue.min.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('/bower_components/admin-lte/dist/css/skins/skin-green.min.css')}}" rel="stylesheet" type="text/css" />
     
     <!-- select2 -->
     <link href="{{ asset('/bower_components/admin-lte/plugins/select2/select2.min.css') }}" rel="stylesheet" type="text/css">
@@ -63,7 +64,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
     </style>
 </head>
-<body class="skin-blue fixed sidebar-mini">
+<body class="skin-green fixed sidebar-mini">
 <div class="wrapper">
 
     <!-- Header -->
@@ -240,6 +241,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 else if ($(this).val() == '0') {
                     $('#non-dinas').show();
                     $('#dinas').hide();
+
+                    var ket_izin = $('#option_izin :selected').text();
+                    $('#ket_izin').val(ket_izin);
+                    $('#option_izin').change(function() {
+                        var ket_izin = $('#option_izin :selected').text();
+                        $('#ket_izin').val(ket_izin);
+                    });                    
                 }
         });
 

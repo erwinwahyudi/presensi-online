@@ -32,17 +32,17 @@
             <li class="header">Menu</li>
             <!-- Optionally, you can add icons to the links -->
             @if( (Auth::user()->level == 'admin') )
-                <li class="active"><a href="{{ url('rekap') }}"><i class="fa fa-file-text-o"></i><span>Data Kehadiran</span></a></li>
+                <li {{ current_page('rekap') ? 'class=active' : '' }} ><a href="{{ url('rekap') }}"><i class="fa fa-file-text-o"></i><span>Data Kehadiran</span></a></li>
             @endif 
 
             @if( (Auth::user()->level == 'admin') || (Auth::user()->level == 'superadmin') )
                 <li><a href="{{ url('unit') }}"><i class="fa fa-users"></i><span>Unit Kerja</span></a></li>
-                <li><a href="{{ URL('libur') }}"><i class="fa fa-calendar-check-o"></i><span>Hari Libur</span></a></li>
+                <li><a href="{{ url('libur') }}"><i class="fa fa-calendar-check-o"></i><span>Hari Libur</span></a></li>
                 <li><a href="#"><i class="fa fa-calendar"></i><span><span>Jadwal Khusus</span></a></li>
             @endif 
 
             @if( (Auth::user()->level == 'admin') )
-                <li class="treeview">
+                <li {{ current_page('manajemen-data') ? 'class=treeview active' : 'class=treeview' }}>
                     <a href="#"><i class="fa fa-database"></i><span>Manajemen Data</span> <i class="fa fa-angle-left pull-right"></i></a>
                     <ul class="treeview-menu">
                         <li><a href="{{ url('manajemen-data') }}">Upload File</a></li>

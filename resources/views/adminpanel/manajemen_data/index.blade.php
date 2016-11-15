@@ -13,8 +13,7 @@
             </div>
             <!-- /.box-header -->
             <!-- form start -->
-            <form action="uploadfile" class="form-horizontal" method="POST" enctype="multipart/form-data">
-                {{ csrf_field() }}
+            {!! Form::open(['url' => 'uploadfile', 'class' => 'form-horizontal', 'enctype' => 'multipart/form-data']) !!}
                 <input name="active" type="hidden" value="1">
                     <div class="box-body">
                         <div class="form-group">
@@ -48,7 +47,7 @@
                     </div>
                     <!-- /.box-footer -->
                 </input>
-            </form>
+            {!! Form::close() !!}
         </div>
         <!-- /.box -->
     </div>

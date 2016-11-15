@@ -78,11 +78,12 @@
                         <div class="form-group" id="non-dinas" style="display:none;">
                            <label class="col-sm-2 control-label">Jenis Izin/Cuti</label>
                            <div class="col-sm-4">
-                              <select name="kode_izin" class="form-control select2" style="width: 100%;">
+                              <select name="kode_izin" class="form-control select2" style="width: 100%;" id="option_izin">
                                     @foreach($kat_izins as $kat_izin)
-                                        <option value="{{ $kat_izin->kode_izin }}"> {{ $kat_izin->keterangan }} </option>
+                                        <option value="{{ $kat_izin->kode_izin }}"> {{ $kat_izin->keterangan }} </option>                                        
                                     @endforeach
                               </select>
+                              <input type="hidden" name="keterangan_izin" id="ket_izin" value="">
                            </div>
                         </div>
 
