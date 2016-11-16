@@ -13,12 +13,12 @@
 
 //set halaman default untuk admin
 Route::auth();
-	
+
 
 
 Route::group(['middleware' => 'auth'], function () {
 	Route::get('/', 'HomeController@index');
-	
+
 	Route::group(['middleware' => 'adminsuperadmin'], function () {
 		// route anggota
 		Route::get('/unit/{uid}/anggota/create', 'AnggotaController@create');
@@ -35,7 +35,7 @@ Route::group(['middleware' => 'auth'], function () {
 		Route::delete('/unit/{uid}/kelompok/delete/{id}', 'KelompokController@destroy');
 
 		// menu unit kerja
-		Route::get('/unit', 'UnitKerjaController@index'); 
+		Route::get('/unit', 'UnitKerjaController@index');
 		Route::get('/unit/create', 'UnitKerjaController@create');
 		Route::post('/unit/create', 'UnitKerjaController@store');
 		Route::get('/unit/edit/{id}', 'UnitKerjaController@edit');
@@ -56,12 +56,14 @@ Route::group(['middleware' => 'auth'], function () {
 
 		//Route rekap data harian
 		Route::get('/rekap', 'RekapController@index');
-		Route::post('/rekap', 'RekapController@rekap_group');				
+		Route::post('/rekap', 'RekapController@rekap_group');
 		Route::get('/rekap/log/{uid}/{tgl}', 'RekapController@log');
 		Route::get('/rekap/{bln}/{thn}/{uid}', 'RekapController@rekap_user');
 
 		//Route CRUD libur
 		Route::get('libur', 'LiburController@index');
+		Route::post('libur/create', 'LiburController@create');
+		Route::delete('libur/delete/{id}', 'LiburController@delete');
 
 		// route untuk pdf
 		Route::get('/group/pdf/{bln}/{thn}/{kid}/{gid}', 'PdfController@print_group');
@@ -84,9 +86,8 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::group(['middleware' => 'anggota'], function () {
 		//Route rekap data harian
 		Route::get('/kehadiran', 'KehadiranController@index');
-		Route::post('/kehadiran', 'KehadiranController@rekap_tahun');		
+		Route::post('/kehadiran', 'KehadiranController@rekap_tahun');
 		Route::get('/kehadiran/log/{tgl}', 'KehadiranController@log_hadir');
-		Route::get('/kehadiran/{bln}/{thn}', 'KehadiranController@detail');		
+		Route::get('/kehadiran/{bln}/{thn}', 'KehadiranController@detail');
 	});
 });
-

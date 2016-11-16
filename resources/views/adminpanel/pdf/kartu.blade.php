@@ -1,14 +1,14 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-        <title>Laporan Absensi</title>        
+        <title>Laporan Absensi</title>
             <style type="text/css">
-                
+
                 .tg  {
                     border-collapse:collapse;
                     border-spacing:0;
                     border-color:#ccc;
-                    width: 100%; 
+                    width: 100%;
                 }
                 .tg td {
                     font-family:Arial;
@@ -35,13 +35,13 @@
                     color:#333;
                     background-color:#f0f0f0;
                 }
-                .tg .tg-3wr7 { 
+                .tg .tg-3wr7 {
                     font-weight:bold;
                     font-size:12px;
                     font-family:"Arial", Helvetica, sans-serif !important;
                     text-align:center
                 }
-                .tg .tg-ti5e { 
+                .tg .tg-ti5e {
                     font-size:10px;
                     font-family:"Arial", Helvetica, sans-serif !important;
                     text-align:center
@@ -58,17 +58,17 @@
             @foreach ($user->izin as $izin)
                 <?php
                     if($izin->dinas == '1') {
-                        $warna  = "yellow";
-                        $header = "NON DINAS";
+                        $warna  = "green";
+                        $header = "DINAS";
                     } else {
-                        $warna   = "#FF0000";
-                        $header  = "DINAS";
+                        $warna   = "red";
+                        $header  = "NON DINAS";
                     }
                 ?>
-                   
+
                 <table class="tg">
                   <tr>
-                        <th class="tg-3wr7" style="background-color:{{ $warna }};" colspan="3"> <h2>TIDAK HADIR ( {{ $header }} )</h2> </th>
+                        <th class="tg-3wr7" style="background-color:{{ $warna }}; color:#f0f0f0; " colspan="3"> <h2>TIDAK HADIR ( {{ $header }} )</h2> </th>
                   </tr>
                   <tr>
                         <td class="tg-3wr7"  colspan="3">  KARTU KETERANGAN KEHADIRAN </td>
@@ -97,7 +97,7 @@
 
                 <br>
 
-                <table border="0" style="width:100%; text-align: center;"">
+                <table border="0" style="width:100%; text-align: center;">
                   <tr>
                         <td>Mengetahui,</td>
                         <td>Pontianak, {{ $izin->tgl_mulai }}</td>
@@ -111,9 +111,9 @@
                         <td style="padding-top:50px;">{{ $user->nama }}</td>
                   </tr>
                 </table>
-                <br> <hr style="border-top: 1px dashed #8c8b8b;margin:50px 0px;">
-            @endforeach            
+                <br> <hr style="border: 0.5px dashed #8c8b8b;margin:50px 0px;">
+            @endforeach
         @endif
     @endforeach
-    </body>    
+    </body>
 </html>

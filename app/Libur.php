@@ -6,5 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Libur extends Model
 {
-    protected $table = 'libur';
+		protected $table    = 'libur';
+		protected $fillable = ['tanggal', 'keterangan', 'nama_bulan'];
 }

@@ -18,105 +18,105 @@ use App\Attlog;
 
 class RekapController extends Controller
 {
-    public function index() 
+    public function index()
     {
       	$data['kelompok_array']  = '0';
-      	
+
     	return view('adminpanel.rekap.index', compact('data'));
     }
 
-  
 
-    public function rekap_group(Request $request) 
+
+    public function rekap_group(Request $request)
     {
     	$bulantahun = $request->bulantahun;
     	$fn_bt = Fn::pisah_bulantahun($bulantahun);
             $bulan    = $fn_bt['bulan'];
             $tahun    = $fn_bt['tahun'];
-            
-    	$groupid    = Auth::user()->group_id;       
 
-	      if($request->has('bulantahun')) 
+    	$groupid    = Auth::user()->group_id;
+
+	      if($request->has('bulantahun'))
 	      {
 	          //buat perulangan kelompok
 	          $data['kelompok_array'] = DB::table('kelompok')->where('group_id', $groupid)->get();
-	          foreach ($data['kelompok_array'] as $index => $kelompok) 
+	          foreach ($data['kelompok_array'] as $index => $kelompok)
 	          {
 	          		$data['kelompok_array'][$index]->user = DB::table('users')->where('kelompok_id', $kelompok->id)->get();
-	          		
-	          		foreach ($data['kelompok_array'][$index]->user as $key => $value) 
+
+	          		foreach ($data['kelompok_array'][$index]->user as $key => $value)
 	          		{
-	          					          		
-						$user_id  = $value->id;          
-						$nama     = $value->nama;
-						$nip      = $value->nip;  
 
-						$masuk = Perhitungan::where('tanggal', 'LIKE', $tahun.'-'.$bulan.'%')
-						      ->where('users_id', $user_id)
-						      ->where('masuk', '1')->count();
+      						$user_id  = $value->id;
+      						$nama     = $value->nama;
+      						$nip      = $value->nip;
 
-						$tidak_masuk = Perhitungan::where('tanggal', 'LIKE', $tahun.'-'.$bulan.'%')
-						          ->where('users_id', $user_id)
-						          ->where('masuk', '0')->count();
+      						$masuk = Perhitungan::where('tanggal', 'LIKE', $tahun.'-'.$bulan.'%')
+      						      ->where('users_id', $user_id)
+      						      ->where('masuk', '1')->count();
 
-						$terlambat = Perhitungan::where('tanggal', 'LIKE', $tahun.'-'.$bulan.'%')
-						          ->where('users_id', $user_id)
-						          ->where('terlambat', '1')->count();
+      						$tidak_masuk = Perhitungan::where('tanggal', 'LIKE', $tahun.'-'.$bulan.'%')
+      						          ->where('users_id', $user_id)
+      						          ->where('masuk', '0')->count();
 
-						$ganti_terlambat = Perhitungan::where('tanggal', 'LIKE', $tahun.'-'.$bulan.'%')
-						          ->where('users_id', $user_id)
-						          ->where('ganti_terlambat', '1')->count();
+      						$terlambat = Perhitungan::where('tanggal', 'LIKE', $tahun.'-'.$bulan.'%')
+      						          ->where('users_id', $user_id)
+      						          ->where('terlambat', '1')->count();
 
-						$psw = Perhitungan::where('tanggal', 'LIKE', $tahun.'-'.$bulan.'%')
-						          ->where('users_id', $user_id)
-						          ->where('psw', '1')->count();
+      						$ganti_terlambat = Perhitungan::where('tanggal', 'LIKE', $tahun.'-'.$bulan.'%')
+      						          ->where('users_id', $user_id)
+      						          ->where('ganti_terlambat', '1')->count();
 
-						$izin = Perhitungan::where('tanggal', 'LIKE', $tahun.'-'.$bulan.'%')
-						          ->where('users_id', $user_id)
-						          ->where('izin', '1')
-						          ->where('masuk', '0')->count();
+      						$psw = Perhitungan::where('tanggal', 'LIKE', $tahun.'-'.$bulan.'%')
+      						          ->where('users_id', $user_id)
+      						          ->where('psw', '1')->count();
 
-						$potongan_terlambat  = Perhitungan::select('potongan_terlambat', DB::raw('SUM(potongan_terlambat) as total_potongan_terlambat'))
-						                        ->where('tanggal', 'LIKE', $tahun.'-'.$bulan.'%')
-						                        ->where('users_id', $user_id)
-						                        ->where('kategori_terlambat_id', '!=', '0')->first();
-						$potongan_terlambat = $potongan_terlambat->total_potongan_terlambat;
+      						$izin = Perhitungan::where('tanggal', 'LIKE', $tahun.'-'.$bulan.'%')
+      						          ->where('users_id', $user_id)
+      						          ->where('izin', '1')
+      						          ->where('masuk', '0')->count();
 
-
-						$potongan_psw  = Perhitungan::select('potongan_terlambat', DB::raw('SUM(potongan_psw) as total_potongan_psw'))
-						                        ->where('tanggal', 'LIKE', $tahun.'-'.$bulan.'%')
-						                        ->where('users_id', $user_id)
-						                        ->where('kategori_psw_id', '!=', '0')->first();
-						$potongan_psw = $potongan_psw->total_potongan_psw;
+      						$potongan_terlambat  = Perhitungan::select('potongan_terlambat', DB::raw('SUM(potongan_terlambat) as total_potongan_terlambat'))
+      						                        ->where('tanggal', 'LIKE', $tahun.'-'.$bulan.'%')
+      						                        ->where('users_id', $user_id)
+      						                        ->where('kategori_terlambat_id', '!=', '0')->first();
+      						$potongan_terlambat = $potongan_terlambat->total_potongan_terlambat;
 
 
-						$total_potongan  = Perhitungan::select('total_potongan', DB::raw('SUM(total_potongan) as total_potongan'))
-						                        ->where('tanggal', 'LIKE', $tahun.'-'.$bulan.'%')
-						                        ->where('users_id', $user_id)->first();
-						$total_potongan = $total_potongan->total_potongan;
+      						$potongan_psw  = Perhitungan::select('potongan_terlambat', DB::raw('SUM(potongan_psw) as total_potongan_psw'))
+      						                        ->where('tanggal', 'LIKE', $tahun.'-'.$bulan.'%')
+      						                        ->where('users_id', $user_id)
+      						                        ->where('kategori_psw_id', '!=', '0')->first();
+      						$potongan_psw = $potongan_psw->total_potongan_psw;
 
-						$jam_kerja  = Perhitungan::select('jam_kerja', DB::raw('SUM(jam_kerja) as jam_kerja'))
-						                        ->where('tanggal', 'LIKE', $tahun.'-'.$bulan.'%')
-						                        ->where('users_id', $user_id)->first();
-						$jam_kerja = $jam_kerja->jam_kerja;
 
-						$total_jam_kerja	= Fn::total_jam_kerja($jam_kerja);
+      						$total_potongan  = Perhitungan::select('total_potongan', DB::raw('SUM(total_potongan) as total_potongan'))
+      						                        ->where('tanggal', 'LIKE', $tahun.'-'.$bulan.'%')
+      						                        ->where('users_id', $user_id)->first();
+      						$total_potongan = $total_potongan->total_potongan;
 
-						$data['kelompok_array'][$index]->user[$key]->user_id             = $user_id;
-						$data['kelompok_array'][$index]->user[$key]->nama                = $nama;
-						$data['kelompok_array'][$index]->user[$key]->nip                 = $nip;
-						$data['kelompok_array'][$index]->user[$key]->masuk               = $masuk;
-						$data['kelompok_array'][$index]->user[$key]->tidak_masuk         = $tidak_masuk;
-						$data['kelompok_array'][$index]->user[$key]->terlambat           = $terlambat;
-						$data['kelompok_array'][$index]->user[$key]->ganti_terlambat     = $ganti_terlambat;
-						$data['kelompok_array'][$index]->user[$key]->psw                 = $psw;
-						$data['kelompok_array'][$index]->user[$key]->izin 				 = $izin;
-						$data['kelompok_array'][$index]->user[$key]->potongan_terlambat  = $potongan_terlambat;
-						$data['kelompok_array'][$index]->user[$key]->potongan_psw        = $potongan_psw;
-						$data['kelompok_array'][$index]->user[$key]->total_potongan      = $total_potongan;
-						$data['kelompok_array'][$index]->user[$key]->total_jam_kerja	 = $total_jam_kerja;
+      						$jam_kerja  = Perhitungan::select('jam_kerja', DB::raw('SUM(jam_kerja) as jam_kerja'))
+      						                        ->where('tanggal', 'LIKE', $tahun.'-'.$bulan.'%')
+      						                        ->where('users_id', $user_id)->first();
+      						$jam_kerja = $jam_kerja->jam_kerja;
+
+      						$total_jam_kerja	= Fn::total_jam_kerja($jam_kerja);
+
+      						$data['kelompok_array'][$index]->user[$key]->user_id             = $user_id;
+      						$data['kelompok_array'][$index]->user[$key]->nama                = $nama;
+      						$data['kelompok_array'][$index]->user[$key]->nip                 = $nip;
+      						$data['kelompok_array'][$index]->user[$key]->masuk               = $masuk;
+      						$data['kelompok_array'][$index]->user[$key]->tidak_masuk         = $tidak_masuk;
+      						$data['kelompok_array'][$index]->user[$key]->terlambat           = $terlambat;
+      						$data['kelompok_array'][$index]->user[$key]->ganti_terlambat     = $ganti_terlambat;
+      						$data['kelompok_array'][$index]->user[$key]->psw                 = $psw;
+      						$data['kelompok_array'][$index]->user[$key]->izin 				 = $izin;
+      						$data['kelompok_array'][$index]->user[$key]->potongan_terlambat  = $potongan_terlambat;
+      						$data['kelompok_array'][$index]->user[$key]->potongan_psw        = $potongan_psw;
+      						$data['kelompok_array'][$index]->user[$key]->total_potongan      = $total_potongan;
+      						$data['kelompok_array'][$index]->user[$key]->total_jam_kerja	 = $total_jam_kerja;
 	          		}
-	          } 
+	          }
 	      } else {
 	          $data['kelompok_array'] = '0';
 	      }
@@ -228,14 +228,14 @@ class RekapController extends Controller
     						->where('date', $tgl)
     						->orderBy('time', 'asc')->get();
 
-    	$izins		= DB::table('izin')->join('kategori_izin', 'izin.kode_izin', '=', 'kategori_izin.kode_izin')
-    								   ->where('users_id', $uid)
-    								   ->where('group_id', $groupid)
-    								   ->where('tgl_mulai_izin', '<=', $tgl)
-									   ->where('tgl_selesai_izin', '>=', $tgl)->get();
+    	$izins		= DB::table('izin')
+      								  ->where('users_id', $uid)
+      								  ->where('group_id', $groupid)
+      								  ->where('tgl_mulai_izin', '<=', $tgl)
+  									    ->where('tgl_selesai_izin', '>=', $tgl)->get();
 
-    	return view('adminpanel.rekap.log', compact('attlogs', 'user', 'izins'));    	
+    	return view('adminpanel.rekap.log', compact('attlogs', 'user', 'izins'));
     }
 
-    				
+
 }
