@@ -5,7 +5,7 @@
 <div class="row">
 		<div class="col-md-8">
 				<!-- Horizontal Form -->
-				<div class="box box-info">
+				<div class="box box-success">
 						<div class="box-header with-border">
 								<h3 class="box-title">
 										Hitung Data

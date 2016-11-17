@@ -5,7 +5,7 @@
 <div class="row">
     <div class="col-md-12">
         <!-- Horizontal Form -->
-        <div class="box box-info">
+        <div class="box box-success">
             <div class="box-header with-border">
                 <h3 class="box-title">
                     Input Data Izin
@@ -14,7 +14,7 @@
             <!-- /.box-header -->
             <!-- form start -->
             {!! Form::open(['url' => 'izin', 'class' => 'form-horizontal', 'enctype' => 'multipart/form-data']) !!}
-            
+
                     <div class="box-body">
 
                         @if ( Auth::user()->level == 'admin' )
@@ -32,7 +32,7 @@
                           <input type="hidden" name="users_id" value="{{ $users }}">
                         @endif
                         <input type="hidden" name="group_id" value="{{ Auth::user()->group_id }}">
-                        
+
 
                          <!-- Date range -->
                         <div class="form-group {{ $errors->has('tglrentang') ? 'has-error' : '' }}">
@@ -80,7 +80,7 @@
                            <div class="col-sm-4">
                               <select name="kode_izin" class="form-control select2" style="width: 100%;" id="option_izin">
                                     @foreach($kat_izins as $kat_izin)
-                                        <option value="{{ $kat_izin->kode_izin }}"> {{ $kat_izin->keterangan }} </option>                                        
+                                        <option value="{{ $kat_izin->kode_izin }}"> {{ $kat_izin->keterangan }} </option>
                                     @endforeach
                               </select>
                               <input type="hidden" name="keterangan_izin" id="ket_izin" value="">
