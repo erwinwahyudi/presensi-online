@@ -11,6 +11,7 @@ use App\Http\Requests;
 use Auth;
 use Storage;
 use Carbon;
+use DB;
 
 // ambil model
 use App\Filelog;
@@ -151,15 +152,18 @@ class ManajemenDataController extends Controller
 
 	 public function indexhitung()
 	 {
-		  return view('adminpanel.manajemen_data.hitung');
+		  $groupid 		= Auth::user()->group_id;
+		  $last_hitung = DB::table('perhitungan')->where('group_id', $groupid)->orderBy('tanggal', 'DESC')->first();
+		  $tanggal   	= Fn::date_to_string($last_hitung->tanggal);
+		  return view('adminpanel.manajemen_data.hitung', compact('tanggal'));
 	 }
 
 	 public function hitung(Request $request)
 	 {
 
-			echo "<pre>";
-			print_r($request->all());
-			echo "</pre>"; die();
+			// echo "<pre>";
+			// print_r($request->all());
+			// echo "</pre>"; die();
 
 		  $groupid    = Auth::user()->group_id;
 		  $tglrentang = $request->tglrentang;
@@ -168,15 +172,36 @@ class ManajemenDataController extends Controller
 		  $exp_tglrentang     = explode("-", $tglrentang);
 		  $dari_tgl           = str_replace( "/", "-", $exp_tglrentang[0] );
 		  $sampai_tgl         = str_replace( "/", "-", $exp_tglrentang[1] );
+		  $dari_tgl_human		 = Fn::date_to_string($dari_tgl);
+		  $sampai_tgl_human	 = Fn::date_to_string($sampai_tgl);
+
+		  $cek_tgl 				= DB::table('perhitungan')->where('group_id', $groupid)->where('tanggal', $dari_tgl)->count();
+
+		  //cek apakah dari rentang tanggal yg disubmit, ada di table attlog
+		  $group					= DB::table('group')->where('id', $groupid)->first();
+		  $cek_data_attlog 	= DB::table('attlog')->where('finger_group_id', $group->finger_group_id)->whereBetween('date', [$dari_tgl, $sampai_tgl])->count();
 
 
-		  echo "<pre>";
-		  $hitung = Hitung::hitung_unit_kerja($groupid, $dari_tgl, $sampai_tgl);
-		  print_r($hitung);
-		  echo "</pre>";
+		  if ($cek_tgl <= 0 ) {
+			  //cek apakah dari rentang tanggal yg disubmit, ada di table attlog
+				 if($cek_data_attlog > 0 ) {
+					  echo "<pre>";
+					  $hitung = Hitung::hitung_unit_kerja($groupid, $dari_tgl, $sampai_tgl);
+					  print_r($hitung);
+					  echo "</pre>";
 
-		  return redirect()->back()
-						  ->with('status_error', 'success')
-						  ->with('pesan_error', 'Perhitungan selesai.');
+					  return redirect()->back()
+									  ->with('status_error', 'success')
+									  ->with('pesan_error', 'Perhitungan selesai.');
+				} else {
+					return redirect()->back()
+									->with('status_error', 'error')
+									->with('pesan_error', 'Tidak ada data log absen ditanggal '.$dari_tgl_human.' sampai '.$sampai_tgl_human.'.');
+				}
+			} else {
+				return redirect()->back()
+								->with('status_error', 'warning')
+								->with('pesan_error', 'Tanggal '.$dari_tgl_human.' sudah dihitung. Silahkan pilih tanggal lain.');
+			}
 	 }
 }

@@ -15,28 +15,13 @@
 				<!-- form start -->
 				{!! Form::open(['url' => 'hitung-data', 'class' => 'form-horizontal']) !!}
 						  <div class="box-body">
-								<div class="form-group">
-									 <label class="col-sm-3 control-label">Pilih Rentang Tanggal:</label>
-									 <div class="col-md-4">
-										  <div class="input-group date">
-											 <div class="input-group-addon">
-												<i class="fa fa-calendar"></i>
-											 </div>
-											 <input type="text" name="dari_tgl" class="form-control pull-right datepicker" placeholder="dari tanggal">
-										  </div>
-									 </div>
-									 <div class="col-md-4">
-										  <div class="input-group date">
-											 <div class="input-group-addon">
-												<i class="fa fa-calendar"></i>
-											 </div>
-											 <input type="text" name="sampai_tgl" class="form-control pull-right datepicker" placeholder="sampai tanggal">
-										  </div>
-									 </div>
+								<div class="col-md-12">
+									  <div class="callout callout-default"> Tanggal terakhir hitung &nbsp; <h5 class="label label-warning"> {{ $tanggal }} </h5> </div>
 								</div>
 
-								<!-- Date range -->
-							  <div class="form-group {{ $errors->has('tglrentang') ? 'has-error' : '' }}">
+								<p></p>
+
+								<div class="form-group {{ $errors->has('tglrentang') ? 'has-error' : '' }}">
 									<label class="col-sm-3 control-label" for="inputFingerId">
 										Rentang Tanggal Hitung
 									</label>
@@ -71,39 +56,5 @@
 	 </div>
 </div>
 
-{{-- tabel view terakhir hitung --}}
-{{-- <div class="row">
-	 <div class="col-md-12">
-		  <div class="box">
-				<div class="box-header with-border">
-					 <h3 class="box-title">
-						  Data Log Upload
-					 </h3>
-				</div>
-				<!-- /.box-header -->
-				<div class="box-body">
-						  <table class="table table-bordered table-striped example1">
-								<thead>
-									 <tr>
-										  <th>Waktu Hitung</th>
-										  <th>Bulan/Tahun</th>
-										  <th>File</th>
-									 </tr>
-								</thead>
-								<tbody> --}}
-									{{-- @foreach($filelogs as $filelog) --}}
-										{{-- <tr>
-											<td> </td>
-											<td> <td>
-										</tr> --}}
-									{{-- @endforeach --}}
-								{{-- </tbody>
-						  </table>
-					 </br>
-				</div>
-				<!-- /.box-body -->
-		  </div>
-		  <!-- /.box -->
-	 </div>
-</div> --}}
+
 @stop
