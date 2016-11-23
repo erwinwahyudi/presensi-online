@@ -38,7 +38,6 @@
 				@if( (Auth::user()->level == 'admin') || (Auth::user()->level == 'superadmin') )
 					 <li {{ current_page('unit') ? 'class=active' : '' }}><a href="{{ url('unit') }}"><i class="fa fa-users"></i><span>Unit Kerja</span></a></li>
 					 <li {{ current_page('libur') ? 'class=active' : '' }}><a href="{{ url('libur') }}"><i class="fa fa-calendar-check-o"></i><span>Hari Libur</span></a></li>
-					 <li {{ current_page() ? 'class=active' : '' }}><a href="#"><i class="fa fa-calendar"></i><span><span>Jadwal Khusus</span></a></li>
 				@endif
 
 				@if( (Auth::user()->level == 'admin') )
@@ -53,7 +52,8 @@
 				@endif
 
 				@if(Auth::user()->level == 'superadmin')
-					 <li {{ current_page() ? 'class=active' : '' }}><a href="#"><i class="fa fa-user-secret"></i><span>Admin</span></a></li>
+					<li {{ current_page() ? 'class=active' : '' }}><a href="#"><i class="fa fa-user-secret"></i><span>Admin</span></a></li>
+					<li {{ current_page('jadwal-khusus') ? 'class=active' : '' }}><a href="{{ url('jadwal-khusus') }}"><i class="fa fa-calendar"></i><span><span>Jadwal Khusus</span></a></li>
 				@endif
 
 				@if(Auth::user()->level == 'anggota')
@@ -70,7 +70,7 @@
 					 </li>
 				@endif
 
-				<li {{ current_page('ubah-pass') ? 'class=active' : '' }}><a href="ubah-pass"><i class="fa fa-lock"></i><span>Ubah Password</span></a></li>
+				<li {{ current_page('ubah-pass') ? 'class=active' : '' }}><a href="{{ url('ubah-pass') }}"><i class="fa fa-lock"></i><span>Ubah Password</span></a></li>
 				<li><a href="{{ url('logout') }}"><i class="fa fa-power-off"></i><span>Logout</span></a></li>
 		  </ul><!-- /.sidebar-menu -->
 	 </section>

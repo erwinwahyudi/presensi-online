@@ -140,7 +140,7 @@
 												<input type="text" name="awal_masuk_istirahat_jumat" class="absen_masuk_istirahat form-control timepicker">
 										  </div>
 										  <div class="col-xs-3 bootstrap-timepicker">
-												<input type="text" name="akhir_masuk_istrirahat_jumat" class="absen_masuk_istirahat form-control timepicker">
+												<input type="text" name="akhir_masuk_istirahat_jumat" class="absen_masuk_istirahat form-control timepicker">
 										  </div>
 									 </div>
 								</div>

@@ -73,7 +73,9 @@ Route::group(['middleware' => 'auth'], function () {
 
 
 	Route::group(['middleware' => 'superadmin'], function () {
-
+		Route::get('/jadwal-khusus', 'JadwalKhususController@index');
+		Route::get('/jadwal-khusus/create', 'JadwalKhususController@create');
+		Route::post('/jadwal-khusus/create', 'JadwalKhususController@store');
 	});
 
 	Route::group(['middleware' => 'anggotaadmin'], function () {
