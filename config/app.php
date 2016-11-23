@@ -158,6 +158,7 @@ return [
         // package laravel collective
         Collective\Html\HtmlServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
+        Barryvdh\Debugbar\ServiceProvider::class,
     ],
 
     /*
@@ -211,6 +212,7 @@ return [
         //aliases untuk carbon
         'Carbon' => 'Carbon\Carbon',
         'PDF' => Barryvdh\DomPDF\Facade::class,
+        'Debugbar' => Barryvdh\Debugbar\Facade::class,
 
     ],
 
