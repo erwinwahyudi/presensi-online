@@ -70,7 +70,7 @@
 					 </li>
 				@endif
 
-				<li {{ current_page() ? 'class=active' : '' }}><a href="#"><i class="fa fa-lock"></i><span>Ubah Password</span></a></li>
+				<li {{ current_page('ubah-pass') ? 'class=active' : '' }}><a href="ubah-pass"><i class="fa fa-lock"></i><span>Ubah Password</span></a></li>
 				<li><a href="{{ url('logout') }}"><i class="fa fa-power-off"></i><span>Logout</span></a></li>
 		  </ul><!-- /.sidebar-menu -->
 	 </section>

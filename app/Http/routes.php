@@ -90,4 +90,7 @@ Route::group(['middleware' => 'auth'], function () {
 		Route::get('/kehadiran/log/{tgl}', 'KehadiranController@log_hadir');
 		Route::get('/kehadiran/{bln}/{thn}', 'KehadiranController@detail');
 	});
+
+	Route::get('/ubah-pass', 'ManajemenProfilController@index');
+	Route::post('/ubah-pass', 'ManajemenProfilController@edit_pass');
 });
