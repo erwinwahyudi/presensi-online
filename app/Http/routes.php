@@ -61,9 +61,9 @@ Route::group(['middleware' => 'auth'], function () {
 		Route::get('/rekap/{bln}/{thn}/{uid}', 'RekapController@rekap_user');
 
 		//Route CRUD libur
-		Route::get('libur', 'LiburController@index');
-		Route::post('libur/create', 'LiburController@create');
-		Route::delete('libur/delete/{id}', 'LiburController@delete');
+		Route::get('/libur', 'LiburController@index');
+		Route::post('/libur/create', 'LiburController@create');
+		Route::delete('/libur/delete/{id}', 'LiburController@delete');
 
 		// route untuk pdf
 		Route::get('/group/pdf/{bln}/{thn}/{kid}/{gid}', 'PdfController@print_group');
@@ -77,8 +77,12 @@ Route::group(['middleware' => 'auth'], function () {
 		Route::get('/jadwal-khusus/create', 'JadwalKhususController@create');
 		Route::post('/jadwal-khusus/create', 'JadwalKhususController@store');
 		Route::get('/jadwal-khusus/update/{id}', 'JadwalKhususController@edit');
-		Route::post('jadwal-khusus/update/{id}', 'JadwalKhususController@update');
-		Route::delete('jadwal-khusus/delete/{id}', 'JadwalKhususController@destroy');
+		Route::post('/jadwal-khusus/update/{id}', 'JadwalKhususController@update');
+		Route::delete('/jadwal-khusus/delete/{id}', 'JadwalKhususController@destroy');
+
+		Route::get('/tambah-admin', 'AdminController@index');
+		Route::post('/tambah-admin/create', 'AdminController@create');
+		Route::delete('/tambah-admin/delete/{id}', 'AdminController@delete');
 	});
 
 	Route::group(['middleware' => 'anggotaadmin'], function () {

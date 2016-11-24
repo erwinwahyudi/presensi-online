@@ -52,7 +52,7 @@
 				@endif
 
 				@if(Auth::user()->level == 'superadmin')
-					<li {{ current_page() ? 'class=active' : '' }}><a href="#"><i class="fa fa-user-secret"></i><span>Admin</span></a></li>
+					<li {{ current_page('tambah-admin') ? 'class=active' : '' }}><a href="{{ url('tambah-admin') }}"><i class="fa fa-user-secret"></i><span>Admin</span></a></li>
 					<li {{ current_page('jadwal-khusus') ? 'class=active' : '' }}><a href="{{ url('jadwal-khusus') }}"><i class="fa fa-calendar"></i><span><span>Jadwal Khusus</span></a></li>
 				@endif
 
