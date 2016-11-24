@@ -76,6 +76,9 @@ Route::group(['middleware' => 'auth'], function () {
 		Route::get('/jadwal-khusus', 'JadwalKhususController@index');
 		Route::get('/jadwal-khusus/create', 'JadwalKhususController@create');
 		Route::post('/jadwal-khusus/create', 'JadwalKhususController@store');
+		Route::get('/jadwal-khusus/update/{id}', 'JadwalKhususController@edit');
+		Route::post('jadwal-khusus/update/{id}', 'JadwalKhususController@update');
+		Route::delete('jadwal-khusus/delete/{id}', 'JadwalKhususController@destroy');
 	});
 
 	Route::group(['middleware' => 'anggotaadmin'], function () {
