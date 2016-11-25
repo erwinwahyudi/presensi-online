@@ -73,22 +73,24 @@
                         </thead>
                         <tbody>
                                 @foreach($datas as $key => $data)
-                                   <tr>
-                                         <td> 
-                                              <a href="{{ url('kehadiran/'.$data['bulan'].'/'.$data['tahun']) }}" >
-                                                     {{ $data['bulan'] }} 
-                                              </a>
-                                         </td>
-                                         <td> {{ $data['masuk'] }} </td>
-                                         <td> {{ $data['tidak_masuk'] }} </td>
-                                         <td> {{ $data['terlambat'] }} </td>
-                                         <td> {{ $data['ganti_terlambat'] }} </td>
-                                         <td> {{ $data['psw'] }} </td>
-                                         <td> {{ $data['potongan_terlambat'] }} % </td>
-                                         <td> {{ $data['potongan_psw'] }} %  </td>
-                                         <td> {{ $data['total_potongan'] }} % </td>
-                                         <td>  </td>
-                                    </tr>
+                                    @if(!empty($data['masuk']) && !empty($data['tidak_masuk']) )
+                                       <tr>
+                                             <td> 
+                                                  <a href="{{ url('kehadiran/'.$data['bulan'].'/'.$data['tahun']) }}" >
+                                                         {{ $data['bulan_indo'] }} 
+                                                  </a>
+                                             </td>
+                                             <td> {{ $data['masuk'] }} </td>
+                                             <td> {{ $data['tidak_masuk'] }} </td>
+                                             <td> {{ $data['terlambat'] }} </td>
+                                             <td> {{ $data['ganti_terlambat'] }} </td>
+                                             <td> {{ $data['psw'] }} </td>
+                                             <td> {{ $data['potongan_terlambat'] }} % </td>
+                                             <td> {{ $data['potongan_psw'] }} %  </td>
+                                             <td> {{ $data['total_potongan'] }} % </td>
+                                             <td> {{ $data['jam_kerja'] }} jam/menit </td>
+                                        </tr>
+                                    @endif
                                 @endforeach
                         </tbody>                       
                     </table>

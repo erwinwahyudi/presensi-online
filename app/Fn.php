@@ -93,4 +93,35 @@ class Fn extends Model
 						return $bulan;
 				}
 		}
+
+		public static function to_bulan($value)
+		{
+			if($value=='01'){
+					$bulan = 'Januari';
+			} else if($value=='02') {
+					$bulan = 'Februari';
+			} else if($value=='03') {
+					$bulan = 'Maret';
+			} else if($value=='04') {
+					$bulan = 'April';
+			} else if($value=='05') {
+					$bulan = 'Mei';
+			} else if($value=='06') {
+					$bulan = 'Juni';
+			} else if($value=='07') {
+					$bulan = 'Juli';
+			} else if($value=='08') {
+					$bulan = 'Agustus';
+			} else if($value=='09') {
+					$bulan = 'September';
+			} else if($value=='10') {
+					$bulan = 'Oktober';
+			} else if($value=='11') {
+					$bulan = 'November';
+			} else if($value=='12') {
+					$bulan = 'Desember';
+			}
+
+			return $bulan;
+		}
 }

@@ -75,8 +75,16 @@ class KehadiranController extends Controller
 	                                        ->where('users_id', $userid)->first();
 	              $total_potongan = $total_potongan->total_potongan;
 
+	              $jam_kerja  = Perhitungan::select('jam_kerja', DB::raw('SUM(jam_kerja) as jam_kerja'))
+      						                        ->where('tanggal', 'LIKE', $tahun.'-'.$bulan.'%')
+      						                        ->where('users_id', $userid)->first();
+				  $jam_kerja = $jam_kerja->jam_kerja;
+
+				  $total_jam_kerja	= Fn::total_jam_kerja($jam_kerja);
+
 	              $datas[$bulan]['tahun']				= $tahun;
-	              $datas[$bulan]['bulan']               = $bulan;
+	              $datas[$bulan]['bulan_indo']          = Fn::to_bulan($bulan);
+	              $datas[$bulan]['bulan']               = $bulan;	              
 	              $datas[$bulan]['user_id']             = $userid;
 	              $datas[$bulan]['masuk']               = $masuk;
 	              $datas[$bulan]['tidak_masuk']         = $tidak_masuk;
@@ -86,6 +94,7 @@ class KehadiranController extends Controller
 	              $datas[$bulan]['potongan_terlambat']  = $potongan_terlambat;
 	              $datas[$bulan]['potongan_psw']        = $potongan_psw;
 	              $datas[$bulan]['total_potongan']      = $total_potongan;
+	              $datas[$bulan]['jam_kerja']			= $total_jam_kerja;
     	}
 
     	// echo "<pre>";
@@ -153,7 +162,16 @@ class KehadiranController extends Controller
 	                                        ->where('users_id', $userid)->first();
 	              $total_potongan = $total_potongan->total_potongan;
 
+	              $jam_kerja  = Perhitungan::select('jam_kerja', DB::raw('SUM(jam_kerja) as jam_kerja'))
+      						                        ->where('tanggal', 'LIKE', $tahun.'-'.$bulan.'%')
+      						                        ->where('users_id', $userid)->first();
+				  $jam_kerja = $jam_kerja->jam_kerja;
+
+				  $total_jam_kerja	= Fn::total_jam_kerja($jam_kerja);
+
 	              $datas[$bulan]['tahun']				= $tahun;
+	              $datas[$bulan]['bulan_indo']          = Fn::to_bulan($bulan);
+	              $datas[$bulan]['bulan']               = $bulan;	
 	              $datas[$bulan]['bulan']               = $bulan;
 	              $datas[$bulan]['user_id']             = $userid;
 	              $datas[$bulan]['masuk']               = $masuk;
@@ -163,7 +181,8 @@ class KehadiranController extends Controller
 	              $datas[$bulan]['psw']                 = $psw;
 	              $datas[$bulan]['potongan_terlambat']  = $potongan_terlambat;
 	              $datas[$bulan]['potongan_psw']        = $potongan_psw;
-	              $datas[$bulan]['total_potongan']      = $total_potongan;
+	              $datas[$bulan]['total_potongan']      = $total_potongan;	              
+	              $datas[$bulan]['jam_kerja']			= $total_jam_kerja;
     	}
 
     	// echo "<pre>";
