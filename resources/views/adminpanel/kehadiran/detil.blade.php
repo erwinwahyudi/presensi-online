@@ -40,38 +40,95 @@
     </div>
 </div>
 
-<!-- /.col -->
-    <div class="col-md-3 col-sm-6 col-xs-12">
-      <div class="info-box">
-        <span class="info-box-icon bg-green"><i class="fa fa-user"></i></span>
+{{-- widget perhitungan --}}
+<div class="row">
 
-        <div class="info-box-content">
-          <span class="info-box-number"> {{ $user->nama }} </span>
-          <span class="info-box-text"> {{ $user->nip }}  </span>
-          {{-- <span class="progress-description"> {{ $user->jabatan }} </span> --}}
+    <div class="col-lg-3 col-xs-6">
+        <div class="callout callout-info" >
+            <h3 class="nm-group"> {{ $data['group']->nama_group }} </h3>
         </div>
-        <!-- /.info-box-content -->
-      </div>
-      <!-- /.info-box -->
+        <div class="callout callout-info" >
+            <h3> {{ $data['kelompok']->nama_kelompok }} </h3>
+        </div>
     </div>
-<!-- /.col -->
 
-{{-- <!-- ./col -->
-<div class="col-lg-3 col-xs-6">
-  <!-- small box -->
-  <div class="small-box bg-blue">
-    <div class="inner">
-      <h3>4 kali</h3>
+    <div class="col-lg-2 col-xs-6">
+        <!-- small box -->
+        <div class="small-box bg-green">
+            <div class="inner">
+                <h3>{{ $data['masuk'] }} <sup style="font-size: 20px">hari</sup></h3>
 
-      <p>Total Terlambat</p>
+                <p>Masuk</p>
+            </div>
+        </div>
+        <div class="small-box bg-green">        
+            <div class="inner">
+                <h3>{{ $data['tidak_masuk'] }} <sup style="font-size: 20px">hari</sup></h3>
+
+                <p>Tidak Masuk</p>
+            </div>
+        </div>
     </div>
-    <div class="icon">
-      <i class="ion ion-person-add"></i>
+
+   <div class="col-lg-2 col-xs-6">
+        <!-- small box -->
+        <div class="small-box bg-green">
+            <div class="inner">
+                <h3>{{ $data['terlambat'] }} <sup style="font-size: 20px">hari</sup></h3>
+
+                <p>Terlambat</p>
+            </div>
+        </div>
+        <div class="small-box bg-green">
+            {{-- <div class="inner" style="margin-top: 20px;"> --}}
+            <div class="inner">
+                <h3>{{ $data['ganti_terlambat'] }} <sup style="font-size: 20px">hari</sup></h3>
+
+                <p>Ganti Terlambat</p>
+            </div>
+        </div>
     </div>
-  </div>
+
+    <div class="col-lg-2 col-xs-6">
+        <!-- small box -->
+        <div class="small-box bg-green">
+            <div class="inner">
+                <h3>{{ $data['psw'] }} <sup style="font-size: 20px">kali</sup></h3>
+
+                <p>PSW</p>
+            </div>
+        </div>
+        <div class="small-box bg-green">
+            <div class="inner">
+                <h3>{{ $data['izin'] }} <sup style="font-size: 20px">kali</sup></h3>
+
+                <p>Izin</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-3 col-xs-6">
+        <!-- small box -->
+        <div class="small-box bg-green">
+            <div class="inner">
+                <h3>{{ $data['total_jam_kerja'] }}<sup style="font-size: 20px">&nbsp;jam/menit</sup></h3>
+
+                <p>Jumlah Jam Kerja</p>
+            </div>
+        </div>
+    
+        <div class="small-box bg-red">
+            <div class="inner">
+                <h3>{{ $data['total_potongan'] }} <sup style="font-size: 20px">%</sup></h3>
+
+                <p>Total Potongan</p>
+            </div>
+        </div>
+    </div>
 </div>
-<!-- ./col --> --}}
+{{-- /. widget perhitungan --}}
 
+<br>
 
 {{-- table data unit --}}
 <div class="row">
@@ -81,31 +138,41 @@
                 <h3 class="box-title">
                     Data Kehadiran User
                 </h3>
+                <br><br>
+
+                <div class="user-block">
+                    <img class="img-circle" src="https://almsaeedstudio.com/themes/AdminLTE/dist/img/user1-128x128.jpg" alt="User Image">
+                    <span class="username"><a href="#"> {{ $data['user']->nama }} </a></span>
+                    <span class="description"> {{ $data['user']->nip }} - {{ $data['user']->jabatan }} </span>
+                </div>
+              <!-- /.user-block -->
             </div>
             <!-- /.box-header -->
             <div class="box-body">               
-                <br>
-                    <table class="table table-bordered table-striped example1">
+                <br> 
+                    <table class="table table-responsive table-bordered table-striped example1">
+                    {{-- <table class="table table-bordered table-striped example1"> --}}
                         <thead>
                             <tr>
                                 <th>Tgl</th>
-                                <th>Hari</th>                                
-                                <th>Masuk</th>
+                                <th>Hri</th>                                
+                                <th>Msk</th>
                                 <th>Msk Pagi</th>
-                                <th>Istirahat</th>
+                                <th>Istrht</th>
                                 <th>Msk Siang</th>
                                 <th>Pulang</th>
-                                <th>Terlambat</th>
-                                <th>Ganti Terlambat</th>
+                                <th>Trlambat</th>
+                                <th>Ganti Trlambat</th>
                                 <th>PSW</th>
-                                <th>Potongan Terlambat</th>
-                                <th>Potongan PSW</th>
-                                <th>Total Potongan</th>
+                                <th>Izin</th>
+                                <th>Ptgn Terlambat</th>
+                                <th>Ptgn PSW</th>
+                                <th>Ttl Potongan</th>
                                 <th>Ket</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($perhitungans as $perhitungan)
+                            @foreach($data['perhitungans'] as $perhitungan)
                                    <tr>
                                          <td>
                                               <a href="{{ url('kehadiran/log/'.$perhitungan->tanggal) }}" >
@@ -121,6 +188,7 @@
                                          <td> {{ $perhitungan->terlambat }} </td>
                                          <td> {{ $perhitungan->ganti_terlambat }} </td>
                                          <td> {{ $perhitungan->psw }} </td>
+                                         <td> {{ $perhitungan->izin }} </td>
                                          <td> {{ $perhitungan->potongan_terlambat }} % </td>
                                          <td> {{ $perhitungan->potongan_psw }} %  </td>
                                          <td> {{ $perhitungan->total_potongan }} % </td>
