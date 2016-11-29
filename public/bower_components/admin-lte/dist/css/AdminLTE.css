@@ -4926,3 +4926,13 @@ table.text-center th {
     white-space: normal !important;
   }
 }
+
+
+.login-page, .register-page {
+    /* background: #d2d6de; */
+    background-image: url("../img/bg.jpg");
+    background-size: 100%;
+}
+.login-box-body, .register-box-body {
+    opacity: 0.8;
+}

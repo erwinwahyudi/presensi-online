@@ -61,6 +61,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 		  .nm-group {
 				font-weight: bold;
 		  }
+		  
 
 	 </style>
 </head>
