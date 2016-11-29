@@ -539,7 +539,7 @@ class Hitung extends Model
 											$data_block['total_potongan'] 		= $data_block['potongan_terlambat'] + $data_block['potongan_psw'];
 									}						
 						}
-					print_r($data_block);
+					// print_r($data_block);
 					//insert data ke database perhitungan
 					DB::table('perhitungan')->insert( $data_block );
     				}

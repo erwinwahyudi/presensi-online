@@ -39,7 +39,14 @@
 							  <!-- /.form group -->
 							  <div class="box-footer">
 									<div class="col-sm-offset-3">
-										 <button class="btn btn-info btn-flat" type="submit">
+										 <button class="btn btn-info btn-flat" type="submit" id="btn-proses">
+										 	@if(Session::has('proses'))
+										 		@if(Session::get('proses') == 'done')
+										 			<i class="fa fa-check"></i> &nbsp;
+										 		@elseif(Session::get('proses') == 'fail')
+										 			<i class="fa fa-fw fa-warning"></i> &nbsp;
+										 		@endif
+										 	@endif
 											  Proses
 										 </button>
 									</div>

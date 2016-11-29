@@ -277,6 +277,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
 			 }
 		  });
 
+		  $('#btn-proses').click(function() {
+		  		$('#btn-proses').prepend('<i class="fa fa-spin fa-spinner"> </i> &nbsp;');
+		  });
+
 
 	 });
 </script>
