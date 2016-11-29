@@ -276,8 +276,9 @@ class KehadiranController extends Controller
 
     public function log_hadir($tgl)
     {
-    	$fingerid 	= Auth::user()->finger_id;
+    	$user_id 	= Auth::user()->id;
     	$groupid    = Auth::user()->group_id;
+    	$fingerid   = Auth::user()->finger_id;
 
     	$attlogs 	= Attlog::join('group','attlog.finger_group_id', '=', 'group.finger_group_id' )
     						->where('group.id', $groupid)
@@ -285,6 +286,12 @@ class KehadiranController extends Controller
     						->where('date', $tgl)
     						->orderBy('time', 'asc')->get();
 
-    	return view('adminpanel.kehadiran.log', compact('attlogs'));    	
+    	$izins		= DB::table('izin')
+      								  ->where('users_id', $user_id)
+      								  ->where('group_id', $groupid)
+      								  ->where('tgl_mulai_izin', '<=', $tgl)
+  									    ->where('tgl_selesai_izin', '>=', $tgl)->get();
+
+    	return view('adminpanel.kehadiran.log',  compact('attlogs', 'izins'));    	
     }
 }
