@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Http\Requests;
 use Illuminate\Http\Request;
 
+use App\User;
+use Auth;
+
 class HomeController extends Controller
 {
     /**
@@ -24,6 +27,11 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('dashboard');
+        $level  = Auth::user()->level;
+        $userid = Auth::user()->id;
+        $data['user'] =User::where('id', $userid )->first();
+        
+        return view('dashboard', compact('data'));
+                
     }
 }
