@@ -180,14 +180,15 @@ class ManajemenDataController extends Controller
 		  $dari_tgl_human	  = Fn::date_to_string($dari_tgl);
 		  $sampai_tgl_human	  = Fn::date_to_string($sampai_tgl);
 
-		  $cek_tgl 			  = DB::table('perhitungan')->where('group_id', $groupid)->where('tanggal', $dari_tgl)->count();
+		  $cek_tgl_mulai 	  = DB::table('perhitungan')->where('group_id', $groupid)->where('tanggal', $dari_tgl)->count();
+		  $cek_tgl_selesai 	  = DB::table('perhitungan')->where('group_id', $groupid)->where('tanggal', $sampai_tgl)->count();
 
 		  //cek apakah dari rentang tanggal yg disubmit, ada di table attlog
 		  $group			  = DB::table('group')->where('id', $groupid)->first();
 		  $cek_data_attlog 	  = DB::table('attlog')->where('finger_group_id', $group->finger_group_id)->whereBetween('date', [$dari_tgl, $sampai_tgl])->count();
 
 
-		    if ($cek_tgl <= 0 ) {		  		
+		    if ($cek_tgl_mulai <= 0 && $cek_tgl_selesai <=0  ) {		  		
 		  		//cek apakah dari rentang tanggal yg disubmit, ada di table attlog
 				if($cek_data_attlog > 0 ) {					  
 					  // echo "<pre>";
@@ -209,7 +210,7 @@ class ManajemenDataController extends Controller
 				return redirect()->back()
 								->with('proses', 'fail')
 								->with('status_error', 'warning')
-								->with('pesan_error', 'Tanggal '.$dari_tgl_human.' sudah dihitung. Silahkan pilih tanggal lain.');
+								->with('pesan_error', 'Tanggal antara '.$dari_tgl_human.' sampai '.$sampai_tgl_human.' sudah dihitung. Silahkan pilih tanggal lain.');
 			}
 	 }
 }
