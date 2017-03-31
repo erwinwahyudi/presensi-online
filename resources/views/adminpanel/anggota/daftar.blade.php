@@ -16,7 +16,7 @@
 											<td> {{ $anggota->username }}</td>
 											<td> {{ $anggota->nama_kelompok }}</td>
 											<td>
-													 {!! Form::open(array('url' => 'unit/'.$anggota->group_id.'/anggota/delete/'.$anggota->id, 'method' => 'delete')) !!}
+													 {!! Form::open(array('url' => 'unit/'.$anggota->group_id.'/anggota/delete/'.$anggota->id_user, 'method' => 'delete')) !!}
 														<a class="btn btn-xs btn-success" href="{{ url('unit/'.$anggota->group_id.'/anggota/edit/'.$anggota->id_user) }}">Ubah</a>
 														<button type="submit" class="btn btn-xs btn-danger" onclick="return confirm('Apakah anda akan menghapus data?')">Hapus</button>
 													{!! Form::close() !!}
