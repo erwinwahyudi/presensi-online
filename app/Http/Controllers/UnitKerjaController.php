@@ -156,7 +156,8 @@ class UnitKerjaController extends Controller
 
 	 public function detail($uid) {
 		  $group      = Group::findOrFail($uid);
-		  $anggotas   = DB::table('users')->join('kelompok', 'users.kelompok_id', '=', 'kelompok.id')->where('users.group_id', $uid)->get();
+		  $anggotas   = DB::table('users')->select('*', 'users.id as id_user')
+		  								  ->join('kelompok', 'users.kelompok_id', '=', 'kelompok.id')->where('users.group_id', $uid)->get();
 		  $kelompoks  = Kelompok::where('group_id', $uid)->get();
 		  return view('adminpanel.unit_kerja.detail', compact('group', 'anggotas', 'kelompoks'));
 	 }
